@@ -1,0 +1,16 @@
+{
+  "strip_phrases": [
+    "\\b(low|less|reduced|lower)[ -]?sodium\\b"
+  ],
+  "strip_tokens": [
+    "chopped",
+    "fresh"
+  ],
+  "conditional_tokens": {},
+  "never_strip_tokens": [
+    "dark",
+    "green",
+    "sweet"
+  ],
+  "protected_strings": []
+}

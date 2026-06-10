@@ -1,0 +1,8 @@
+{
+  "patterns": [
+    {
+      "pattern": "\\b(low|less|reduced|lower)[ -]?sodium\\b",
+      "reason": "Sodium marketing modifier."
+    }
+  ]
+}

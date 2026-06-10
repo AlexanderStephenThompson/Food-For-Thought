@@ -1,0 +1,8 @@
+{
+  "exceptions": [
+    {
+      "reason": "Inert fixture entry; matches no test string.",
+      "variant": "zzz unused exception"
+    }
+  ]
+}

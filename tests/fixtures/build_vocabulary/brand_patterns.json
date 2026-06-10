@@ -1,0 +1,18 @@
+{
+  "keep_as_ingredient": [
+    {
+      "generic": "marmite",
+      "pattern": "\\bmarmite\\b"
+    }
+  ],
+  "patterns": [
+    {
+      "generic": "hot sauce",
+      "pattern": "\\bbrandx\\b"
+    },
+    {
+      "generic": "lemon cordial",
+      "pattern": "\\bzestico\\b"
+    }
+  ]
+}
