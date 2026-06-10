@@ -131,6 +131,16 @@ class PairCandidate:
 
 
 @dataclass(frozen=True)
+class PreservedVariant:
+    """A gate PRESERVE outcome linking a variant to its base with evidence."""
+
+    base_key: str
+    layer: str
+    reason: str
+    evidence: MergeEvidence | None
+
+
+@dataclass(frozen=True)
 class ReviewCandidate:
     """A gate REVIEW outcome carrying everything the queue entry needs."""
 
@@ -161,10 +171,18 @@ class VocabularyBuild:
     """Result of one vocabulary build over the train index."""
 
     groups: dict[str, VocabularyGroup]
-    parent_keys: dict[str, str]
+    preserved: dict[str, PreservedVariant]
     alias_scope_keys: frozenset[str]
     review_candidates: tuple[ReviewCandidate, ...]
     review_entries: list[dict]
+
+    @property
+    def parent_keys(self) -> dict[str, str]:
+        """Variant key -> base key for every gate-preserved variant."""
+        return {
+            variant: preserved.base_key
+            for variant, preserved in self.preserved.items()
+        }
 
 
 def load_manual_aliases(path: Path) -> dict[str, str]:
@@ -476,13 +494,14 @@ def apply_pair_outcomes(
         index: Train index for evidence evaluation.
 
     Returns:
-        (groups, parent_keys, review_candidates) where parent_keys links
-        preserved variants to their base group and review_candidates holds
-        every REVIEW outcome for queue serialization.
+        (groups, preserved, review_candidates) where preserved links each
+        gate-preserved variant to its base with the deciding layer and
+        evidence, and review_candidates holds every REVIEW outcome for
+        queue serialization.
     """
     ordered = sorted(pairs, key=lambda p: (-len(p.variant_key.split()), p.variant_key))
     redirects: dict[str, str] = {}
-    parent_pairs: list[tuple[str, str]] = []
+    preserve_records: list[tuple[str, str, object, MergeEvidence]] = []
     review_candidates: list[ReviewCandidate] = []
     for pair in ordered:
         variant_group = groups[_resolve_redirects(pair.variant_key, redirects)]
@@ -500,7 +519,9 @@ def apply_pair_outcomes(
         if decision.action is GateAction.MERGE:
             _record_merge(groups, redirects, (pair, decision))
         elif decision.action is GateAction.PRESERVE:
-            parent_pairs.append((pair.variant_key, pair.base_key))
+            preserve_records.append(
+                (pair.variant_key, pair.base_key, decision, evidence)
+            )
         else:
             review_candidates.append(
                 ReviewCandidate(
@@ -514,11 +535,16 @@ def apply_pair_outcomes(
                     gate_reason=decision.reason,
                 )
             )
-    parent_keys = {
-        variant: _resolve_redirects(base, redirects)
-        for variant, base in parent_pairs
+    preserved = {
+        variant: PreservedVariant(
+            base_key=_resolve_redirects(base, redirects),
+            layer=decision.layer,
+            reason=decision.reason,
+            evidence=evidence,
+        )
+        for variant, base, decision, evidence in preserve_records
     }
-    return groups, parent_keys, review_candidates
+    return groups, preserved, review_candidates
 
 
 def _cuisine_shares_to_dicts(shares) -> list[dict]:
@@ -608,7 +634,7 @@ def build_vocabulary_from_index(
     groups = group_strings_mechanically(raw_strings, lexicons)
     groups = merge_groups_by_strip_and_brand(groups, lexicons, index)
     pairs = generate_candidate_pairs(groups, lexicons, index)
-    groups, parent_keys, review_candidates = apply_pair_outcomes(
+    groups, preserved, review_candidates = apply_pair_outcomes(
         groups, pairs, lexicons, index
     )
     alias_scope_keys = frozenset(
@@ -618,7 +644,7 @@ def build_vocabulary_from_index(
     )
     return VocabularyBuild(
         groups=groups,
-        parent_keys=parent_keys,
+        preserved=preserved,
         alias_scope_keys=alias_scope_keys,
         review_candidates=tuple(review_candidates),
         review_entries=build_review_queue_entries(review_candidates, index),
@@ -665,11 +691,11 @@ def main() -> None:
 
     pairs = generate_candidate_pairs(groups, lexicons, index)
     print(f"candidate pairs: {len(pairs)}")
-    groups, parent_keys, review_candidates = apply_pair_outcomes(
+    groups, preserved, review_candidates = apply_pair_outcomes(
         groups, pairs, lexicons, index
     )
     print(
-        f"after gate: {len(groups)} groups, {len(parent_keys)} preserved variants, "
+        f"after gate: {len(groups)} groups, {len(preserved)} preserved variants, "
         f"{len(review_candidates)} for review"
     )
 
