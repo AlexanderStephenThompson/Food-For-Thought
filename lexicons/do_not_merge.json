@@ -1,0 +1,45 @@
+{
+  "_comment": "Hard preserve exceptions (layer L0 of the merge gate, fires before everything). Exact cleaned variant strings that must never merge: validated preserves that sit inside the gate's borderline review bands (JSD 0.06-0.08 or ratio 1.3-1.7x null), cases where pure statistics give the wrong answer, and orthography pairs that carry real cuisine signal. Entries sorted by variant.",
+  "exceptions": [
+    {
+      "reason": "Orthography artifact with real signal: vs 'chili powder' JSD=0.0730 (indian 24% vs 12%) sits inside the borderline band; spelling must stay separate (signal-variants rule 6).",
+      "variant": "chile powder"
+    },
+    {
+      "reason": "Distinct product vs coconut milk: JSD=0.0931 at 1.69x null (n=77, filipino 23%) — inside the 1.3-1.7 ratio review band but validated PRESERVE.",
+      "variant": "coconut cream"
+    },
+    {
+      "reason": "Distinct product vs mozzarella (n=97, 98% italian, JSD=0.0719 at 1.97x null) — inside the 0.06-0.08 JSD review band but validated PRESERVE; also guards against blanket 'fresh'-stripping.",
+      "variant": "fresh mozzarella"
+    },
+    {
+      "reason": "Same family as 'frozen spinach' (n=206 pre-reduction form); protected before prep-token stripping collapses it.",
+      "variant": "frozen chopped spinach"
+    },
+    {
+      "reason": "The one family where 'frozen' carries signal: vs fresh spinach JSD=0.119 (italian 61% vs 38%).",
+      "variant": "frozen spinach"
+    },
+    {
+      "reason": "Orthography is cuisine-bearing: 'green chilies' 63% indian vs 'green chile' 75% mexican, JSD=0.3402 (72x null); never merge across the spelling.",
+      "variant": "green chilies"
+    },
+    {
+      "reason": "Validated PRESERVE (n=345, 36% mexican / 14% spanish) at JSD=0.0777 — inside the flip-sensitive 0.06-0.08 band, so pinned here instead of routing to review.",
+      "variant": "smoked paprika"
+    },
+    {
+      "reason": "Kecap manis identity: n=29, JSD=0.1144, p=0.085 — pure statistics would MERGE it into soy sauce; the lens validation requires PRESERVE.",
+      "variant": "sweet soy sauce"
+    },
+    {
+      "reason": "Guard for the bare cleaned form of tamari (a wheat-free Japanese-leaning soy variety); see 'tamari soy sauce'.",
+      "variant": "tamari"
+    },
+    {
+      "reason": "Validated PRESERVE (n=90, 34% japanese) at JSD=0.0771 / 1.6x null — inside BOTH borderline review bands, so pinned here.",
+      "variant": "tamari soy sauce"
+    }
+  ]
+}

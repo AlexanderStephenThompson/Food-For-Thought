@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "cuisine": "italian",
+    "ingredients": ["olive oil", "garlic"]
+  },
+  {
+    "id": 2,
+    "cuisine": "thai",
+    "ingredients": "fish sauce"
+  }
+]

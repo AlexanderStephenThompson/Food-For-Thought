@@ -1,0 +1,1498 @@
+{
+  "keep_as_ingredient": [
+    {
+      "generic": "stout",
+      "pattern": "\\bguinness\\b"
+    },
+    {
+      "generic": "marmite",
+      "pattern": "\\bmarmite\\b"
+    },
+    {
+      "generic": "maggi seasoning",
+      "pattern": "\\bmaggi\\b"
+    },
+    {
+      "generic": "old bay seasoning",
+      "pattern": "\\bold bay\\b"
+    },
+    {
+      "generic": "spam",
+      "pattern": "\\bspam\\b"
+    },
+    {
+      "generic": "angostura bitters",
+      "pattern": "\\bangostura\\b"
+    },
+    {
+      "generic": "kahlua",
+      "pattern": "\\bkahlua\\b"
+    },
+    {
+      "generic": "cointreau",
+      "pattern": "\\bcointreau\\b"
+    },
+    {
+      "generic": "grand marnier",
+      "pattern": "\\bgrand marnier\\b"
+    },
+    {
+      "generic": "frangelico",
+      "pattern": "\\bfrangelico\\b"
+    },
+    {
+      "generic": "baileys irish cream",
+      "pattern": "\\bbaileys\\b"
+    },
+    {
+      "generic": "chambord",
+      "pattern": "\\bchambord\\b"
+    },
+    {
+      "generic": "midori",
+      "pattern": "\\bmidori\\b"
+    },
+    {
+      "generic": "galliano",
+      "pattern": "\\bgalliano\\b"
+    },
+    {
+      "generic": "chartreuse",
+      "pattern": "\\bchartreuse\\b"
+    },
+    {
+      "generic": "southern comfort",
+      "pattern": "\\bsouthern comfort\\b"
+    },
+    {
+      "generic": "licor 43",
+      "pattern": "\\blicor 43\\b"
+    },
+    {
+      "generic": "boursin cheese",
+      "pattern": "\\bboursin\\b"
+    }
+  ],
+  "patterns": [
+    {
+      "generic": "green pepper hot sauce",
+      "pattern": "\\btabasco\\b(?=.*green pepper)"
+    },
+    {
+      "generic": "chipotle hot sauce",
+      "pattern": "\\btabasco\\b(?=.*chipotle)"
+    },
+    {
+      "generic": "hot sauce",
+      "pattern": "\\btabasco\\b"
+    },
+    {
+      "generic": "hot sauce",
+      "pattern": "\\blouisiana\\b(?=.*hot sauce)"
+    },
+    {
+      "generic": "cajun seasoning",
+      "pattern": "\\blouisiana\\b(?=.*cajun seasoning)"
+    },
+    {
+      "generic": "hot sauce",
+      "pattern": "\\bcrystal\\b(?=.*hot sauce)"
+    },
+    {
+      "generic": "hot sauce",
+      "pattern": "\\bfranks\\b(?=.*(redhot|red hot|hot sauce|wings))"
+    },
+    {
+      "generic": "hot sauce",
+      "pattern": "\\bcholula\\b"
+    },
+    {
+      "generic": "hot sauce",
+      "pattern": "\\btapatio\\b"
+    },
+    {
+      "generic": "hot sauce",
+      "pattern": "\\btexas pete\\b"
+    },
+    {
+      "generic": "taco seasoning",
+      "pattern": "\\bold el paso\\b(?=.*taco seasoning)"
+    },
+    {
+      "generic": "chopped green chiles",
+      "pattern": "\\bold el paso\\b(?=.*chopped green chiles)"
+    },
+    {
+      "generic": "green chiles",
+      "pattern": "\\bold el paso\\b(?=.*green chiles)"
+    },
+    {
+      "generic": "enchilada sauce",
+      "pattern": "\\bold el paso\\b(?=.*enchilada sauce)"
+    },
+    {
+      "generic": "flour tortillas",
+      "pattern": "\\bold el paso\\b(?=.*flour tortillas)"
+    },
+    {
+      "generic": "refried beans",
+      "pattern": "\\bold el paso\\b(?=.*refried beans)"
+    },
+    {
+      "generic": "salsa",
+      "pattern": "\\bold el paso\\b(?=.*salsa)"
+    },
+    {
+      "generic": "taco seasoning",
+      "pattern": "\\bold el paso\\b"
+    },
+    {
+      "generic": "salsa",
+      "pattern": "\\btaco bell\\b(?=.*salsa)"
+    },
+    {
+      "generic": "taco seasoning",
+      "pattern": "\\btaco bell\\b"
+    },
+    {
+      "generic": "taco seasoning",
+      "pattern": "\\bortega\\b(?=.*taco seasoning)"
+    },
+    {
+      "generic": "tostada shells",
+      "pattern": "\\bortega\\b(?=.*tostada)"
+    },
+    {
+      "generic": "salsa verde",
+      "pattern": "\\bherdez\\b(?=.*salsa verde)"
+    },
+    {
+      "generic": "salsa",
+      "pattern": "\\bherdez\\b"
+    },
+    {
+      "generic": "picante sauce",
+      "pattern": "\\bpace\\b(?=.*picante)"
+    },
+    {
+      "generic": "salsa",
+      "pattern": "\\bpace\\b(?=.*salsa)"
+    },
+    {
+      "generic": "red chile sauce",
+      "pattern": "\\bla victoria\\b"
+    },
+    {
+      "generic": "rotelle pasta",
+      "pattern": "(?=.*\\bpasta\\b)(?=.*\\brotel\\b)"
+    },
+    {
+      "generic": "diced tomatoes with green chiles",
+      "pattern": "\\bro ?tel\\b"
+    },
+    {
+      "generic": "corn tortillas",
+      "pattern": "\\bmission\\b(?=.*corn tortillas)"
+    },
+    {
+      "generic": "flour tortillas",
+      "pattern": "\\bazteca\\b(?=.*flour tortillas)"
+    },
+    {
+      "generic": "mexican chocolate",
+      "pattern": "\\bibarra\\b"
+    },
+    {
+      "generic": "chili powder",
+      "pattern": "\\bgebhardt\\b"
+    },
+    {
+      "generic": "canned chili",
+      "pattern": "\\bwolf brand\\b"
+    },
+    {
+      "generic": "table cream",
+      "pattern": "\\bnestle\\b(?=.*table cream)"
+    },
+    {
+      "generic": "powdered milk",
+      "pattern": "\\bnido\\b"
+    },
+    {
+      "generic": "tomato bouillon",
+      "pattern": "\\bknorr\\b(?=.*tomato bouillon)"
+    },
+    {
+      "generic": "chicken bouillon",
+      "pattern": "\\bknorr\\b(?=.*\\bchicken\\b)(?=.*\\b(bouillon|stock)\\b)"
+    },
+    {
+      "generic": "beef bouillon",
+      "pattern": "\\bknorr\\b(?=.*\\bbeef\\b)(?=.*\\b(bouillon|stock)\\b)"
+    },
+    {
+      "generic": "fish stock",
+      "pattern": "\\bknorr\\b(?=.*\\bfish\\b)(?=.*\\b(bouillon|stock)\\b)"
+    },
+    {
+      "generic": "shrimp bouillon",
+      "pattern": "\\bknorr\\b(?=.*\\bshrimp\\b)"
+    },
+    {
+      "generic": "rice side dish mix",
+      "pattern": "\\bknorr\\b(?=.*\\brice\\b)(?=.*\\bsides?\\b)"
+    },
+    {
+      "generic": "pasta side dish mix",
+      "pattern": "\\bknorr\\b(?=.*\\bsides?\\b)"
+    },
+    {
+      "generic": "vegetable soup mix",
+      "pattern": "\\bknorr\\b(?=.*\\bvegetable\\b)(?=.*\\bmix\\b)"
+    },
+    {
+      "generic": "leek soup mix",
+      "pattern": "\\bknorr\\b(?=.*\\bleek\\b)"
+    },
+    {
+      "generic": "bouillon",
+      "pattern": "\\bknorr\\b"
+    },
+    {
+      "generic": "dijon mustard",
+      "pattern": "\\bhellmanns?\\b(?=.*dijon)"
+    },
+    {
+      "generic": "mayonnaise",
+      "pattern": "\\b(hellmanns?|best foods?)\\b(?=.*mayonnais)"
+    },
+    {
+      "generic": "mayonnaise",
+      "pattern": "\\bhellmanns?\\b"
+    },
+    {
+      "generic": "mayonnaise",
+      "pattern": "\\bmiracle whip\\b"
+    },
+    {
+      "generic": "japanese mayonnaise",
+      "pattern": "\\bkewpie\\b"
+    },
+    {
+      "generic": "grated parmesan cheese",
+      "pattern": "\\bkraft\\b(?=.*parmesan)"
+    },
+    {
+      "generic": "shredded mozzarella cheese",
+      "pattern": "\\bkraft\\b(?=.*mozzarella)"
+    },
+    {
+      "generic": "shredded cheddar cheese",
+      "pattern": "\\bkraft\\b(?=.*cheddar)"
+    },
+    {
+      "generic": "pepper jack cheese",
+      "pattern": "\\bkraft\\b(?=.*pepper jack)"
+    },
+    {
+      "generic": "colby and monterey jack cheese",
+      "pattern": "\\bkraft\\b(?=.*colby)"
+    },
+    {
+      "generic": "shredded mexican cheese blend",
+      "pattern": "\\bkraft\\b(?=.*mexican style)"
+    },
+    {
+      "generic": "ranch dressing",
+      "pattern": "\\bkraft\\b(?=.*ranch)"
+    },
+    {
+      "generic": "italian salad dressing",
+      "pattern": "\\bkraft\\b(?=.*italian dressing)"
+    },
+    {
+      "generic": "vinaigrette dressing",
+      "pattern": "\\bkraft\\b(?=.*vinaigrette)"
+    },
+    {
+      "generic": "barbecue sauce",
+      "pattern": "\\bkraft\\b(?=.*barbecue sauce)"
+    },
+    {
+      "generic": "mayonnaise",
+      "pattern": "\\bkraft\\b(?=.*mayonnaise)"
+    },
+    {
+      "generic": "shredded cheese",
+      "pattern": "\\bkraft\\b"
+    },
+    {
+      "generic": "processed cheese",
+      "pattern": "\\bvelveeta\\b"
+    },
+    {
+      "generic": "cream cheese",
+      "pattern": "\\bphiladelphia\\b"
+    },
+    {
+      "generic": "shredded mozzarella cheese",
+      "pattern": "\\bsargento\\b(?=.*mozzarella)"
+    },
+    {
+      "generic": "shredded cheddar cheese",
+      "pattern": "\\bsargento\\b(?=.*cheddar)"
+    },
+    {
+      "generic": "shredded parmesan cheese",
+      "pattern": "\\bsargento\\b(?=.*parmesan)"
+    },
+    {
+      "generic": "shredded mexican cheese blend",
+      "pattern": "\\bsargento\\b(?=.*mexican)"
+    },
+    {
+      "generic": "shredded cheese",
+      "pattern": "\\bsargento\\b"
+    },
+    {
+      "generic": "shredded cheddar cheese",
+      "pattern": "\\bcrystal farms\\b(?=.*cheddar)"
+    },
+    {
+      "generic": "gouda cheese",
+      "pattern": "\\bcrystal farms\\b(?=.*gouda)"
+    },
+    {
+      "generic": "marble jack cheese",
+      "pattern": "\\bcrystal farms\\b(?=.*marble jack)"
+    },
+    {
+      "generic": "butter",
+      "pattern": "\\bcrystal farms\\b(?=.*butter)"
+    },
+    {
+      "generic": "cottage cheese",
+      "pattern": "\\bknudsen\\b(?=.*cottage)"
+    },
+    {
+      "generic": "sour cream",
+      "pattern": "\\bknudsen\\b"
+    },
+    {
+      "generic": "sour cream",
+      "pattern": "\\bdaisy\\b(?=.*sour cream)"
+    },
+    {
+      "generic": "sour cream",
+      "pattern": "\\bbreakstones?\\b"
+    },
+    {
+      "generic": "vegan cheese",
+      "pattern": "\\bdaiya\\b"
+    },
+    {
+      "generic": "condensed cream of chicken soup",
+      "pattern": "\\bcampbells\\b(?=.*cream of chicken)"
+    },
+    {
+      "generic": "condensed cream of mushroom soup",
+      "pattern": "\\bcampbells\\b(?=.*cream of mushroom)"
+    },
+    {
+      "generic": "condensed tomato soup",
+      "pattern": "\\bcampbells\\b(?=.*tomato soup)"
+    },
+    {
+      "generic": "condensed cheddar cheese soup",
+      "pattern": "\\bcampbells\\b(?=.*cheddar cheese soup)"
+    },
+    {
+      "generic": "condensed soup",
+      "pattern": "\\bcampbells\\b"
+    },
+    {
+      "generic": "chicken broth",
+      "pattern": "\\bswanson\\b(?=.*chicken)"
+    },
+    {
+      "generic": "beef broth",
+      "pattern": "\\bswanson\\b(?=.*beef)"
+    },
+    {
+      "generic": "vegetable broth",
+      "pattern": "\\bswanson\\b(?=.*vegetable)"
+    },
+    {
+      "generic": "chicken broth",
+      "pattern": "\\bswanson\\b"
+    },
+    {
+      "generic": "chicken broth",
+      "pattern": "\\bprogresso\\b(?=.*chicken broth)"
+    },
+    {
+      "generic": "black beans",
+      "pattern": "\\bprogresso\\b(?=.*black beans)"
+    },
+    {
+      "generic": "artichoke hearts",
+      "pattern": "\\bprogresso\\b(?=.*artichoke)"
+    },
+    {
+      "generic": "balsamic vinegar",
+      "pattern": "\\bprogresso\\b(?=.*balsamic)"
+    },
+    {
+      "generic": "diced tomatoes",
+      "pattern": "\\bprogresso\\b(?=.*diced tomatoes)"
+    },
+    {
+      "generic": "chicken base",
+      "pattern": "\\bbetter than bouillon\\b"
+    },
+    {
+      "generic": "vegetable broth",
+      "pattern": "\\bsaffron road\\b"
+    },
+    {
+      "generic": "black bean soup mix",
+      "pattern": "\\bhurst\\b"
+    },
+    {
+      "generic": "onion soup mix",
+      "pattern": "\\blipton\\b(?=.*onion soup)"
+    },
+    {
+      "generic": "green tea",
+      "pattern": "\\blipton\\b(?=.*green tea)"
+    },
+    {
+      "generic": "iced tea",
+      "pattern": "\\blipton\\b(?=.*iced tea)"
+    },
+    {
+      "generic": "tea bags",
+      "pattern": "\\blipton\\b(?=.*tea)"
+    },
+    {
+      "generic": "alfredo sauce",
+      "pattern": "\\bragu\\b(?=.*alfredo)"
+    },
+    {
+      "generic": "cheddar cheese sauce",
+      "pattern": "\\bragu\\b(?=.*cheddar)"
+    },
+    {
+      "generic": "pizza sauce",
+      "pattern": "\\bragu\\b(?=.*pizza)"
+    },
+    {
+      "generic": "fettuccine",
+      "pattern": "\\bragu\\b(?=.*fettuccine)"
+    },
+    {
+      "generic": "pasta sauce",
+      "pattern": "\\bragu\\b"
+    },
+    {
+      "generic": "alfredo sauce",
+      "pattern": "\\bbertolli\\b(?=.*alfredo)"
+    },
+    {
+      "generic": "marinara sauce",
+      "pattern": "\\bbertolli\\b(?=.*marinara)"
+    },
+    {
+      "generic": "vodka sauce",
+      "pattern": "\\bbertolli\\b(?=.*vodka)"
+    },
+    {
+      "generic": "pasta sauce",
+      "pattern": "\\bbertolli\\b(?=.*\\bsauce?\\b)"
+    },
+    {
+      "generic": "olive oil",
+      "pattern": "\\bbertolli\\b(?=.*olive oil)"
+    },
+    {
+      "generic": "olive oil",
+      "pattern": "\\bbertolli\\b"
+    },
+    {
+      "generic": "pasta sauce",
+      "pattern": "\\bclassico\\b(?=.*\\bsauce?\\b)"
+    },
+    {
+      "generic": "lasagna noodles",
+      "pattern": "\\bbarilla\\b(?=.*lasagn)"
+    },
+    {
+      "generic": "linguine",
+      "pattern": "\\bbarilla\\b(?=.*linguine)"
+    },
+    {
+      "generic": "pasta",
+      "pattern": "\\bbarilla\\b"
+    },
+    {
+      "generic": "penne pasta",
+      "pattern": "\\bronzoni\\b"
+    },
+    {
+      "generic": "lasagna noodles",
+      "pattern": "\\bdreamfields\\b"
+    },
+    {
+      "generic": "penne pasta",
+      "pattern": "\\bdelallo\\b(?=.*penne)"
+    },
+    {
+      "generic": "extra virgin olive oil",
+      "pattern": "\\bdelallo\\b(?=.*olive oil)"
+    },
+    {
+      "generic": "rice noodles",
+      "pattern": "\\ba taste of thai\\b(?=.*rice noodles)"
+    },
+    {
+      "generic": "crostini",
+      "pattern": "\\bpanetini\\b"
+    },
+    {
+      "generic": "garlic naan",
+      "pattern": "\\bstonefire\\b(?=.*naan)"
+    },
+    {
+      "generic": "pizza crust",
+      "pattern": "\\bstonefire\\b(?=.*pizza crust)"
+    },
+    {
+      "generic": "teriyaki sauce",
+      "pattern": "\\bsoy vay\\b(?=.*teriyaki)"
+    },
+    {
+      "generic": "hoisin sauce",
+      "pattern": "\\bsoy vay\\b(?=.*hoisin)"
+    },
+    {
+      "generic": "sesame dressing",
+      "pattern": "\\bsoy vay\\b(?=.*sesame)"
+    },
+    {
+      "generic": "teriyaki sauce",
+      "pattern": "\\bsoy vay\\b"
+    },
+    {
+      "generic": "oyster sauce",
+      "pattern": "\\bkikkoman\\b(?=.*oyster)"
+    },
+    {
+      "generic": "soy sauce",
+      "pattern": "\\bkikkoman\\b"
+    },
+    {
+      "generic": "tsuyu soup base",
+      "pattern": "\\bmizkan\\b(?=.*tsuyu)"
+    },
+    {
+      "generic": "rice vinegar",
+      "pattern": "\\bmizkan\\b"
+    },
+    {
+      "generic": "seasoned rice vinegar",
+      "pattern": "\\bnakano\\b"
+    },
+    {
+      "generic": "sweet chili sauce",
+      "pattern": "\\bmae ploy\\b"
+    },
+    {
+      "generic": "fish sauce",
+      "pattern": "\\bthai kitchen\\b(?=.*fish sauce)"
+    },
+    {
+      "generic": "red curry paste",
+      "pattern": "\\bthai kitchen\\b(?=.*red curry)"
+    },
+    {
+      "generic": "wok oil",
+      "pattern": "\\bconimex\\b(?=.*wok olie)"
+    },
+    {
+      "generic": "stir fry sauce",
+      "pattern": "\\bconimex\\b"
+    },
+    {
+      "generic": "liquid aminos",
+      "pattern": "\\bbraggs?\\b(?=.*aminos?)"
+    },
+    {
+      "generic": "worcestershire sauce",
+      "pattern": "\\blea and perrins\\b"
+    },
+    {
+      "generic": "chili sauce",
+      "pattern": "\\bheinz\\b(?=.*chili sauce)"
+    },
+    {
+      "generic": "worcestershire sauce",
+      "pattern": "\\bheinz\\b(?=.*worcestershire)"
+    },
+    {
+      "generic": "ketchup",
+      "pattern": "\\bheinz\\b"
+    },
+    {
+      "generic": "dijon mustard",
+      "pattern": "\\bgrey poupon\\b"
+    },
+    {
+      "generic": "spicy brown mustard",
+      "pattern": "\\bfrenchs\\b(?=.*mustard)"
+    },
+    {
+      "generic": "mustard powder",
+      "pattern": "\\bcolmans\\b"
+    },
+    {
+      "generic": "white wine vinegar",
+      "pattern": "\\bholland house\\b(?=.*vinegar)"
+    },
+    {
+      "generic": "white cooking wine",
+      "pattern": "\\bholland house\\b(?=.*cooking wine)"
+    },
+    {
+      "generic": "italian salad dressing",
+      "pattern": "\\bwish ?bone\\b(?=.*italian)"
+    },
+    {
+      "generic": "ranch dressing",
+      "pattern": "\\bwish ?bone\\b(?=.*ranch)"
+    },
+    {
+      "generic": "vinaigrette dressing",
+      "pattern": "\\bwish ?bone\\b(?=.*vinaigrett)"
+    },
+    {
+      "generic": "salad dressing",
+      "pattern": "\\bwish ?bone\\b"
+    },
+    {
+      "generic": "ranch dip mix",
+      "pattern": "\\bhidden valley\\b(?=.*dip)"
+    },
+    {
+      "generic": "italian salad dressing",
+      "pattern": "\\bhidden valley\\b(?=.*italian)"
+    },
+    {
+      "generic": "ranch dressing",
+      "pattern": "\\bhidden valley\\b"
+    },
+    {
+      "generic": "italian dressing mix",
+      "pattern": "\\bgood seasons\\b"
+    },
+    {
+      "generic": "greek seasoning",
+      "pattern": "\\bcavenders\\b"
+    },
+    {
+      "generic": "margarine",
+      "pattern": "\\bcountry crock\\b"
+    },
+    {
+      "generic": "margarine",
+      "pattern": "\\bi cant believe?\\b(?=.*not butter)"
+    },
+    {
+      "generic": "margarine",
+      "pattern": "\\bpromise?\\b(?=.*spread)"
+    },
+    {
+      "generic": "cooking margarine",
+      "pattern": "\\bflora\\b(?=.*cuisine)"
+    },
+    {
+      "generic": "margarine",
+      "pattern": "\\bflora\\b"
+    },
+    {
+      "generic": "light cream",
+      "pattern": "\\belmlea\\b"
+    },
+    {
+      "generic": "vegan margarine",
+      "pattern": "\\bearth balance\\b"
+    },
+    {
+      "generic": "cooking spray",
+      "pattern": "\\bsmart balance\\b(?=.*spray)"
+    },
+    {
+      "generic": "margarine",
+      "pattern": "\\bsmart balance\\b"
+    },
+    {
+      "generic": "cooking spray",
+      "pattern": "\\bpam\\b(?=.*(spray|cooking))"
+    },
+    {
+      "generic": "butter",
+      "pattern": "\\bland o ?lakes\\b"
+    },
+    {
+      "generic": "irish butter",
+      "pattern": "\\bkerrygold\\b"
+    },
+    {
+      "generic": "butter",
+      "pattern": "\\bchallenge\\b(?=.*butter)"
+    },
+    {
+      "generic": "canola oil",
+      "pattern": "\\bcrisco\\b(?=.*canola)"
+    },
+    {
+      "generic": "vegetable oil",
+      "pattern": "\\bcrisco\\b(?=.*vegetable)"
+    },
+    {
+      "generic": "vegetable shortening",
+      "pattern": "\\bcrisco\\b"
+    },
+    {
+      "generic": "chicken bouillon powder",
+      "pattern": "\\bmazola\\b(?=.*bouillon)"
+    },
+    {
+      "generic": "canola oil",
+      "pattern": "\\bmazola\\b(?=.*canola)"
+    },
+    {
+      "generic": "corn oil",
+      "pattern": "\\bmazola\\b"
+    },
+    {
+      "generic": "canola oil",
+      "pattern": "\\bwesson\\b(?=.*canola)"
+    },
+    {
+      "generic": "vegetable oil",
+      "pattern": "\\bwesson\\b(?=.*vegetable)"
+    },
+    {
+      "generic": "extra virgin olive oil",
+      "pattern": "\\bpompeian\\b(?=.*extra virgin)"
+    },
+    {
+      "generic": "olive oil",
+      "pattern": "\\bpompeian\\b"
+    },
+    {
+      "generic": "corn oil",
+      "pattern": "\\bgoya\\b(?=.*corn oil)"
+    },
+    {
+      "generic": "extra virgin olive oil",
+      "pattern": "\\bgoya\\b(?=.*olive oil)"
+    },
+    {
+      "generic": "ground cumin",
+      "pattern": "\\bgoya\\b(?=.*cumin)"
+    },
+    {
+      "generic": "hot sauce",
+      "pattern": "\\bgoya\\b(?=.*hot sauce)"
+    },
+    {
+      "generic": "black beans",
+      "pattern": "\\bgoya\\b(?=.*black beans)"
+    },
+    {
+      "generic": "sazon seasoning",
+      "pattern": "(?=.*\\bgoya\\b)(?=.*\\bsazon\\b)"
+    },
+    {
+      "generic": "sazon seasoning",
+      "pattern": "\\bgoya\\b(?=.*seasoning)"
+    },
+    {
+      "generic": "andouille sausage",
+      "pattern": "\\b(johnsonville|jonshonville)\\b(?=.*andouille)"
+    },
+    {
+      "generic": "bratwurst",
+      "pattern": "\\b(johnsonville|jonshonville)\\b(?=.*brat)"
+    },
+    {
+      "generic": "breakfast sausage",
+      "pattern": "\\b(johnsonville|jonshonville)\\b(?=.*breakfast)"
+    },
+    {
+      "generic": "italian sausage",
+      "pattern": "\\b(johnsonville|jonshonville)\\b(?=.*italian)"
+    },
+    {
+      "generic": "chicken sausage",
+      "pattern": "\\b(johnsonville|jonshonville)\\b(?=.*chicken)"
+    },
+    {
+      "generic": "smoked sausage",
+      "pattern": "\\b(johnsonville|jonshonville)\\b(?=.*smoked)"
+    },
+    {
+      "generic": "sausage",
+      "pattern": "\\b(johnsonville|jonshonville)\\b"
+    },
+    {
+      "generic": "pork sausage",
+      "pattern": "\\bjimmy dean\\b"
+    },
+    {
+      "generic": "smoked sausage",
+      "pattern": "\\bhillshire\\b"
+    },
+    {
+      "generic": "italian sausage",
+      "pattern": "\\bbob evans\\b"
+    },
+    {
+      "generic": "italian turkey sausage",
+      "pattern": "\\bhoneysuckle white\\b"
+    },
+    {
+      "generic": "bacon",
+      "pattern": "\\boscar mayer\\b(?=.*bacon)"
+    },
+    {
+      "generic": "smoked ham",
+      "pattern": "\\boscar mayer\\b(?=.*ham)"
+    },
+    {
+      "generic": "salami",
+      "pattern": "\\boscar mayer\\b(?=.*salami)"
+    },
+    {
+      "generic": "ham",
+      "pattern": "\\bsmithfield\\b"
+    },
+    {
+      "generic": "boneless skinless chicken breasts",
+      "pattern": "\\bfoster farms\\b(?=.*breast)"
+    },
+    {
+      "generic": "chicken drumsticks",
+      "pattern": "\\bfoster farms\\b(?=.*drumstick)"
+    },
+    {
+      "generic": "chicken",
+      "pattern": "\\bfoster farms\\b"
+    },
+    {
+      "generic": "chicken strips",
+      "pattern": "\\btyson\\b(?=.*chicken)"
+    },
+    {
+      "generic": "pepperoni",
+      "pattern": "\\bmargherita\\b(?=.*pepperoni)"
+    },
+    {
+      "generic": "vegetarian chicken strips",
+      "pattern": "\\bquorn\\b(?=.*(chikn|tender))"
+    },
+    {
+      "generic": "vegetarian meat crumbles",
+      "pattern": "\\bquorn\\b(?=.*crumbles)"
+    },
+    {
+      "generic": "meat substitute",
+      "pattern": "\\bquorn\\b"
+    },
+    {
+      "generic": "diced tomatoes",
+      "pattern": "\\bdel monte\\b(?=.*tomato)"
+    },
+    {
+      "generic": "diced tomatoes",
+      "pattern": "\\bred gold\\b"
+    },
+    {
+      "generic": "whole peeled tomatoes",
+      "pattern": "\\btuttorosso\\b(?=.*plum)"
+    },
+    {
+      "generic": "diced tomatoes",
+      "pattern": "\\btuttorosso\\b"
+    },
+    {
+      "generic": "red kidney beans",
+      "pattern": "\\bcamellia\\b"
+    },
+    {
+      "generic": "black beans",
+      "pattern": "\\bkroger\\b(?=.*black beans)"
+    },
+    {
+      "generic": "frozen corn",
+      "pattern": "\\bgreen giant\\b(?=.*frozen corn)"
+    },
+    {
+      "generic": "whole kernel corn",
+      "pattern": "\\bgreen giant\\b(?=.*corn)"
+    },
+    {
+      "generic": "sliced mushrooms",
+      "pattern": "\\bgreen giant\\b(?=.*mushroom)"
+    },
+    {
+      "generic": "frozen chopped spinach",
+      "pattern": "\\bgreen giant\\b(?=.*spinach)"
+    },
+    {
+      "generic": "waffle fries",
+      "pattern": "\\balexia\\b"
+    },
+    {
+      "generic": "red potatoes",
+      "pattern": "\\bklondike\\b(?=.*rose)"
+    },
+    {
+      "generic": "potatoes",
+      "pattern": "\\bklondike\\b"
+    },
+    {
+      "generic": "salad greens",
+      "pattern": "\\bdole\\b(?=.*lettuce)"
+    },
+    {
+      "generic": "kalamata olives",
+      "pattern": "\\bmezzetta\\b"
+    },
+    {
+      "generic": "pecans",
+      "pattern": "\\bfisher\\b(?=.*pecan)"
+    },
+    {
+      "generic": "baking mix",
+      "pattern": "\\bbisquick\\b"
+    },
+    {
+      "generic": "all purpose flour",
+      "pattern": "\\bgold medal\\b"
+    },
+    {
+      "generic": "all purpose flour",
+      "pattern": "\\bwhite lily\\b"
+    },
+    {
+      "generic": "gluten free flour",
+      "pattern": "\\bking arthur\\b(?=.*gluten free)"
+    },
+    {
+      "generic": "all purpose flour",
+      "pattern": "\\bking arthur\\b"
+    },
+    {
+      "generic": "cornbread mix",
+      "pattern": "\\bmartha white\\b"
+    },
+    {
+      "generic": "corn muffin mix",
+      "pattern": "\\bjiffy\\b"
+    },
+    {
+      "generic": "oatmeal cookie mix",
+      "pattern": "\\bbetty crocker\\b(?=.*oatmeal)"
+    },
+    {
+      "generic": "cake mix",
+      "pattern": "\\bbetty crocker\\b"
+    },
+    {
+      "generic": "white cake mix",
+      "pattern": "\\bduncan hines\\b"
+    },
+    {
+      "generic": "crescent roll dough",
+      "pattern": "\\bpillsbury\\b(?=.*crescent)"
+    },
+    {
+      "generic": "pizza crust dough",
+      "pattern": "\\bpillsbury\\b(?=.*pizza crust)"
+    },
+    {
+      "generic": "pie crust",
+      "pattern": "\\bpillsbury\\b(?=.*pie crust)"
+    },
+    {
+      "generic": "refrigerated biscuit dough",
+      "pattern": "\\bpillsbury\\b(?=.*biscuit)"
+    },
+    {
+      "generic": "refrigerated dough",
+      "pattern": "\\bpillsbury\\b"
+    },
+    {
+      "generic": "puff pastry",
+      "pattern": "\\bpepperidge farm\\b(?=.*puff pastry)"
+    },
+    {
+      "generic": "baking powder",
+      "pattern": "\\broyal\\b(?=.*baking powder)"
+    },
+    {
+      "generic": "corn starch",
+      "pattern": "\\bargo\\b"
+    },
+    {
+      "generic": "corn syrup",
+      "pattern": "\\bkaro\\b"
+    },
+    {
+      "generic": "unflavored gelatin",
+      "pattern": "\\bknox\\b"
+    },
+    {
+      "generic": "gelatin",
+      "pattern": "\\bjell ?o\\b"
+    },
+    {
+      "generic": "vanilla extract",
+      "pattern": "\\bnielsen massey\\b"
+    },
+    {
+      "generic": "potato starch",
+      "pattern": "\\bmanischewitz\\b(?=.*potato starch)"
+    },
+    {
+      "generic": "matzo meal",
+      "pattern": "\\bmanischewitz\\b(?=.*matzo)"
+    },
+    {
+      "generic": "light brown sugar",
+      "pattern": "\\bdomino\\b(?=.*brown sugar)"
+    },
+    {
+      "generic": "confectioners sugar",
+      "pattern": "\\bdomino\\b(?=.*confectioners)"
+    },
+    {
+      "generic": "light brown sugar",
+      "pattern": "\\bimperial sugar\\b"
+    },
+    {
+      "generic": "organic sugar",
+      "pattern": "\\bwholesome sweeteners\\b"
+    },
+    {
+      "generic": "turbinado sugar",
+      "pattern": "\\bsugar in the raw\\b"
+    },
+    {
+      "generic": "brown sugar blend",
+      "pattern": "\\bsplenda\\b(?=.*brown sugar)"
+    },
+    {
+      "generic": "artificial sweetener",
+      "pattern": "\\bsplenda\\b"
+    },
+    {
+      "generic": "artificial sweetener",
+      "pattern": "\\bequal sweetener\\b"
+    },
+    {
+      "generic": "artificial sweetener",
+      "pattern": "\\bswerve\\b"
+    },
+    {
+      "generic": "stevia sweetener",
+      "pattern": "\\btruvia\\b"
+    },
+    {
+      "generic": "vanilla wafers",
+      "pattern": "\\bnilla\\b"
+    },
+    {
+      "generic": "chocolate sandwich cookies",
+      "pattern": "\\boreos?\\b"
+    },
+    {
+      "generic": "butter crackers",
+      "pattern": "\\britz\\b"
+    },
+    {
+      "generic": "tortilla chips",
+      "pattern": "\\bdoritos\\b"
+    },
+    {
+      "generic": "tortilla chips",
+      "pattern": "\\btostitos\\b"
+    },
+    {
+      "generic": "corn chips",
+      "pattern": "\\bfritos\\b"
+    },
+    {
+      "generic": "potato chips",
+      "pattern": "\\bkettle chips\\b"
+    },
+    {
+      "generic": "crispy rice cereal",
+      "pattern": "\\brice krispies\\b"
+    },
+    {
+      "generic": "rice cereal",
+      "pattern": "\\bspecial k\\b"
+    },
+    {
+      "generic": "cinnamon cereal",
+      "pattern": "\\bcinnamon toast crunch\\b"
+    },
+    {
+      "generic": "honey oat cereal",
+      "pattern": "\\bhoney bunches of oats\\b"
+    },
+    {
+      "generic": "chocolate candies",
+      "pattern": "\\bm and ms\\b"
+    },
+    {
+      "generic": "toffee candy bars",
+      "pattern": "\\bheath\\b(?=.*(candy|bar))"
+    },
+    {
+      "generic": "chocolate bars",
+      "pattern": "\\bhersheys?\\b(?=.*bar)"
+    },
+    {
+      "generic": "chocolate hazelnut spread",
+      "pattern": "\\bnutella\\b"
+    },
+    {
+      "generic": "marshmallow creme",
+      "pattern": "\\bmarshmallow fluff\\b"
+    },
+    {
+      "generic": "whipped topping",
+      "pattern": "\\bcool whip\\b"
+    },
+    {
+      "generic": "vanilla ice cream",
+      "pattern": "\\bbreyers\\b"
+    },
+    {
+      "generic": "creamy peanut butter",
+      "pattern": "\\bjif\\b"
+    },
+    {
+      "generic": "creamy peanut butter",
+      "pattern": "\\bskippy\\b"
+    },
+    {
+      "generic": "chocolate liqueur",
+      "pattern": "\\bgodiva\\b"
+    },
+    {
+      "generic": "greek yogurt",
+      "pattern": "\\byoplait\\b(?=.*greek)"
+    },
+    {
+      "generic": "yogurt",
+      "pattern": "\\byoplait\\b"
+    },
+    {
+      "generic": "greek yogurt",
+      "pattern": "\\bchobani\\b"
+    },
+    {
+      "generic": "yogurt",
+      "pattern": "\\bmountain high\\b(?=.*yog)"
+    },
+    {
+      "generic": "soy milk",
+      "pattern": "\\bsilk\\b(?=.*soymilk)"
+    },
+    {
+      "generic": "eggs",
+      "pattern": "\\begglands? best\\b"
+    },
+    {
+      "generic": "long grain white rice",
+      "pattern": "\\buncle bens\\b(?=.*long grain)"
+    },
+    {
+      "generic": "brown rice",
+      "pattern": "\\buncle bens\\b(?=.*brown)"
+    },
+    {
+      "generic": "converted white rice",
+      "pattern": "\\buncle bens\\b"
+    },
+    {
+      "generic": "instant white rice",
+      "pattern": "\\bminute\\b(?=.*rice)"
+    },
+    {
+      "generic": "white rice",
+      "pattern": "\\bsuccess\\b(?=.*rice)"
+    },
+    {
+      "generic": "jambalaya rice mix",
+      "pattern": "\\bzatarains?\\b(?=.*jambalaya)"
+    },
+    {
+      "generic": "creole seasoning",
+      "pattern": "\\bzatarains?\\b"
+    },
+    {
+      "generic": "vegetable seasoning",
+      "pattern": "\\bvegeta\\b"
+    },
+    {
+      "generic": "salt free seasoning",
+      "pattern": "\\bmrs dash\\b"
+    },
+    {
+      "generic": "seasoned salt",
+      "pattern": "\\bspike\\b(?=.*seasoning)"
+    },
+    {
+      "generic": "seasoned salt",
+      "pattern": "\\beverglades\\b"
+    },
+    {
+      "generic": "msg seasoning",
+      "pattern": "\\baccent\\b"
+    },
+    {
+      "generic": "barbecue spice rub",
+      "pattern": "\\bsyd\\b"
+    },
+    {
+      "generic": "garam masala",
+      "pattern": "\\bcurry guy\\b(?=.*garam masala)"
+    },
+    {
+      "generic": "tandoori masala",
+      "pattern": "\\bcurry guy\\b(?=.*tandoori)"
+    },
+    {
+      "generic": "smoked salt",
+      "pattern": "\\bcurry guy\\b(?=.*salt)"
+    },
+    {
+      "generic": "taco seasoning",
+      "pattern": "\\bmccormick\\b(?=.*taco)"
+    },
+    {
+      "generic": "chili powder",
+      "pattern": "\\bmccormick\\b(?=.*chili powder)"
+    },
+    {
+      "generic": "garlic powder",
+      "pattern": "\\bmccormick\\b(?=.*garlic powder)"
+    },
+    {
+      "generic": "black pepper",
+      "pattern": "\\bmccormick\\b(?=.*black pepper)"
+    },
+    {
+      "generic": "ground white pepper",
+      "pattern": "\\bmccormick\\b(?=.*white pepper)"
+    },
+    {
+      "generic": "ground ginger",
+      "pattern": "\\bmccormick\\b(?=.*ginger)"
+    },
+    {
+      "generic": "ground cumin",
+      "pattern": "\\bmccormick\\b(?=.*cumin)"
+    },
+    {
+      "generic": "dried oregano",
+      "pattern": "\\bmccormick\\b(?=.*oregano)"
+    },
+    {
+      "generic": "dried parsley",
+      "pattern": "\\bmccormick\\b(?=.*parsley)"
+    },
+    {
+      "generic": "poppy seeds",
+      "pattern": "\\bmccormick\\b(?=.*poppy)"
+    },
+    {
+      "generic": "vanilla extract",
+      "pattern": "\\bmccormick\\b(?=.*vanilla)"
+    },
+    {
+      "generic": "gravy mix",
+      "pattern": "\\bmccormick\\b(?=.*gravy)"
+    },
+    {
+      "generic": "bay leaves",
+      "pattern": "\\bspice islands\\b(?=.*bay lea)"
+    },
+    {
+      "generic": "dried oregano",
+      "pattern": "\\bspice islands\\b(?=.*oregano)"
+    },
+    {
+      "generic": "garlic salt",
+      "pattern": "\\bspice islands\\b(?=.*garlic salt)"
+    },
+    {
+      "generic": "minced garlic",
+      "pattern": "\\bspice islands\\b(?=.*minced garlic)"
+    },
+    {
+      "generic": "ground cumin",
+      "pattern": "\\bspice islands\\b(?=.*cumin)"
+    },
+    {
+      "generic": "chipotle chile powder",
+      "pattern": "\\bspice islands\\b(?=.*chipotle)"
+    },
+    {
+      "generic": "chili powder",
+      "pattern": "\\bspice islands\\b(?=.*chili powder)"
+    },
+    {
+      "generic": "garlic powder",
+      "pattern": "\\bspice islands\\b(?=.*garlic powder)"
+    },
+    {
+      "generic": "ground cinnamon",
+      "pattern": "\\bsimply organic\\b(?=.*cinnamon)"
+    },
+    {
+      "generic": "ground nutmeg",
+      "pattern": "\\bsimply organic\\b(?=.*nutmeg)"
+    },
+    {
+      "generic": "sea salt",
+      "pattern": "\\bsimply organic\\b(?=.*salt)"
+    },
+    {
+      "generic": "garlic paste",
+      "pattern": "\\bgourmet garden\\b(?=.*garlic)"
+    },
+    {
+      "generic": "fresh oregano",
+      "pattern": "\\bgourmet garden\\b(?=.*oregano)"
+    },
+    {
+      "generic": "fresh parsley",
+      "pattern": "\\bgourmet garden\\b(?=.*parsley)"
+    },
+    {
+      "generic": "salt",
+      "pattern": "\\bmorton\\b(?=.*salt)"
+    },
+    {
+      "generic": "kosher salt",
+      "pattern": "\\bdiamond crystal\\b"
+    },
+    {
+      "generic": "salt substitute",
+      "pattern": "\\bnu salt\\b"
+    },
+    {
+      "generic": "browning sauce",
+      "pattern": "\\bkitchen bouquet\\b"
+    },
+    {
+      "generic": "lemon lime soda",
+      "pattern": "\\b7 up\\b"
+    },
+    {
+      "generic": "lemon lime soda",
+      "pattern": "\\bsprite\\b"
+    },
+    {
+      "generic": "citrus soda",
+      "pattern": "\\bmountain dew\\b"
+    },
+    {
+      "generic": "cola",
+      "pattern": "\\b(coca cola|coke)\\b"
+    },
+    {
+      "generic": "cola",
+      "pattern": "\\bdr pepper\\b"
+    },
+    {
+      "generic": "vegetable juice",
+      "pattern": "\\bv ?8\\b"
+    },
+    {
+      "generic": "margarita mix",
+      "pattern": "\\bbacardi\\b(?=.*margarita)"
+    },
+    {
+      "generic": "white rum",
+      "pattern": "\\bbacardi\\b"
+    },
+    {
+      "generic": "gold tequila",
+      "pattern": "\\bjose cuervo\\b(?=.*gold)"
+    },
+    {
+      "generic": "tequila",
+      "pattern": "\\bjose cuervo\\b"
+    },
+    {
+      "generic": "whiskey",
+      "pattern": "\\bjack daniels\\b"
+    },
+    {
+      "generic": "irish whiskey",
+      "pattern": "\\bjameson\\b"
+    },
+    {
+      "generic": "bourbon whiskey",
+      "pattern": "\\bmakers mark\\b"
+    },
+    {
+      "generic": "lager beer",
+      "pattern": "\\bbudweiser\\b"
+    },
+    {
+      "generic": "elderflower liqueur",
+      "pattern": "\\bst germain\\b"
+    },
+    {
+      "generic": "ginger liqueur",
+      "pattern": "\\bdomaine de canton\\b"
+    },
+    {
+      "generic": "vanilla liqueur",
+      "pattern": "\\btuaca\\b"
+    },
+    {
+      "generic": "herbal liqueur",
+      "pattern": "\\bjagermeister\\b"
+    },
+    {
+      "generic": "pear brandy",
+      "pattern": "\\bpoire williams\\b"
+    },
+    {
+      "generic": "pinot noir",
+      "pattern": "\\bestancia\\b"
+    },
+    {
+      "generic": "sauvignon blanc",
+      "pattern": "\\brobert mondavi\\b"
+    },
+    {
+      "generic": "sauvignon blanc",
+      "pattern": "\\bkim crawford\\b"
+    },
+    {
+      "generic": "cabernet sauvignon",
+      "pattern": "\\bhogue\\b"
+    }
+  ]
+}

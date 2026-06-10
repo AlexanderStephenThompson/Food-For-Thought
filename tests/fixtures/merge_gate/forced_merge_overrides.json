@@ -1,0 +1,9 @@
+{
+  "_comment": "Fixture lexicon for merge-gate tests. One synthetic override that matches no always-merge pattern, so the forced_merge_override layer is observable on its own.",
+  "overrides": [
+    {
+      "reason": "Synthetic exact-string override for layer-isolation tests.",
+      "variant": "mystery sauce blend"
+    }
+  ]
+}

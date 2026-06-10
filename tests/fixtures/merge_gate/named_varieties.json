@@ -1,0 +1,17 @@
+{
+  "_comment": "Fixture lexicon for merge-gate tests. 'tamari' exists only to prove word-boundary matching ('tamarind paste' must not match it).",
+  "varieties": [
+    {
+      "phrase": "kecap manis",
+      "reason": "Indonesian sweet soy; n=17 in train, untestable statistically."
+    },
+    {
+      "phrase": "tamari",
+      "reason": "Word-boundary check: must not match the tamarind family."
+    },
+    {
+      "phrase": "usukuchi",
+      "reason": "Japanese light soy; n=1 in train, untestable statistically."
+    }
+  ]
+}

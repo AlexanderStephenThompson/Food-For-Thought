@@ -1,0 +1,89 @@
+{
+  "_comment": "Named-variety preserve lexicon (layer L3 of the merge gate) for sub-threshold variants (n < 20). These are foreign-language or geographic product varieties whose tiny support makes them statistically untestable (null95 at n=20 is 0.169 bits) but whose raw cuisine concentrations are extreme (80-100%). A default-merge would silently delete near-perfect cuisine markers. Phrases are matched with word boundaries against the cleaned variant (never substring: 'tamarind' must not match 'tamari'). Entries sorted by phrase.",
+  "varieties": [
+    {
+      "phrase": "cane vinegar",
+      "reason": "Filipino variety vinegar; sub-threshold n, from the signal-variants vinegar seed list."
+    },
+    {
+      "phrase": "carnaroli",
+      "reason": "Italian risotto rice variety (n=14, 'carnaroli rice')."
+    },
+    {
+      "phrase": "chinese red vinegar",
+      "reason": "Chinese variety vinegar; sub-threshold n, from the vinegar seed list."
+    },
+    {
+      "phrase": "coconut vinegar",
+      "reason": "Filipino/Southeast Asian variety vinegar; sub-threshold n."
+    },
+    {
+      "phrase": "dende",
+      "reason": "Brazilian palm oil ('dende oil' n=7, 100% brazilian)."
+    },
+    {
+      "phrase": "hot smoked paprika",
+      "reason": "Spanish variety (n=13, 54% spanish); untestable but concentrated."
+    },
+    {
+      "phrase": "japanese rice",
+      "reason": "n=19 (one short of testability) with raw JSD=0.8166, 95% japanese."
+    },
+    {
+      "phrase": "kecap manis",
+      "reason": "Indonesian sweet soy (n=17, JSD=0.1336, untestable); its alias 'sweet soy sauce' is protected in do_not_merge.json."
+    },
+    {
+      "phrase": "nam pla",
+      "reason": "Thai fish sauce (n=8); maps to its own ID under thai fish sauce."
+    },
+    {
+      "phrase": "nama shoyu",
+      "reason": "Japanese raw soy sauce (n=1); untestable, perfect japanese marker."
+    },
+    {
+      "phrase": "nuoc cham",
+      "reason": "Vietnamese dipping sauce (n=9, 100% vietnamese)."
+    },
+    {
+      "phrase": "nuoc mam",
+      "reason": "Vietnamese fish sauce (n=6)."
+    },
+    {
+      "phrase": "nuoc nam",
+      "reason": "Vietnamese fish sauce spelling variant (n=5)."
+    },
+    {
+      "phrase": "palm oil",
+      "reason": "Brazilian/West African marker (n=12, 100% brazilian)."
+    },
+    {
+      "phrase": "palm vinegar",
+      "reason": "Filipino variety vinegar; sub-threshold n."
+    },
+    {
+      "phrase": "panang curry paste",
+      "reason": "Thai curry variety (n=3, 100% thai)."
+    },
+    {
+      "phrase": "risotto rice",
+      "reason": "Italian rice variety from the rice seed list; sub-threshold n."
+    },
+    {
+      "phrase": "ume plum",
+      "reason": "Japanese plum vinegar family ('ume plum vinegar' n=5)."
+    },
+    {
+      "phrase": "umeboshi",
+      "reason": "Japanese pickled plum family (umeboshi/paste/vinegar, n<=3 each)."
+    },
+    {
+      "phrase": "usukuchi",
+      "reason": "Japanese light soy ('usukuchi soy sauce' n=1, raw JSD=0.650); the canonical untestable preserve case."
+    },
+    {
+      "phrase": "white rice vinegar",
+      "reason": "Chinese variety vinegar (n=9, 78% chinese)."
+    }
+  ]
+}

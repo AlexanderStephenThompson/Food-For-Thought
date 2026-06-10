@@ -1,0 +1,31 @@
+{
+  "_comment": "Curated cuisine-family assignment. Families are grounded in TF-IDF ingredient-similarity clustering (within-family mean cosine 0.626 vs cross-family 0.354) with documented domain overrides where data and culinary history disagree.",
+  "_overrides": {
+    "american_south": "Dendrogram places southern_us inside the anglo cluster (british 0.758, irish 0.731 — an 'anglo baking' signature) and cajun_creole nearest southern_us 0.541 / spanish 0.516, with french only 4th at 0.458. Domain override groups the two US-South cuisines together.",
+    "western_european": "french is a bridge cuisine — nearly tied between british 0.692 and italian 0.669 — so it gets its own family rather than forcing it into anglo or mediterranean.",
+    "anglo_northern_european": "russian embeds inside the anglo cluster in the data (british 0.684, irish 0.670), not a separate eastern bloc.",
+    "caribbean": "jamaican's top data neighbor is filipino (0.508, shared vinegar/pork/thyme/scallion profile), but it stays its own family on domain grounds."
+  },
+  "families": {
+    "brazilian": "latin_american",
+    "british": "anglo_northern_european",
+    "cajun_creole": "american_south",
+    "chinese": "east_asian",
+    "filipino": "southeast_asian",
+    "french": "western_european",
+    "greek": "mediterranean",
+    "indian": "south_asian",
+    "irish": "anglo_northern_european",
+    "italian": "mediterranean",
+    "jamaican": "caribbean",
+    "japanese": "east_asian",
+    "korean": "east_asian",
+    "mexican": "latin_american",
+    "moroccan": "north_african",
+    "russian": "anglo_northern_european",
+    "southern_us": "american_south",
+    "spanish": "mediterranean",
+    "thai": "southeast_asian",
+    "vietnamese": "southeast_asian"
+  }
+}

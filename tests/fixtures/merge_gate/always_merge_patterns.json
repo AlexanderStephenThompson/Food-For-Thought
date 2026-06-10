@@ -1,0 +1,13 @@
+{
+  "_comment": "Fixture lexicon for merge-gate tests. Minimal pattern set: the sodium marketing family plus the exact-token 'lite' rule. 'light' is deliberately absent because it is identity-bearing (light soy sauce).",
+  "patterns": [
+    {
+      "pattern": "\\b(low|less|reduced|lower)[ -]?sodium\\b",
+      "reason": "Sodium marketing phrase; never an ingredient identity."
+    },
+    {
+      "pattern": "\\blite\\b",
+      "reason": "Exact-token 'lite' is always marketing; 'light' is excluded."
+    }
+  ]
+}

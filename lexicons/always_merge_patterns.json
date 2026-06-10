@@ -1,0 +1,77 @@
+{
+  "_comment": "Always-merge marketing patterns (layer L1 of the merge gate). A variant matching any pattern merges into its base BEFORE statistics run, because health/brand marketing can be statistically divergent through recipe-source artifacts ('lower sodium soy sauce': n=57, JSD=0.1449, p<0.001). CRITICAL EXCLUSION: 'light' is NOT a pattern here. 'light soy sauce' (n=347, 73% chinese, JSD=0.0992), 'light brown sugar', and 'light rum' (JSD light-vs-dark rum 0.339) are ingredient IDENTITIES, so only the exact token 'lite' (verified: appears solely in 'lite coconut milk') is always-merge; head-noun-conditional 'light'/'dark' strings live in forced_merge_overrides.json instead. Patterns are regex sources searched against cleaned (lowercased) variant strings; [ -]? tolerates both hyphenated and space-joined spellings. Entry order groups sodium -> fat -> diet -> provenance; order has no effect on the merge action.",
+  "patterns": [
+    {
+      "pattern": "\\b(low|less|reduced|lower)[ -]?sodium\\b",
+      "reason": "Sodium marketing; ~107 unique strings / ~2,600 mentions. Validated merges: low sodium soy sauce (n=425, JSD=0.0181), reduced sodium (n=157, JSD=0.0639); also covers '33% less sodium ham'."
+    },
+    {
+      "pattern": "\\b(no[ -]?salt[ -]?added|salt[ -]?free|sodium[ -]?free|low[ -]?salt)\\b",
+      "reason": "Salt-content marketing: 'no-salt-added diced tomatoes', 'salt free seasoning', 'sodium free chicken broth', 'low salt chicken broth' (n=385)."
+    },
+    {
+      "pattern": "\\b(low[ -]?fat|lowfat|fat[ -]?free|fatfree|non[ -]?fat|reduced[ -]?fat)\\b",
+      "reason": "Fat-content marketing; 246 unique fat/sugar/lite strings (4,653 mentions). Covers stacked forms like 'fat free less sodium chicken broth' and 'fatfree lowsodium chicken broth'."
+    },
+    {
+      "pattern": "\\bpart[ -]?skim\\b",
+      "reason": "Dairy fat grade: part-skim mozzarella cheese (n=227, JSD=0.0310) merges to mozzarella cheese."
+    },
+    {
+      "pattern": "\\bskim(med)?\\b",
+      "reason": "Dairy/fat marketing; verified the corpus contains only dairy and broth uses ('skim milk' n=81, 'evaporated skim milk', 'fat skimmed chicken broth')."
+    },
+    {
+      "pattern": "\\b\\d{1,3} ?% ?(milkfat|milk|lean|fat[ -]?free)\\b",
+      "reason": "Percentage grades: '2% milk', '2% milkfat', '95% lean ground beef', '96% fat free ham' — all marketing, never identity."
+    },
+    {
+      "pattern": "\\b[12][ -]?%\\b",
+      "reason": "Bare 1%/2% dairy fat grade ('1% low-fat milk' n=193, '2% reduced-fat milk' n=71); verified all 1%/2% strings in train are dairy."
+    },
+    {
+      "pattern": "\\bgluten[ -]?free\\b",
+      "reason": "Diet marketing; gluten-free/organic/whole-wheat family is 102 unique strings (672 mentions). 'gluten-free tamari' correctly merges into tamari."
+    },
+    {
+      "pattern": "\\bwheat[ -]?free\\b",
+      "reason": "Diet marketing: 'wheat free soy sauce' (n=3) merges to soy sauce."
+    },
+    {
+      "pattern": "\\bsugar[ -]?free\\b",
+      "reason": "Diet marketing; sugar content never changes the underlying ingredient identity."
+    },
+    {
+      "pattern": "\\b(reduced|low)[ -]?calorie\\b",
+      "reason": "Calorie marketing phrase from the always-merge family (signal-variants rule 2)."
+    },
+    {
+      "pattern": "\\bcholesterol[ -]?free\\b",
+      "reason": "Health marketing: 'cholesterol free egg substitute', mojibake Hellmann's mayonnaise string."
+    },
+    {
+      "pattern": "\\bunsweetened\\b",
+      "reason": "Sweetness marketing; validated merge 'unsweetened coconut milk' (n=191, JSD=0.0623) and no keep-case named in either lens."
+    },
+    {
+      "pattern": "\\blite\\b",
+      "reason": "Exact-token 'lite' is always marketing ('lite coconut milk' n=18, the only corpus use). The full word 'light' is intentionally NOT a pattern — see _comment."
+    },
+    {
+      "pattern": "\\borganic\\b",
+      "reason": "Provenance marketing; 18 unique organic strings ('organic vegetable broth' n=49) all merge to their base."
+    },
+    {
+      "pattern": "\\bregular\\b",
+      "reason": "Explicit non-modifier: 'regular soy sauce' (n=30) -> soy sauce per the validated merge list."
+    },
+    {
+      "pattern": "\\bstore[ -]?bought\\b",
+      "reason": "Provenance marketing: 'store bought low sodium chicken stock' (n=31) and kin."
+    },
+    {
+      "pattern": "\\bhomemade\\b",
+      "reason": "Provenance marketing: 'homemade chicken stock' (n=40) and kin merge to their base stock/broth."
+    }
+  ]
+}

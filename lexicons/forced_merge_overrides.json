@@ -1,0 +1,41 @@
+{
+  "_comment": "Explicit variant strings force-merged at layer L1, beating all statistics. Two populations: (1) statistically divergent marketing artifacts the gate would otherwise false-preserve, (2) head-noun-conditional 'light'/'dark'/'toasted' strings that cannot be expressed as a safe global pattern because the same modifier is identity-bearing elsewhere (light/dark soy sauce, light/dark rum must PRESERVE). Matching is exact-string against the cleaned variant. Entries sorted by variant.",
+  "overrides": [
+    {
+      "reason": "Color grading on brown sugar, not identity: light-vs-dark brown sugar JSD=0.031; both merge to brown sugar.",
+      "variant": "dark brown sugar"
+    },
+    {
+      "reason": "Toast level, not variety: JSD=0.0186 vs sesame oil (n=201). Contrast: dark soy sauce IS a variety (JSD=0.1105).",
+      "variant": "dark sesame oil"
+    },
+    {
+      "reason": "Color grading on brown sugar (n=422), JSD light-vs-dark 0.031; merges to brown sugar.",
+      "variant": "light brown sugar"
+    },
+    {
+      "reason": "Fat content, not variety: JSD=0.0626 vs coconut milk (n=156). Contrast: light soy sauce IS a Chinese variety.",
+      "variant": "light coconut milk"
+    },
+    {
+      "reason": "Source artifact ('Cooking Light effect'): JSD=0.116 at n=30 is publisher skew, not ingredient identity; merges to cream cheese.",
+      "variant": "light cream cheese"
+    },
+    {
+      "reason": "Fat content marketing (n=61); merges to mayonnaise.",
+      "variant": "light mayonnaise"
+    },
+    {
+      "reason": "Fat content marketing (n=55, JSD=0.060); merges to sour cream.",
+      "variant": "light sour cream"
+    },
+    {
+      "reason": "THE validated stats failure: n=57, JSD=0.1449, p<0.001 is a recipe-source artifact (skews thai/korean), not a product difference. Also matched by the sodium pattern; kept here as an explicit, documented override.",
+      "variant": "lower sodium soy sauce"
+    },
+    {
+      "reason": "Toast level alias of sesame oil: JSD=0.0189 (n=355); 'toasted' is identity-ambiguous elsewhere so the merge is pinned per-string.",
+      "variant": "toasted sesame oil"
+    }
+  ]
+}

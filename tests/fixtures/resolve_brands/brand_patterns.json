@@ -1,0 +1,46 @@
+{
+  "keep_as_ingredient": [
+    {
+      "generic": "stout",
+      "pattern": "\\bguinness\\b"
+    },
+    {
+      "generic": "kahlua",
+      "pattern": "\\bkahlua\\b"
+    },
+    {
+      "generic": "maggi seasoning",
+      "pattern": "\\bmaggi\\b"
+    }
+  ],
+  "patterns": [
+    {
+      "generic": "coffee liqueur",
+      "pattern": "\\bkahlua\\b(?=.*liqueur)"
+    },
+    {
+      "generic": "vanilla wafers",
+      "pattern": "\\bnilla\\b"
+    },
+    {
+      "generic": "vegetable seasoning",
+      "pattern": "\\bvegeta\\b"
+    },
+    {
+      "generic": "grated parmesan cheese",
+      "pattern": "\\bkraft\\b(?=.*parmesan)"
+    },
+    {
+      "generic": "shredded mexican cheese blend",
+      "pattern": "\\bkraft\\b(?=.*mexican style)"
+    },
+    {
+      "generic": "alfredo sauce",
+      "pattern": "\\bragu\\b(?=.*alfredo)"
+    },
+    {
+      "generic": "pasta sauce",
+      "pattern": "\\bragu\\b"
+    }
+  ]
+}

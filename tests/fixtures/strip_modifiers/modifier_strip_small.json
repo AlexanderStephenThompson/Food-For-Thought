@@ -1,0 +1,35 @@
+{
+  "conditional_tokens": {
+    "extra": {
+      "mode": "strip_when_next_in",
+      "values": ["large"]
+    },
+    "kosher": {
+      "mode": "strip_when_head_in",
+      "values": ["salt"]
+    },
+    "packed": {
+      "mode": "keep_when_next_in",
+      "values": ["in"]
+    },
+    "whole": {
+      "mode": "strip_when_head_in",
+      "values": ["milk"]
+    }
+  },
+  "never_strip_tokens": ["dried", "ground"],
+  "protected_strings": ["frozen spinach"],
+  "strip_phrases": [
+    "\\b(low|lower|less|reduced) ?(sodium|salt|fat)\\b",
+    "\\bfat ?free\\b"
+  ],
+  "strip_tokens": [
+    "chopped",
+    "firmly",
+    "fresh",
+    "frozen",
+    "ground",
+    "large",
+    "minced"
+  ]
+}

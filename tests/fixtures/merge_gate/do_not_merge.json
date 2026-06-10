@@ -1,0 +1,13 @@
+{
+  "_comment": "Fixture lexicon for merge-gate tests. 'reduced sodium tamari' also matches the fixture sodium pattern, proving the do-not-merge layer fires first.",
+  "exceptions": [
+    {
+      "reason": "Orthography carries cuisine signal (63% indian vs 'green chile' 75% mexican).",
+      "variant": "green chilies"
+    },
+    {
+      "reason": "Layer-order check: matches the sodium always-merge pattern but L0 must win.",
+      "variant": "reduced sodium tamari"
+    }
+  ]
+}

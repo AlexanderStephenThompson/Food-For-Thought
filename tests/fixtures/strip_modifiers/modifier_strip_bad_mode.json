@@ -1,0 +1,12 @@
+{
+  "conditional_tokens": {
+    "kosher": {
+      "mode": "strip_sometimes",
+      "values": ["salt"]
+    }
+  },
+  "never_strip_tokens": [],
+  "protected_strings": [],
+  "strip_phrases": [],
+  "strip_tokens": []
+}
