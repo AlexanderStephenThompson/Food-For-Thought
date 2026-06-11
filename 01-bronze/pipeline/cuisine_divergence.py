@@ -74,7 +74,7 @@ def compute_cuisine_distribution(
 
 
 def jensen_shannon_divergence_bits(
-    p: tuple[float, ...], q: tuple[float, ...]
+    first_distribution: tuple[float, ...], second_distribution: tuple[float, ...]
 ) -> float:
     """Compute the Jensen-Shannon divergence between two distributions in bits.
 
@@ -82,8 +82,8 @@ def jensen_shannon_divergence_bits(
     contribute nothing (0 * log 0 == 0).
 
     Args:
-        p: First distribution.
-        q: Second distribution, same length as p.
+        first_distribution: First distribution.
+        second_distribution: Second distribution, same length as the first.
 
     Returns:
         Divergence in bits: 0.0 for identical inputs, 1.0 for disjoint support.
@@ -91,19 +91,48 @@ def jensen_shannon_divergence_bits(
     Raises:
         ValueError: If lengths differ or any entry is negative.
     """
-    if len(p) != len(q):
-        raise ValueError(f"distribution lengths differ: {len(p)} vs {len(q)}")
-    if any(value < 0.0 for value in p) or any(value < 0.0 for value in q):
+    if len(first_distribution) != len(second_distribution):
+        raise ValueError(
+            "distribution lengths differ: "
+            f"{len(first_distribution)} vs {len(second_distribution)}"
+        )
+    if any(value < 0.0 for value in first_distribution) or any(
+        value < 0.0 for value in second_distribution
+    ):
         raise ValueError("distributions must not contain negative probabilities")
-    midpoint = tuple((p_value + q_value) / 2.0 for p_value, q_value in zip(p, q))
+    midpoint = tuple(
+        (first_value + second_value) / 2.0
+        for first_value, second_value in zip(first_distribution, second_distribution)
+    )
     divergence = (
-        _kullback_leibler_bits(p, midpoint) + _kullback_leibler_bits(q, midpoint)
+        _kullback_leibler_bits(first_distribution, midpoint)
+        + _kullback_leibler_bits(second_distribution, midpoint)
     ) / 2.0
     # Floating-point noise can dip a hair below zero for identical inputs.
     return max(0.0, divergence)
 
 
-def monte_carlo_null95(
+def _estimate_null95_uncached(
+    base_distribution: tuple[float, ...],
+    sample_size: int,
+    trials: int,
+    seed: int,
+) -> float:
+    """Run the Monte Carlo trials and extract the 95th-percentile JSD."""
+    generator = random.Random(seed)
+    cumulative_weights = list(accumulate(base_distribution))
+    divergences = sorted(
+        jensen_shannon_divergence_bits(
+            base_distribution,
+            _sample_distribution(generator, cumulative_weights, sample_size),
+        )
+        for _ in range(trials)
+    )
+    percentile_position = min(trials - 1, math.ceil(NULL95_PERCENTILE * trials) - 1)
+    return divergences[percentile_position]
+
+
+def estimate_null95_bits(
     base_distribution: tuple[float, ...],
     sample_size: int,
     trials: int = DEFAULT_TRIALS,
@@ -113,9 +142,7 @@ def monte_carlo_null95(
 
     Each trial draws a multinomial sample of sample_size from
     base_distribution (cumulative-weight inversion) and measures the JSD
-    between the sample's empirical distribution and the base. Results are
-    memoized by (rounded base distribution, sample_size, trials, seed) since
-    the vocabulary build re-tests many variants against the same base.
+    between the sample's empirical distribution and the base.
 
     Args:
         base_distribution: Null distribution to sample from; positive mass.
@@ -125,6 +152,12 @@ def monte_carlo_null95(
 
     Returns:
         The 95th-percentile JSD (bits) across trials.
+
+    Side effects:
+        Memoizes results in the module-level _NULL95_CACHE, keyed by
+        (rounded base distribution, sample_size, trials, seed) — the
+        vocabulary build re-tests many variants against the same base, and
+        repeat calls return the cached value without re-running trials.
 
     Raises:
         ValueError: If sample_size or trials is below 1, or the base
@@ -144,18 +177,11 @@ def monte_carlo_null95(
     )
     if memo_key in _NULL95_CACHE:
         return _NULL95_CACHE[memo_key]
-    generator = random.Random(seed)
-    cumulative_weights = list(accumulate(base_distribution))
-    divergences = sorted(
-        jensen_shannon_divergence_bits(
-            base_distribution,
-            _sample_distribution(generator, cumulative_weights, sample_size),
-        )
-        for _ in range(trials)
+    null95_bits = _estimate_null95_uncached(
+        base_distribution, sample_size, trials, seed
     )
-    percentile_position = min(trials - 1, math.ceil(NULL95_PERCENTILE * trials) - 1)
-    _NULL95_CACHE[memo_key] = divergences[percentile_position]
-    return _NULL95_CACHE[memo_key]
+    _NULL95_CACHE[memo_key] = null95_bits
+    return null95_bits
 
 
 def evaluate_merge_candidate(
@@ -189,7 +215,7 @@ def evaluate_merge_candidate(
     jsd_bits = jensen_shannon_divergence_bits(variant_distribution, base_distribution)
     null95_bits = 0.0
     if variant_recipe_ids and base_recipe_ids:
-        null95_bits = monte_carlo_null95(
+        null95_bits = estimate_null95_bits(
             base_distribution, len(variant_recipe_ids), trials, seed
         )
     ratio = jsd_bits / null95_bits if null95_bits > 0.0 else 0.0
@@ -256,13 +282,13 @@ def _distribution_from_recipe_ids(
 
 
 def _kullback_leibler_bits(
-    p: tuple[float, ...], reference: tuple[float, ...]
+    distribution: tuple[float, ...], reference: tuple[float, ...]
 ) -> float:
-    """KL(p || reference) in bits, with 0 * log 0 treated as 0."""
+    """KL(distribution || reference) in bits, with 0 * log 0 treated as 0."""
     return sum(
-        p_value * math.log2(p_value / reference_value)
-        for p_value, reference_value in zip(p, reference)
-        if p_value > 0.0
+        probability * math.log2(probability / reference_probability)
+        for probability, reference_probability in zip(distribution, reference)
+        if probability > 0.0
     )
 
 

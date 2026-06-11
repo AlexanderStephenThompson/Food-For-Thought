@@ -24,8 +24,8 @@ from pipeline.compile_alias_table import (
     load_merge_decisions,
     validate_compiled_payload,
 )
-from pipeline.load_bronze_recipes import Recipe, build_train_index
 from pipeline.merge_evidence import CuisineShare, MergeEvidence
+from tests.recipe_builders import make_index, repeat_recipes
 
 FIXTURES_DIRECTORY = Path(__file__).parent / "fixtures" / "compile_alias_table"
 
@@ -40,20 +40,6 @@ STANDARD_DECISION_ID = "dark_hot_sauce__vs__hot_sauce"
 EVIDENCE_JSD_BITS = 0.51236
 EVIDENCE_NULL95_BITS = 0.25004
 EVIDENCE_VARIANT_COUNT = 10
-
-
-def make_index(recipe_rows):
-    """Build a TrainIndex from (id, cuisine, ingredients) rows."""
-    recipes = [
-        Recipe(id=row[0], cuisine=row[1], ingredients=tuple(row[2]))
-        for row in recipe_rows
-    ]
-    return build_train_index(recipes)
-
-
-def repeat_recipes(start_id, cuisine, ingredients, count):
-    """Generate count identical single-ingredient-list recipes."""
-    return [(start_id + offset, cuisine, ingredients) for offset in range(count)]
 
 
 def make_standard_index():

@@ -38,7 +38,7 @@ In data-flow order:
 | Vocabulary build | `build_vocabulary` → review queue → `compile_alias_table` |
 | Silver staging | `resolve_ingredient` (runtime fallback chain), `transform_bronze_to_silver`, `build_cuisines` |
 | Quality gates | `validate_silver`, `build_coverage_report` |
-| Shared infrastructure | `artifact_io` (atomic writes, fingerprints), `locations` (every filesystem anchor) |
+| Shared infrastructure | `artifact_io` (serialization, atomic writes, fingerprints), `locations` (every filesystem anchor) |
 
 ## Core rule of the vocabulary
 
@@ -58,7 +58,7 @@ python3 -m venv --without-pip .venv
 .venv/bin/python get-pip.py          # system python has no pip/ensurepip
 .venv/bin/python -m pip install pytest
 
-./manage.sh test      # run the suite (342 tests)
+./manage.sh test      # run the suite (358 tests)
 ./manage.sh rebuild   # rebuild silver from bronze + lexicons (~35s)
 ./manage.sh verify    # prove a rebuild matches disk byte-for-byte
 ./manage.sh all       # the full confidence pass

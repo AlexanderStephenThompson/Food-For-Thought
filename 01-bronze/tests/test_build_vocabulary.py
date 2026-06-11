@@ -16,14 +16,14 @@ from pipeline.build_vocabulary import (
     apply_pair_outcomes,
     build_review_queue_entries,
     build_vocabulary_from_index,
+    count_group_recipes,
     generate_candidate_pairs,
-    group_frequency,
     group_strings_mechanically,
     load_pipeline_lexicons,
     merge_groups_by_strip_and_brand,
-    representative_cleaned,
+    select_representative_cleaned,
 )
-from pipeline.load_bronze_recipes import Recipe, build_train_index
+from tests.recipe_builders import make_index, repeat_recipes
 
 FIXTURE_LEXICONS_DIRECTORY = Path(__file__).parent / "fixtures" / "build_vocabulary"
 PRODUCTION_LEXICONS_DIRECTORY = locations.LEXICONS_DIRECTORY
@@ -32,20 +32,6 @@ PRODUCTION_LEXICONS_DIRECTORY = locations.LEXICONS_DIRECTORY
 @pytest.fixture(scope="module")
 def lexicons():
     return load_pipeline_lexicons(FIXTURE_LEXICONS_DIRECTORY)
-
-
-def make_index(recipe_rows):
-    """Build a TrainIndex from (id, cuisine, ingredients) rows."""
-    recipes = [
-        Recipe(id=row[0], cuisine=row[1], ingredients=tuple(row[2]))
-        for row in recipe_rows
-    ]
-    return build_train_index(recipes)
-
-
-def repeat_recipes(start_id, cuisine, ingredients, count):
-    """Generate count identical single-ingredient-list recipes."""
-    return [(start_id + offset, cuisine, ingredients) for offset in range(count)]
 
 
 class TestMechanicalGrouping:
@@ -114,8 +100,8 @@ class TestStripAndBrandPass:
         groups = group_strings_mechanically(["onions", "chopped onions"], lexicons)
         groups = merge_groups_by_strip_and_brand(groups, lexicons, index)
 
-        assert representative_cleaned(groups["onion"], index) == "onions"
-        assert group_frequency(groups["onion"], index) == 7
+        assert select_representative_cleaned(groups["onion"], index) == "onions"
+        assert count_group_recipes(groups["onion"], index) == 7
 
 
 class TestCandidatePairGeneration:

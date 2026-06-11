@@ -12,11 +12,17 @@ bronze data and lexicons produces byte-identical silver artifacts.
 from __future__ import annotations
 
 import argparse
-import json
+import logging
 import sys
 from dataclasses import dataclass
+from pathlib import Path
 
 from pipeline import locations
+from pipeline.artifact_io import (
+    compute_build_fingerprint,
+    serialize_artifact_json,
+    write_artifact_json,
+)
 from pipeline.build_coverage_report import (
     build_coverage_payload,
     write_coverage_reports,
@@ -32,11 +38,6 @@ from pipeline.compile_alias_table import (
     compile_ingredients_payload,
     load_merge_decisions,
     validate_compiled_payload,
-)
-from pipeline.artifact_io import (
-    ARTIFACT_JSON_INDENT,
-    compute_build_fingerprint,
-    write_artifact_json,
 )
 from pipeline.load_bronze_recipes import (
     BRONZE_TRAIN_PATH,
@@ -60,6 +61,10 @@ RESOLUTION_STATISTICS_PATH = (
     locations.REPORTS_DIRECTORY / "resolution_statistics.json"
 )
 COVERAGE_PATH = locations.REPORTS_DIRECTORY / "coverage.json"
+
+PROGRESS_LOG_FORMAT = "%(message)s"
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -94,13 +99,16 @@ def build_silver_artifacts() -> SilverArtifacts:
     train_recipes = load_train_recipes()
     test_recipes = load_test_recipes()
     index = build_train_index(train_recipes)
-    print(f"loaded {len(train_recipes)} train / {len(test_recipes)} test recipes")
+    logger.info(
+        "loaded %d train / %d test recipes", len(train_recipes), len(test_recipes)
+    )
 
     vocabulary_build = build_vocabulary_from_index(index, lexicons)
     review_queue_entries = list(vocabulary_build.review_entries)
-    print(
-        f"vocabulary build: {len(vocabulary_build.groups)} groups, "
-        f"{len(review_queue_entries)} review entries"
+    logger.info(
+        "vocabulary build: %d groups, %d review entries",
+        len(vocabulary_build.groups),
+        len(review_queue_entries),
     )
 
     decisions = load_merge_decisions(MERGE_DECISIONS_PATH)
@@ -108,10 +116,11 @@ def build_silver_artifacts() -> SilverArtifacts:
         vocabulary_build, decisions, index, fingerprint
     )
     compile_statistics = validate_compiled_payload(ingredients, index)
-    print(
-        f"compiled {compile_statistics.ingredient_count} ingredients, "
-        f"{compile_statistics.alias_count} aliases, "
-        f"coverage {compile_statistics.coverage_ratio:.4f}"
+    logger.info(
+        "compiled %d ingredients, %d aliases, coverage %.4f",
+        compile_statistics.ingredient_count,
+        compile_statistics.alias_count,
+        compile_statistics.coverage_ratio,
     )
 
     resolver = IngredientResolver.from_payload(ingredients, lexicons)
@@ -123,14 +132,16 @@ def build_silver_artifacts() -> SilverArtifacts:
     for split_name, split_statistics in sorted(resolution_statistics.items()):
         unresolved = split_statistics["by_method"]["unresolved"]
         total = split_statistics["mentions_total"]
-        print(f"silver {split_name}: {total} mentions, {unresolved} unresolved")
+        logger.info(
+            "silver %s: %d mentions, %d unresolved", split_name, total, unresolved
+        )
 
     families = load_cuisine_families(CUISINE_FAMILIES_PATH)
     cuisines = build_cuisines_payload(recipes_train, families, fingerprint)
     validate_silver_artifacts(
         ingredients, recipes_train, recipes_test, resolution_statistics
     )
-    print("validation gates: PASS")
+    logger.info("validation gates: PASS")
 
     coverage = build_coverage_payload(resolution_statistics, ingredients, fingerprint)
     return SilverArtifacts(
@@ -158,23 +169,37 @@ def write_silver_artifacts(artifacts: SilverArtifacts) -> None:
     )
     write_artifact_json(artifacts.cuisines, CUISINES_PATH)
     write_coverage_reports(artifacts.coverage, locations.REPORTS_DIRECTORY)
-    print(
-        "wrote silver artifacts to "
-        f"{locations.SILVER_DATASETS_DIRECTORY} and {locations.REPORTS_DIRECTORY}"
+    logger.info(
+        "wrote silver artifacts to %s and %s",
+        locations.SILVER_DATASETS_DIRECTORY,
+        locations.REPORTS_DIRECTORY,
     )
 
 
-def _serialize_artifact(payload: dict) -> str:
-    return (
-        json.dumps(
-            payload, ensure_ascii=False, indent=ARTIFACT_JSON_INDENT, sort_keys=True
-        )
-        + "\n"
-    )
+def find_artifact_mismatches(expected_content_by_path: dict[Path, str]) -> list[str]:
+    """Compare expected artifact content against the files on disk.
+
+    Args:
+        expected_content_by_path: Destination path -> exact expected file
+            content (the canonical serialization, newline-terminated).
+
+    Returns:
+        Names of files that are missing (suffixed " (missing)") or whose
+        bytes differ from the expected content; empty when everything
+        matches.
+    """
+    mismatches = []
+    for path, expected_content in expected_content_by_path.items():
+        if not path.is_file():
+            mismatches.append(f"{path.name} (missing)")
+            continue
+        if path.read_text(encoding="utf-8") != expected_content:
+            mismatches.append(path.name)
+    return mismatches
 
 
 def verify_rebuild_matches_disk(artifacts: SilverArtifacts) -> list[str]:
-    """Compare freshly built payloads against the files on disk.
+    """Compare freshly built payloads against the silver files on disk.
 
     Args:
         artifacts: Payloads from build_silver_artifacts.
@@ -183,24 +208,18 @@ def verify_rebuild_matches_disk(artifacts: SilverArtifacts) -> list[str]:
         Names of artifact files whose on-disk bytes differ from the rebuild
         (empty when the pipeline is idempotent).
     """
-    expected_by_path = {
-        INGREDIENTS_PATH: _serialize_artifact(artifacts.ingredients),
-        RECIPES_TRAIN_PATH: _serialize_artifact(artifacts.recipes_train),
-        RECIPES_TEST_PATH: _serialize_artifact(artifacts.recipes_test),
-        CUISINES_PATH: _serialize_artifact(artifacts.cuisines),
-        RESOLUTION_STATISTICS_PATH: _serialize_artifact(
-            artifacts.resolution_statistics
-        ),
-        COVERAGE_PATH: _serialize_artifact(artifacts.coverage),
-    }
-    mismatches = []
-    for path, expected_content in expected_by_path.items():
-        if not path.is_file():
-            mismatches.append(f"{path.name} (missing)")
-            continue
-        if path.read_text(encoding="utf-8") != expected_content:
-            mismatches.append(path.name)
-    return mismatches
+    return find_artifact_mismatches(
+        {
+            INGREDIENTS_PATH: serialize_artifact_json(artifacts.ingredients),
+            RECIPES_TRAIN_PATH: serialize_artifact_json(artifacts.recipes_train),
+            RECIPES_TEST_PATH: serialize_artifact_json(artifacts.recipes_test),
+            CUISINES_PATH: serialize_artifact_json(artifacts.cuisines),
+            RESOLUTION_STATISTICS_PATH: serialize_artifact_json(
+                artifacts.resolution_statistics
+            ),
+            COVERAGE_PATH: serialize_artifact_json(artifacts.coverage),
+        }
+    )
 
 
 def main() -> int:
@@ -212,6 +231,7 @@ def main() -> int:
         help="rebuild in memory and verify the silver files on disk match",
     )
     arguments = parser.parse_args()
+    logging.basicConfig(level=logging.INFO, format=PROGRESS_LOG_FORMAT)
 
     artifacts = build_silver_artifacts()
     if not arguments.check_idempotent:

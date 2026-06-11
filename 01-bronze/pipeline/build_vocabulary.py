@@ -24,13 +24,12 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
-import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterable
 
 from pipeline import locations
+from pipeline.artifact_io import write_text_atomically
 from pipeline.cuisine_divergence import evaluate_merge_candidate
 from pipeline.load_bronze_recipes import (
     BRONZE_TRAIN_PATH,
@@ -38,7 +37,7 @@ from pipeline.load_bronze_recipes import (
     build_train_index,
     load_train_recipes,
 )
-from pipeline.merge_evidence import MergeEvidence
+from pipeline.merge_evidence import CuisineShare, MergeEvidence
 from pipeline.merge_gate import (
     JSD_FLOOR_BITS,
     NULL_MULTIPLIER,
@@ -69,6 +68,7 @@ ALIAS_SCOPE_MINIMUM_FREQUENCY = 4
 REDUCTION_PASS_LIMIT = 3
 EXAMPLE_RECIPE_ID_LIMIT = 3
 EVIDENCE_DECIMAL_PLACES = 4
+DECISION_ID_SEPARATOR = "__vs__"
 
 MANUAL_ALIASES_FILENAME = "manual_aliases.json"
 VARIANT_MODIFIER_TOKENS_FILENAME = "variant_modifier_tokens.json"
@@ -292,19 +292,36 @@ def group_strings_mechanically(
     return groups
 
 
-def group_frequency(group: VocabularyGroup, index: TrainIndex) -> int:
-    """Count distinct train recipes containing any member of the group."""
+def count_group_recipes(group: VocabularyGroup, index: TrainIndex) -> int:
+    """Count distinct train recipes containing any member of the group.
+
+    Args:
+        group: Vocabulary group whose raw member strings are matched.
+        index: Train index providing string -> recipe-id lookups.
+
+    Returns:
+        Number of distinct train recipes containing at least one member.
+    """
     recipe_ids: set[int] = set()
     for raw in group.members:
         recipe_ids.update(index.string_to_recipe_ids.get(raw, frozenset()))
     return len(recipe_ids)
 
 
-def representative_cleaned(group: VocabularyGroup, index: TrainIndex) -> str:
-    """Return the cleaned form of the group's highest-frequency member.
+def select_representative_cleaned(
+    group: VocabularyGroup, index: TrainIndex
+) -> str:
+    """Select the cleaned form of the group's highest-frequency member.
 
     Synthetic groups created from brand targets return their override name.
     Frequency ties break toward the lexicographically smallest raw string.
+
+    Args:
+        group: Vocabulary group to name.
+        index: Train index providing string -> recipe-id lookups.
+
+    Returns:
+        The cleaned display text representing the group.
     """
     if group.canonical_override is not None:
         return group.canonical_override
@@ -331,7 +348,7 @@ def _reduction_move(
     moving group's own text (a 'Yoplait' group resolving to 'yogurt' must
     name the new group 'yogurt', not 'yoplait').
     """
-    cleaned = representative_cleaned(group, index)
+    cleaned = select_representative_cleaned(group, index)
     brand_generic = resolve_brand_to_generic(cleaned, lexicons.brand_lexicon)
     if brand_generic is not None:
         target_cleaned = clean_ingredient_text(brand_generic)
@@ -371,7 +388,7 @@ def _apply_move(
         target = VocabularyGroup(key=target_key, canonical_override=synthetic_name)
         groups[target_key] = target
     elif target.canonical_override is None:
-        target.canonical_override = representative_cleaned(target, index)
+        target.canonical_override = select_representative_cleaned(target, index)
     for raw, member in moving.members.items():
         target.members[raw] = GroupMember(
             cleaned=member.cleaned, source=source_label, rule=member.rule
@@ -441,7 +458,7 @@ def generate_candidate_pairs(
     scope = {
         key
         for key, group in groups.items()
-        if group_frequency(group, index) >= ALIAS_SCOPE_MINIMUM_FREQUENCY
+        if count_group_recipes(group, index) >= ALIAS_SCOPE_MINIMUM_FREQUENCY
     }
     pairs: list[PairCandidate] = []
     for key in sorted(scope):
@@ -456,7 +473,17 @@ def generate_candidate_pairs(
     return pairs
 
 
-def _resolve_redirects(key: str, redirects: dict[str, str]) -> str:
+def follow_redirects(key: str, redirects: dict[str, str]) -> str:
+    """Chase a group key through merge redirects to the surviving group.
+
+    Args:
+        key: Vocabulary group key to resolve.
+        redirects: Absorbed-key -> absorbing-key map; chains are chased
+            until a key with no redirect remains.
+
+    Returns:
+        The surviving group key (the input key when never absorbed).
+    """
     while key in redirects:
         key = redirects[key]
     return key
@@ -476,8 +503,8 @@ def _record_merge(
     merging into 'pepper' must leave the concept named 'pepper' even when
     the variant's raw string is more frequent.
     """
-    source_key = _resolve_redirects(pair.variant_key, redirects)
-    target_key = _resolve_redirects(pair.base_key, redirects)
+    source_key = follow_redirects(pair.variant_key, redirects)
+    target_key = follow_redirects(pair.base_key, redirects)
     if source_key == target_key or source_key not in groups:
         return
     alias_source = LAYER_TO_ALIAS_SOURCE.get(decision.layer, "statistical_gate")
@@ -492,12 +519,54 @@ def _record_merge(
     redirects[source_key] = target_key
 
 
+def _build_review_candidate(
+    pair: PairCandidate,
+    variant_group: VocabularyGroup,
+    variant_cleaned: str,
+    base_cleaned: str,
+    evidence: MergeEvidence,
+    decision: GateDecision,
+) -> ReviewCandidate:
+    """Package one REVIEW outcome with everything its queue entry needs."""
+    return ReviewCandidate(
+        variant_key=pair.variant_key,
+        base_key=pair.base_key,
+        variant_cleaned=variant_cleaned,
+        base_cleaned=base_cleaned,
+        variant_raw_strings=tuple(sorted(variant_group.members)),
+        evidence=evidence,
+        gate_layer=decision.layer,
+        gate_reason=decision.reason,
+    )
+
+
+def _link_preserved_variants(
+    preserve_records: list[tuple[str, str, GateDecision, MergeEvidence]],
+    redirects: dict[str, str],
+) -> dict[str, PreservedVariant]:
+    """Link each gate-preserved variant to its surviving base group."""
+    return {
+        variant_key: PreservedVariant(
+            base_key=follow_redirects(base_key, redirects),
+            layer=decision.layer,
+            reason=decision.reason,
+            evidence=evidence,
+        )
+        for variant_key, base_key, decision, evidence in preserve_records
+    }
+
+
 def apply_pair_outcomes(
     groups: dict[str, VocabularyGroup],
     pairs: list[PairCandidate],
     lexicons: PipelineLexicons,
     index: TrainIndex,
-) -> tuple[dict[str, VocabularyGroup], dict[str, str], list[ReviewCandidate]]:
+) -> tuple[
+    dict[str, VocabularyGroup],
+    dict[str, PreservedVariant],
+    list[ReviewCandidate],
+    dict[str, str],
+]:
     """Run the merge gate over every pair and apply the verdicts (pass 4).
 
     Args:
@@ -512,22 +581,24 @@ def apply_pair_outcomes(
         deciding layer and evidence, review_candidates holds every REVIEW
         outcome for queue serialization, and absorbed_into maps each
         gate-merged group key to the key that absorbed it (chains possible;
-        consumers must chase them).
+        consumers chase them via follow_redirects).
     """
-    ordered = sorted(pairs, key=lambda p: (-len(p.variant_key.split()), p.variant_key))
+    ordered = sorted(
+        pairs, key=lambda pair: (-len(pair.variant_key.split()), pair.variant_key)
+    )
     redirects: dict[str, str] = {}
-    preserve_records: list[tuple[str, str, object, MergeEvidence]] = []
+    preserve_records: list[tuple[str, str, GateDecision, MergeEvidence]] = []
     review_candidates: list[ReviewCandidate] = []
     for pair in ordered:
-        variant_group = groups[_resolve_redirects(pair.variant_key, redirects)]
-        base_group = groups[_resolve_redirects(pair.base_key, redirects)]
+        variant_group = groups[follow_redirects(pair.variant_key, redirects)]
+        base_group = groups[follow_redirects(pair.base_key, redirects)]
         evidence = evaluate_merge_candidate(
             tuple(sorted(variant_group.members)),
             tuple(sorted(base_group.members)),
             index,
         )
-        variant_cleaned = representative_cleaned(variant_group, index)
-        base_cleaned = representative_cleaned(base_group, index)
+        variant_cleaned = select_representative_cleaned(variant_group, index)
+        base_cleaned = select_representative_cleaned(base_group, index)
         decision = decide_merge(
             variant_cleaned, base_cleaned, evidence, lexicons.gate_lexicons
         )
@@ -539,30 +610,21 @@ def apply_pair_outcomes(
             )
         else:
             review_candidates.append(
-                ReviewCandidate(
-                    variant_key=pair.variant_key,
-                    base_key=pair.base_key,
-                    variant_cleaned=variant_cleaned,
-                    base_cleaned=base_cleaned,
-                    variant_raw_strings=tuple(sorted(variant_group.members)),
-                    evidence=evidence,
-                    gate_layer=decision.layer,
-                    gate_reason=decision.reason,
+                _build_review_candidate(
+                    pair,
+                    variant_group,
+                    variant_cleaned,
+                    base_cleaned,
+                    evidence,
+                    decision,
                 )
             )
-    preserved = {
-        variant: PreservedVariant(
-            base_key=_resolve_redirects(base, redirects),
-            layer=decision.layer,
-            reason=decision.reason,
-            evidence=evidence,
-        )
-        for variant, base, decision, evidence in preserve_records
-    }
+    preserved = _link_preserved_variants(preserve_records, redirects)
     return groups, preserved, review_candidates, redirects
 
 
-def _cuisine_shares_to_dicts(shares) -> list[dict]:
+def _cuisine_shares_to_dicts(shares: Iterable[CuisineShare]) -> list[dict]:
+    """Serialize cuisine shares to rounded dicts for queue entries."""
     return [
         {
             "cuisine": share.cuisine,
@@ -574,11 +636,62 @@ def _cuisine_shares_to_dicts(shares) -> list[dict]:
 
 
 def _suggested_decision(evidence: MergeEvidence) -> str:
+    """Suggest 'preserve' or 'merge' from the gate's statistical thresholds."""
     is_preserve = (
         evidence.jsd_bits >= JSD_FLOOR_BITS
         and evidence.jsd_to_null_ratio >= NULL_MULTIPLIER
     )
     return "preserve" if is_preserve else "merge"
+
+
+def make_decision_id(variant_key: str, base_key: str) -> str:
+    """Build the canonical decision id for a (variant, base) review pair.
+
+    Queue entries are written and merge decisions are matched back through
+    this one format, so writer and consumer can never drift apart.
+
+    Args:
+        variant_key: Vocabulary group key of the variant.
+        base_key: Vocabulary group key of the base.
+
+    Returns:
+        '<variant>__vs__<base>' with spaces replaced by underscores.
+    """
+    return (
+        variant_key.replace(" ", "_")
+        + DECISION_ID_SEPARATOR
+        + base_key.replace(" ", "_")
+    )
+
+
+def _serialize_review_candidate(
+    candidate: ReviewCandidate, index: TrainIndex
+) -> dict:
+    """Serialize one REVIEW outcome into a self-contained queue entry."""
+    evidence = candidate.evidence
+    example_ids: set[int] = set()
+    for raw in candidate.variant_raw_strings:
+        example_ids.update(index.string_to_recipe_ids.get(raw, frozenset()))
+    return {
+        "decision_id": make_decision_id(candidate.variant_key, candidate.base_key),
+        "variant_string": candidate.variant_cleaned,
+        "base_string": candidate.base_cleaned,
+        "variant_train_frequency": evidence.variant_count,
+        "base_train_frequency": evidence.base_count,
+        "jsd_bits": round(evidence.jsd_bits, EVIDENCE_DECIMAL_PLACES),
+        "null95_bits": round(evidence.null95_bits, EVIDENCE_DECIMAL_PLACES),
+        "jsd_to_null_ratio": round(
+            evidence.jsd_to_null_ratio, EVIDENCE_DECIMAL_PLACES
+        ),
+        "variant_top_cuisines": _cuisine_shares_to_dicts(
+            evidence.variant_top_cuisines
+        ),
+        "base_top_cuisines": _cuisine_shares_to_dicts(evidence.base_top_cuisines),
+        "example_recipe_ids": sorted(example_ids)[:EXAMPLE_RECIPE_ID_LIMIT],
+        "gate_route": candidate.gate_layer,
+        "suggested_decision": _suggested_decision(evidence),
+        "suggestion_reason": candidate.gate_reason,
+    }
 
 
 def build_review_queue_entries(
@@ -596,39 +709,10 @@ def build_review_queue_entries(
     Returns:
         Queue entries ready for JSONL serialization.
     """
-    entries = []
-    for candidate in review_candidates:
-        evidence = candidate.evidence
-        example_ids: set[int] = set()
-        for raw in candidate.variant_raw_strings:
-            example_ids.update(index.string_to_recipe_ids.get(raw, frozenset()))
-        entries.append(
-            {
-                "decision_id": (
-                    f"{candidate.variant_key.replace(' ', '_')}"
-                    f"__vs__{candidate.base_key.replace(' ', '_')}"
-                ),
-                "variant_string": candidate.variant_cleaned,
-                "base_string": candidate.base_cleaned,
-                "variant_train_frequency": evidence.variant_count,
-                "base_train_frequency": evidence.base_count,
-                "jsd_bits": round(evidence.jsd_bits, EVIDENCE_DECIMAL_PLACES),
-                "null95_bits": round(evidence.null95_bits, EVIDENCE_DECIMAL_PLACES),
-                "jsd_to_null_ratio": round(
-                    evidence.jsd_to_null_ratio, EVIDENCE_DECIMAL_PLACES
-                ),
-                "variant_top_cuisines": _cuisine_shares_to_dicts(
-                    evidence.variant_top_cuisines
-                ),
-                "base_top_cuisines": _cuisine_shares_to_dicts(
-                    evidence.base_top_cuisines
-                ),
-                "example_recipe_ids": sorted(example_ids)[:EXAMPLE_RECIPE_ID_LIMIT],
-                "gate_route": candidate.gate_layer,
-                "suggested_decision": _suggested_decision(evidence),
-                "suggestion_reason": candidate.gate_reason,
-            }
-        )
+    entries = [
+        _serialize_review_candidate(candidate, index)
+        for candidate in review_candidates
+    ]
     return sorted(entries, key=lambda entry: entry["decision_id"])
 
 
@@ -655,7 +739,7 @@ def build_vocabulary_from_index(
     alias_scope_keys = frozenset(
         key
         for key, group in groups.items()
-        if group_frequency(group, index) >= ALIAS_SCOPE_MINIMUM_FREQUENCY
+        if count_group_recipes(group, index) >= ALIAS_SCOPE_MINIMUM_FREQUENCY
     )
     return VocabularyBuild(
         groups=groups,
@@ -678,12 +762,7 @@ def write_review_queue_to_path(entries: Iterable[dict], path: Path) -> None:
         json.dumps(entry, ensure_ascii=False, sort_keys=True) for entry in entries
     ]
     content = "\n".join(lines) + "\n" if lines else ""
-    descriptor, temporary_path = tempfile.mkstemp(
-        dir=path.parent, prefix=path.name, suffix=".tmp"
-    )
-    with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
-        handle.write(content)
-    os.replace(temporary_path, path)
+    write_text_atomically(content, path)
 
 
 def main() -> None:

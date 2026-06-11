@@ -32,9 +32,11 @@ from pipeline.build_vocabulary import (
     VocabularyBuild,
     VocabularyGroup,
     build_vocabulary_from_index,
-    group_frequency,
+    count_group_recipes,
+    follow_redirects,
     load_pipeline_lexicons,
-    representative_cleaned,
+    make_decision_id,
+    select_representative_cleaned,
 )
 from pipeline.artifact_io import (
     SCHEMA_VERSION,
@@ -54,7 +56,6 @@ DEFAULT_OUTPUT_PATH = locations.SILVER_DATASETS_DIRECTORY / "ingredients.json"
 DECISION_MERGE = "merge"
 DECISION_PRESERVE = "preserve"
 DECISION_MERGE_INTO_PREFIX = "merge_into:"
-DECISION_ID_SEPARATOR = "__vs__"
 REQUIRED_DECISION_FIELDS = ("decision_id", "decision", "decided_by", "note")
 
 MANUAL_REVIEW_SOURCE = "manual_review"
@@ -90,23 +91,6 @@ class CompileStatistics:
     covered_mention_count: int
     total_mention_count: int
     coverage_ratio: float
-
-
-def make_decision_id(variant_key: str, base_key: str) -> str:
-    """Build the canonical decision id for a (variant, base) review pair.
-
-    Args:
-        variant_key: Vocabulary group key of the variant.
-        base_key: Vocabulary group key of the base.
-
-    Returns:
-        '<variant>__vs__<base>' with spaces replaced by underscores.
-    """
-    return (
-        variant_key.replace(" ", "_")
-        + DECISION_ID_SEPARATOR
-        + base_key.replace(" ", "_")
-    )
 
 
 def load_merge_decisions(path: Path) -> dict[str, dict]:
@@ -228,13 +212,6 @@ def _require_decision_alignment(
     raise ValueError("; ".join(problems))
 
 
-def _follow_redirects(key: str, redirects: dict[str, str]) -> str:
-    """Chase decision-applied merges to the surviving group key."""
-    while key in redirects:
-        key = redirects[key]
-    return key
-
-
 def _apply_merge_verdicts(
     candidates: dict[str, ReviewCandidate],
     decisions: dict[str, dict],
@@ -274,7 +251,7 @@ def _resolve_merge_target(
         named_target = candidate.base_key
     else:
         named_target = decision[len(DECISION_MERGE_INTO_PREFIX):]
-    target_key = _follow_redirects(named_target, redirects)
+    target_key = follow_redirects(named_target, redirects)
     if target_key == candidate.variant_key or target_key not in build.groups:
         decision_id = make_decision_id(candidate.variant_key, candidate.base_key)
         raise ValueError(
@@ -303,7 +280,7 @@ def _absorb_variant_group(
     moving_group = build.groups.pop(variant_key)
     target_group = build.groups[target_key]
     if target_group.canonical_override is None:
-        target_group.canonical_override = representative_cleaned(
+        target_group.canonical_override = select_representative_cleaned(
             target_group, index
         )
     for raw in sorted(moving_group.members):
@@ -326,7 +303,7 @@ def _apply_preserve_verdicts(
             continue
         candidate = candidates[decision_id]
         build.preserved[candidate.variant_key] = PreservedVariant(
-            base_key=_follow_redirects(candidate.base_key, redirects),
+            base_key=follow_redirects(candidate.base_key, redirects),
             layer=MANUAL_REVIEW_LAYER,
             reason=record["note"],
             evidence=candidate.evidence,
@@ -384,7 +361,7 @@ def compile_ingredients_payload(
     eligible_groups = {
         key: build.groups[key]
         for key in sorted(build.groups)
-        if group_frequency(build.groups[key], index)
+        if count_group_recipes(build.groups[key], index)
         >= ALIAS_SCOPE_MINIMUM_FREQUENCY
     }
     parent_links = _resolve_parent_links(build, eligible_groups, index)
@@ -425,7 +402,7 @@ def _resolve_parent_links(
                 f"{root_key!r} was absorbed or sits outside the vocabulary"
             )
         parent_id = slugify_ingredient_name(
-            representative_cleaned(base_group, index)
+            select_representative_cleaned(base_group, index)
         )
         links[variant_key] = (parent_id, _preserve_evidence_to_dict(preserved))
     return links
@@ -467,14 +444,14 @@ def _build_ingredient_entry(
     parent_link: tuple[str, dict] | None,
 ) -> dict:
     """Assemble one pinned-schema ingredient entry from a vocabulary group."""
-    name = representative_cleaned(group, index)
+    name = select_representative_cleaned(group, index)
     parent_id, preserve_evidence = parent_link or (None, None)
     return {
         "id": slugify_ingredient_name(name),
         "name": name,
         "category": None,
         "parent_id": parent_id,
-        "train_mention_count": group_frequency(group, index),
+        "train_mention_count": count_group_recipes(group, index),
         "preserve_evidence": preserve_evidence,
         "aliases": _build_alias_entries(group, index),
     }

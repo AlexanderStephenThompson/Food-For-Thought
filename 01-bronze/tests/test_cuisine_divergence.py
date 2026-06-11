@@ -15,9 +15,9 @@ from pipeline.cuisine_divergence import (
     VERDICT_REVIEW,
     classify_merge_verdict,
     compute_cuisine_distribution,
+    estimate_null95_bits,
     evaluate_merge_candidate,
     jensen_shannon_divergence_bits,
-    monte_carlo_null95,
 )
 from pipeline.load_bronze_recipes import Recipe, TrainIndex, build_train_index
 from pipeline.merge_evidence import MergeEvidence
@@ -90,10 +90,10 @@ def test_jsd_raises_on_negative_probability():
 def test_null95_shrinks_with_sample_size():
     base_distribution = (0.5, 0.3, 0.2)
 
-    null_at_small_sample = monte_carlo_null95(
+    null_at_small_sample = estimate_null95_bits(
         base_distribution, sample_size=20, trials=FAST_TRIALS
     )
-    null_at_large_sample = monte_carlo_null95(
+    null_at_large_sample = estimate_null95_bits(
         base_distribution, sample_size=400, trials=FAST_TRIALS
     )
 
@@ -103,10 +103,10 @@ def test_null95_shrinks_with_sample_size():
 def test_null95_reproducible_with_fixed_seed():
     base_distribution = (0.6, 0.25, 0.15)
 
-    first_value = monte_carlo_null95(base_distribution, sample_size=50, trials=FAST_TRIALS, seed=7)
+    first_value = estimate_null95_bits(base_distribution, sample_size=50, trials=FAST_TRIALS, seed=7)
     # Clear the memo cache so the second call recomputes instead of replaying it.
     cuisine_divergence._NULL95_CACHE.clear()
-    second_value = monte_carlo_null95(base_distribution, sample_size=50, trials=FAST_TRIALS, seed=7)
+    second_value = estimate_null95_bits(base_distribution, sample_size=50, trials=FAST_TRIALS, seed=7)
 
     assert first_value == second_value
 
@@ -115,15 +115,15 @@ def test_null95_memoizes_repeat_calls():
     cuisine_divergence._NULL95_CACHE.clear()
     base_distribution = (0.4, 0.4, 0.2)
 
-    monte_carlo_null95(base_distribution, sample_size=30, trials=FAST_TRIALS)
-    monte_carlo_null95(base_distribution, sample_size=30, trials=FAST_TRIALS)
+    estimate_null95_bits(base_distribution, sample_size=30, trials=FAST_TRIALS)
+    estimate_null95_bits(base_distribution, sample_size=30, trials=FAST_TRIALS)
 
     assert len(cuisine_divergence._NULL95_CACHE) == 1
 
 
 def test_null95_raises_on_zero_sample_size():
     with pytest.raises(ValueError):
-        monte_carlo_null95((0.5, 0.5), sample_size=0)
+        estimate_null95_bits((0.5, 0.5), sample_size=0)
 
 
 def test_distribution_uses_recipe_level_union():

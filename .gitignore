@@ -2,3 +2,9 @@
 __pycache__/
 .pytest_cache/
 *.pyc
+
+# OS metadata (repo lives on a Windows mount)
+Thumbs.db
+ehthumbs.db
+desktop.ini
+.DS_Store

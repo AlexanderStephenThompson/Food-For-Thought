@@ -9,11 +9,9 @@ no file I/O happens at import time.
 
 from __future__ import annotations
 
-import os
-import tempfile
 from pathlib import Path
 
-from pipeline.artifact_io import write_artifact_json
+from pipeline.artifact_io import write_artifact_json, write_text_atomically
 
 RESOLUTION_SPLITS = ("train", "test")
 RESOLUTION_METHODS = (
@@ -51,11 +49,11 @@ HISTOGRAM_BUCKET_LABELS = tuple(
 TOP_UNRESOLVED_LIMIT = 50
 MARKDOWN_UNRESOLVED_LIMIT = 20
 PERCENTAGE_DECIMAL_PLACES = 4
+MARKDOWN_PERCENTAGE_DECIMAL_PLACES = 2
 SHORT_HASH_LENGTH = 12
 
 COVERAGE_JSON_FILENAME = "coverage.json"
 COVERAGE_MARKDOWN_FILENAME = "coverage_report.md"
-REPORT_FILE_ENCODING = "utf-8"
 LINE_SEPARATOR = "\n"
 
 
@@ -121,7 +119,7 @@ def write_coverage_reports(coverage_payload: dict, reports_directory: Path) -> N
     """
     write_artifact_json(coverage_payload, reports_directory / COVERAGE_JSON_FILENAME)
     markdown = render_coverage_markdown(coverage_payload)
-    _write_text_atomically(markdown, reports_directory / COVERAGE_MARKDOWN_FILENAME)
+    _write_markdown_report(markdown, reports_directory / COVERAGE_MARKDOWN_FILENAME)
 
 
 def _summarize_split(split_statistics: dict) -> dict:
@@ -237,8 +235,8 @@ def _render_resolution_section(split: str, split_summary: dict) -> list[str]:
 
 
 def _format_percentage(fraction: float) -> str:
-    """Render a 0..1 fraction as a fixed two-decimal percentage string."""
-    return f"{fraction * 100:.2f}%"
+    """Render a 0..1 fraction as a fixed-decimal percentage for Markdown."""
+    return f"{fraction * 100:.{MARKDOWN_PERCENTAGE_DECIMAL_PLACES}f}%"
 
 
 def _render_vocabulary_section(vocabulary: dict) -> list[str]:
@@ -284,13 +282,8 @@ def _render_unresolved_section(top_unresolved: list[dict]) -> list[str]:
     return lines
 
 
-def _write_text_atomically(content: str, path: Path) -> None:
-    """Write text via a sibling temp file and os.replace; ensure newline end."""
+def _write_markdown_report(content: str, path: Path) -> None:
+    """Atomically write a Markdown report, guaranteeing a trailing newline."""
     if not content.endswith(LINE_SEPARATOR):
         content += LINE_SEPARATOR
-    descriptor, temporary_path = tempfile.mkstemp(
-        dir=path.parent, prefix=path.name, suffix=".tmp"
-    )
-    with os.fdopen(descriptor, "w", encoding=REPORT_FILE_ENCODING) as handle:
-        handle.write(content)
-    os.replace(temporary_path, path)
+    write_text_atomically(content, path)
