@@ -1,8 +1,9 @@
-"""Shared I/O contracts for staged artifacts: atomic writes and fingerprints.
+"""Shared I/O contracts for pipeline artifacts: atomic writes and fingerprints.
 
-Every staged file embeds a build block identifying exactly which raw data
-and lexicon state produced it, and is written atomically with deterministic
-serialization so a rebuild is byte-identical.
+Every artifact file (silver payloads and reports) embeds a build block
+identifying exactly which bronze data and lexicon state produced it, and is
+written atomically with deterministic serialization so a rebuild is
+byte-identical.
 """
 
 from __future__ import annotations
@@ -15,7 +16,7 @@ from pathlib import Path
 
 SCHEMA_VERSION = 1
 BUILD_RANDOM_SEED = 42
-STAGED_JSON_INDENT = 2
+ARTIFACT_JSON_INDENT = 2
 
 
 def sha256_of_file(path: Path) -> str:
@@ -30,10 +31,10 @@ def sha256_of_file(path: Path) -> str:
 def compute_build_fingerprint(
     train_path: Path, lexicons_directory: Path
 ) -> dict:
-    """Fingerprint the inputs that determine every staged artifact.
+    """Fingerprint the inputs that determine every pipeline artifact.
 
     Args:
-        train_path: Path to the raw train JSON.
+        train_path: Path to the bronze train JSON.
         lexicons_directory: Directory of curated lexicon files.
 
     Returns:
@@ -51,15 +52,15 @@ def compute_build_fingerprint(
     }
 
 
-def write_staged_json(payload: dict, path: Path) -> None:
-    """Atomically write a staged artifact with deterministic serialization.
+def write_artifact_json(payload: dict, path: Path) -> None:
+    """Atomically write a pipeline artifact with deterministic serialization.
 
     Args:
         payload: JSON-serializable artifact content.
         path: Destination path; parent directory must exist.
     """
     content = json.dumps(
-        payload, ensure_ascii=False, indent=STAGED_JSON_INDENT, sort_keys=True
+        payload, ensure_ascii=False, indent=ARTIFACT_JSON_INDENT, sort_keys=True
     )
     descriptor, temporary_path = tempfile.mkstemp(
         dir=path.parent, prefix=path.name, suffix=".tmp"

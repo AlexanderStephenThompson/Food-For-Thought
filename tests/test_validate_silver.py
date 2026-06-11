@@ -1,4 +1,4 @@
-"""Tests for pipeline.validate_staged.
+"""Tests for pipeline.validate_silver.
 
 Each validator gate gets one test that corrupts an otherwise valid tiny
 payload and asserts ValidationError names the gate; one end-to-end test
@@ -10,9 +10,9 @@ import copy
 
 import pytest
 
-import pipeline.validate_staged as validate_staged
-from pipeline.staged_io import SCHEMA_VERSION
-from pipeline.validate_staged import (
+import pipeline.validate_silver as validate_silver
+from pipeline.artifact_io import SCHEMA_VERSION
+from pipeline.validate_silver import (
     EXPECTED_CUISINE_NAMES,
     EXPECTED_TEST_RECIPE_COUNT,
     EXPECTED_TRAIN_RECIPE_COUNT,
@@ -20,7 +20,7 @@ from pipeline.validate_staged import (
     validate_ingredients_payload,
     validate_recipes_payload,
     validate_resolution_statistics,
-    validate_staged_artifacts,
+    validate_silver_artifacts,
 )
 
 BUILD_FINGERPRINT = {
@@ -186,10 +186,10 @@ def _build_statistics() -> dict:
 
 def _patch_expected_counts(monkeypatch) -> None:
     monkeypatch.setattr(
-        validate_staged, "EXPECTED_TRAIN_RECIPE_COUNT", FIXTURE_TRAIN_RECIPE_COUNT
+        validate_silver, "EXPECTED_TRAIN_RECIPE_COUNT", FIXTURE_TRAIN_RECIPE_COUNT
     )
     monkeypatch.setattr(
-        validate_staged, "EXPECTED_TEST_RECIPE_COUNT", FIXTURE_TEST_RECIPE_COUNT
+        validate_silver, "EXPECTED_TEST_RECIPE_COUNT", FIXTURE_TEST_RECIPE_COUNT
     )
 
 
@@ -408,7 +408,7 @@ def test_by_method_sum_mismatch_raises():
 def test_valid_artifacts_pass(monkeypatch):
     _patch_expected_counts(monkeypatch)
 
-    validate_staged_artifacts(
+    validate_silver_artifacts(
         _build_ingredients_payload(),
         _build_train_payload(),
         _build_test_payload(),
@@ -422,7 +422,7 @@ def test_fingerprint_mismatch_raises(monkeypatch):
     test_payload["build"]["train_sha256"] = "c" * 64
 
     with pytest.raises(ValidationError, match="fingerprint"):
-        validate_staged_artifacts(
+        validate_silver_artifacts(
             _build_ingredients_payload(),
             _build_train_payload(),
             test_payload,

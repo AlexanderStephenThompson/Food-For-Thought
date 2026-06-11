@@ -1,8 +1,8 @@
-"""Stage raw recipes into the pinned staged payloads via an injected resolver.
+"""Stage bronze recipes into the pinned silver payloads via an injected resolver.
 
 stage_recipes maps every raw ingredient string of every recipe through a
 duck-typed resolver (any object with resolve(raw_text) returning an object
-with ingredient_id, method, dropped_tokens) and produces both the staged
+with ingredient_id, method, dropped_tokens) and produces both the silver
 recipes payload and the per-split resolution statistics block. The concrete
 IngredientResolver is constructed elsewhere and injected by the orchestrator;
 this module never imports it.
@@ -14,8 +14,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Protocol, Sequence
 
-from pipeline.load_raw_recipes import Recipe
-from pipeline.staged_io import SCHEMA_VERSION, write_staged_json
+from pipeline.artifact_io import SCHEMA_VERSION, write_artifact_json
+from pipeline.load_bronze_recipes import Recipe
 
 TOP_UNRESOLVED_LIMIT = 50
 UNRESOLVED_METHOD = "unresolved"
@@ -84,7 +84,7 @@ def _validate_resolution(raw_text: str, resolution: ResolutionLike) -> None:
 def _stage_single_recipe(
     recipe: Recipe, resolver: ResolverLike, unresolved_counter: Counter
 ) -> tuple[dict, Counter]:
-    """Resolve one recipe's mentions into a staged record and method counts."""
+    """Resolve one recipe's mentions into a silver record and method counts."""
     ingredient_ids: list[str] = []
     unresolved_ingredients: list[str] = []
     method_counts: Counter = Counter()
@@ -121,14 +121,14 @@ def stage_recipes(
     """Stage one split of recipes and tally its resolution statistics.
 
     Args:
-        recipes: Raw recipes for one split (train or test).
+        recipes: Bronze recipes for one split (train or test).
         resolver: Injected object whose resolve(raw_text) returns an outcome
             with ingredient_id, method, and dropped_tokens attributes.
         fingerprint: Build block with train_sha256, lexicon_fingerprint,
             and random_seed.
 
     Returns:
-        Tuple of (staged recipes payload per the pinned schema, statistics
+        Tuple of (silver recipes payload per the pinned schema, statistics
         block with mentions_total, zero-filled by_method counts, and
         top_unresolved capped at TOP_UNRESOLVED_LIMIT).
 
@@ -140,17 +140,17 @@ def stage_recipes(
     _validate_fingerprint(fingerprint)
     unresolved_counter: Counter = Counter()
     total_method_counts: Counter = Counter()
-    staged_records: list[dict] = []
+    silver_records: list[dict] = []
     for recipe in recipes:
         record, method_counts = _stage_single_recipe(
             recipe, resolver, unresolved_counter
         )
-        staged_records.append(record)
+        silver_records.append(record)
         total_method_counts.update(method_counts)
     payload = {
         "schema_version": SCHEMA_VERSION,
         "build": dict(fingerprint),
-        "recipes": sorted(staged_records, key=lambda record: record["id"]),
+        "recipes": sorted(silver_records, key=lambda record: record["id"]),
     }
     statistics = {
         "mentions_total": sum(total_method_counts.values()),
@@ -163,20 +163,20 @@ def stage_recipes(
     return payload, statistics
 
 
-def write_staged_recipes(
+def write_silver_recipes(
     train_payload: dict,
     test_payload: dict,
     statistics_by_split: dict,
     output_directory: Path,
     reports_directory: Path,
 ) -> None:
-    """Persist both staged recipe splits and the combined statistics report.
+    """Persist both silver recipe splits and the combined statistics report.
 
     Args:
-        train_payload: Staged train recipes payload from stage_recipes.
-        test_payload: Staged test recipes payload from stage_recipes.
+        train_payload: Silver train recipes payload from stage_recipes.
+        test_payload: Silver test recipes payload from stage_recipes.
         statistics_by_split: Mapping with 'train' and 'test' statistics blocks.
-        output_directory: Directory receiving the staged recipe files.
+        output_directory: Directory receiving the silver recipe files.
         reports_directory: Directory receiving the resolution statistics.
 
     Raises:
@@ -190,11 +190,11 @@ def write_staged_recipes(
         raise ValueError(
             f"statistics_by_split is missing splits: {missing_splits}"
         )
-    write_staged_json(train_payload, output_directory / TRAIN_RECIPES_FILENAME)
-    write_staged_json(test_payload, output_directory / TEST_RECIPES_FILENAME)
+    write_artifact_json(train_payload, output_directory / TRAIN_RECIPES_FILENAME)
+    write_artifact_json(test_payload, output_directory / TEST_RECIPES_FILENAME)
     statistics_report = {
         split: statistics_by_split[split] for split in REQUIRED_STATISTICS_SPLITS
     }
-    write_staged_json(
+    write_artifact_json(
         statistics_report, reports_directory / RESOLUTION_STATISTICS_FILENAME
     )

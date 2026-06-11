@@ -1,4 +1,4 @@
-"""Tests for pipeline.load_raw_recipes.
+"""Tests for pipeline.load_bronze_recipes.
 
 Schema/shape tests run against tiny JSON fixtures under
 tests/fixtures/cuisine_divergence/; count-validation tests run against the
@@ -9,9 +9,9 @@ from pathlib import Path
 
 import pytest
 
-from pipeline.load_raw_recipes import (
-    RAW_TEST_PATH,
-    RAW_TRAIN_PATH,
+from pipeline.load_bronze_recipes import (
+    BRONZE_TEST_PATH,
+    BRONZE_TRAIN_PATH,
     Recipe,
     SchemaValidationError,
     build_train_index,
@@ -81,10 +81,10 @@ def test_load_train_recipes_raises_on_invalid_json():
         load_train_recipes(path=INVALID_JSON_FIXTURE)
 
 
-def test_paths_point_at_raw_kaggle_files():
-    assert RAW_TRAIN_PATH.name == "train.json"
-    assert RAW_TEST_PATH.name == "test.json"
-    assert RAW_TRAIN_PATH.parent.name == "kaggle"
+def test_paths_point_at_bronze_kaggle_files():
+    assert BRONZE_TRAIN_PATH.name == "train.json"
+    assert BRONZE_TEST_PATH.name == "test.json"
+    assert BRONZE_TRAIN_PATH.parent.name == "kaggle"
 
 
 def test_build_train_index_counts_recipes_and_cuisines():

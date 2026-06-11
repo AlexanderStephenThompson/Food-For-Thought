@@ -6,7 +6,7 @@ ampersand mapping, apostrophe deletion, punctuation folding, whitespace
 collapse, and the degenerate-key guard.
 
 Trap strings come from the brands-noise and morphology analysis lenses
-over raw/kaggle/train.json.
+over bronze/kaggle/train.json.
 """
 
 import pytest

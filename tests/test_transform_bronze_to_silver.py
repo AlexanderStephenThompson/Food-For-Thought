@@ -1,8 +1,8 @@
-"""Tests for pipeline.transform_raw_to_staged.
+"""Tests for pipeline.transform_bronze_to_silver.
 
-stage_recipes turns raw Recipe records plus an injected resolver into the
-pinned staged recipes payload and a per-split resolution statistics block;
-write_staged_recipes persists both splits and the combined statistics report.
+stage_recipes turns bronze Recipe records plus an injected resolver into the
+pinned silver recipes payload and a per-split resolution statistics block;
+write_silver_recipes persists both splits and the combined statistics report.
 
 The resolver is a duck-typed stub here: the concrete IngredientResolver is
 built elsewhere and injected by the orchestrator, never imported.
@@ -14,15 +14,15 @@ from pathlib import Path
 
 import pytest
 
-from pipeline.load_raw_recipes import Recipe
-from pipeline.staged_io import SCHEMA_VERSION
-from pipeline.transform_raw_to_staged import (
+from pipeline.artifact_io import SCHEMA_VERSION
+from pipeline.load_bronze_recipes import Recipe
+from pipeline.transform_bronze_to_silver import (
     TOP_UNRESOLVED_LIMIT,
     stage_recipes,
-    write_staged_recipes,
+    write_silver_recipes,
 )
 
-FIXTURE_DIRECTORY = Path(__file__).parent / "fixtures" / "transform_raw_to_staged"
+FIXTURE_DIRECTORY = Path(__file__).parent / "fixtures" / "transform_bronze_to_silver"
 SAMPLE_RECIPES_PATH = FIXTURE_DIRECTORY / "sample_recipes.json"
 
 FINGERPRINT = {
@@ -99,12 +99,12 @@ def test_unresolved_strings_recorded_verbatim():
 
     payload, _ = stage_recipes([recipe], StubResolver(SAMPLE_OUTCOMES), FINGERPRINT)
 
-    staged_recipe = payload["recipes"][0]
-    assert staged_recipe["unresolved_ingredients"] == [
+    silver_recipe = payload["recipes"][0]
+    assert silver_recipe["unresolved_ingredients"] == [
         "Mystery Brand™ Goo",
         "Mystery Brand™ Goo",
     ]
-    assert staged_recipe["ingredient_ids"] == ["soy_sauce"]
+    assert silver_recipe["ingredient_ids"] == ["soy_sauce"]
 
 
 def test_cuisine_omitted_for_test_split():
@@ -234,29 +234,29 @@ def test_missing_fingerprint_field_raises():
         stage_recipes([recipe], StubResolver(SAMPLE_OUTCOMES), {"random_seed": 42})
 
 
-def test_write_staged_recipes_writes_three_files(tmp_path):
+def test_write_silver_recipes_writes_three_files(tmp_path):
     train_recipes, test_recipes = _load_sample_recipes()
     resolver = StubResolver(SAMPLE_OUTCOMES)
     train_payload, train_statistics = stage_recipes(train_recipes, resolver, FINGERPRINT)
     test_payload, test_statistics = stage_recipes(test_recipes, resolver, FINGERPRINT)
-    staged_directory = tmp_path / "staged"
+    silver_directory = tmp_path / "silver"
     reports_directory = tmp_path / "reports"
-    staged_directory.mkdir()
+    silver_directory.mkdir()
     reports_directory.mkdir()
 
-    write_staged_recipes(
+    write_silver_recipes(
         train_payload,
         test_payload,
         {"train": train_statistics, "test": test_statistics},
-        staged_directory,
+        silver_directory,
         reports_directory,
     )
 
     written_train = json.loads(
-        (staged_directory / "recipes_train.json").read_text(encoding="utf-8")
+        (silver_directory / "recipes_train.json").read_text(encoding="utf-8")
     )
     written_test = json.loads(
-        (staged_directory / "recipes_test.json").read_text(encoding="utf-8")
+        (silver_directory / "recipes_test.json").read_text(encoding="utf-8")
     )
     written_statistics = json.loads(
         (reports_directory / "resolution_statistics.json").read_text(encoding="utf-8")
@@ -266,14 +266,14 @@ def test_write_staged_recipes_writes_three_files(tmp_path):
     assert written_statistics == {"train": train_statistics, "test": test_statistics}
 
 
-def test_write_staged_recipes_missing_split_raises(tmp_path):
+def test_write_silver_recipes_missing_split_raises(tmp_path):
     train_recipes, test_recipes = _load_sample_recipes()
     resolver = StubResolver(SAMPLE_OUTCOMES)
     train_payload, train_statistics = stage_recipes(train_recipes, resolver, FINGERPRINT)
     test_payload, _ = stage_recipes(test_recipes, resolver, FINGERPRINT)
 
     with pytest.raises(ValueError, match="test"):
-        write_staged_recipes(
+        write_silver_recipes(
             train_payload,
             test_payload,
             {"train": train_statistics},

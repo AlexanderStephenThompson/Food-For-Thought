@@ -50,7 +50,7 @@ NEIGHBOR_CAP = 4
 
 
 def _make_recipes_payload(recipe_rows: list[tuple[int, str, list[str]]]) -> dict:
-    """Build a minimal staged recipes payload from (id, cuisine, ingredients) rows."""
+    """Build a minimal silver recipes payload from (id, cuisine, ingredients) rows."""
     recipes = [
         {
             "id": recipe_id,

@@ -18,7 +18,7 @@ from pipeline.cuisine_divergence import (
     jensen_shannon_divergence_bits,
     monte_carlo_null95,
 )
-from pipeline.load_raw_recipes import Recipe, TrainIndex, build_train_index
+from pipeline.load_bronze_recipes import Recipe, TrainIndex, build_train_index
 from pipeline.merge_evidence import MergeEvidence
 
 FAST_TRIALS = 200

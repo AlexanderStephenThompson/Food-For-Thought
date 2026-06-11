@@ -7,7 +7,7 @@ marketing modifiers, order-independent token pass, conditional guards
 empty-result guard.
 
 Behavioral expectations come from the descriptors analysis lens over
-raw/kaggle/train.json (JSD-verified SAFE-STRIP vs KEEP modifiers).
+bronze/kaggle/train.json (JSD-verified SAFE-STRIP vs KEEP modifiers).
 """
 
 import dataclasses

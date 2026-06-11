@@ -1,4 +1,4 @@
-"""Tests for pipeline.compile_alias_table — the staged ingredients compiler.
+"""Tests for pipeline.compile_alias_table — the silver ingredients compiler.
 
 All tests run on synthetic VocabularyBuild structures and mini train
 indexes built from handmade Recipe rows, so they are independent of
@@ -24,7 +24,7 @@ from pipeline.compile_alias_table import (
     load_merge_decisions,
     validate_compiled_payload,
 )
-from pipeline.load_raw_recipes import Recipe, build_train_index
+from pipeline.load_bronze_recipes import Recipe, build_train_index
 from pipeline.merge_evidence import CuisineShare, MergeEvidence
 
 FIXTURES_DIRECTORY = Path(__file__).parent / "fixtures" / "compile_alias_table"

@@ -1,8 +1,8 @@
-"""Compile the vocabulary build plus merge decisions into staged ingredients.
+"""Compile the vocabulary build plus merge decisions into silver ingredients.
 
 Takes the VocabularyBuild produced by pipeline.build_vocabulary, applies the
 human/LLM verdicts from the merge-decision JSONL, and emits the pinned
-staged/ingredients.json artifact: one entry per alias-scope ingredient with
+silver/ingredients.json artifact: one entry per alias-scope ingredient with
 its canonical name, slug id, alias provenance, parent link, and preserve
 evidence. A hard validation pass guards every schema invariant (unique alias
 ownership, slug format, parent chain depth, alias coverage floor) before the
@@ -10,7 +10,7 @@ artifact is written.
 
 The compile is deterministic: sorted iteration everywhere, evidence floats
 rounded to a fixed precision, and atomic sorted-key serialization via
-pipeline.staged_io.
+pipeline.artifact_io.
 """
 
 from __future__ import annotations
@@ -34,21 +34,21 @@ from pipeline.build_vocabulary import (
     load_pipeline_lexicons,
     representative_cleaned,
 )
-from pipeline.load_raw_recipes import (
-    RAW_TRAIN_PATH,
+from pipeline.artifact_io import (
+    SCHEMA_VERSION,
+    compute_build_fingerprint,
+    write_artifact_json,
+)
+from pipeline.load_bronze_recipes import (
+    BRONZE_TRAIN_PATH,
     TrainIndex,
     build_train_index,
     load_train_recipes,
 )
-from pipeline.staged_io import (
-    SCHEMA_VERSION,
-    compute_build_fingerprint,
-    write_staged_json,
-)
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_DECISIONS_PATH = PROJECT_ROOT / "lexicons" / "merge_decisions.jsonl"
-DEFAULT_OUTPUT_PATH = PROJECT_ROOT / "staged" / "ingredients.json"
+DEFAULT_OUTPUT_PATH = PROJECT_ROOT / "silver" / "ingredients.json"
 
 DECISION_MERGE = "merge"
 DECISION_PRESERVE = "preserve"
@@ -359,11 +359,11 @@ def compile_ingredients_payload(
     index: TrainIndex,
     fingerprint: dict,
 ) -> dict:
-    """Compile the staged ingredients payload from a vocabulary build.
+    """Compile the silver ingredients payload from a vocabulary build.
 
     Applies the merge decisions (mutating the build), keeps only groups at
     or above the alias-scope frequency floor, and emits the pinned
-    staged/ingredients.json structure sorted by id and alias.
+    silver/ingredients.json structure sorted by id and alias.
 
     Args:
         build: Vocabulary build; mutated by decision application.
@@ -372,7 +372,7 @@ def compile_ingredients_payload(
         fingerprint: Build block from compute_build_fingerprint.
 
     Returns:
-        Payload dict ready for write_staged_json.
+        Payload dict ready for write_artifact_json.
 
     Raises:
         ValueError: On decision/candidate mismatches, missing merge targets,
@@ -666,7 +666,7 @@ def _require_alias_coverage(
 
 
 def main() -> None:
-    """CLI: compile, validate, and write staged/ingredients.json."""
+    """CLI: compile, validate, and write silver/ingredients.json."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--lexicons-directory", type=Path, default=DEFAULT_LEXICONS_DIRECTORY
@@ -676,15 +676,15 @@ def main() -> None:
     arguments = parser.parse_args()
 
     lexicons = load_pipeline_lexicons(arguments.lexicons_directory)
-    index = build_train_index(load_train_recipes(RAW_TRAIN_PATH))
+    index = build_train_index(load_train_recipes(BRONZE_TRAIN_PATH))
     build = build_vocabulary_from_index(index, lexicons)
     decisions = load_merge_decisions(arguments.decisions)
     fingerprint = compute_build_fingerprint(
-        RAW_TRAIN_PATH, arguments.lexicons_directory
+        BRONZE_TRAIN_PATH, arguments.lexicons_directory
     )
     payload = compile_ingredients_payload(build, decisions, index, fingerprint)
     statistics = validate_compiled_payload(payload, index)
-    write_staged_json(payload, arguments.output)
+    write_artifact_json(payload, arguments.output)
     print(f"ingredients: {statistics.ingredient_count}")
     print(f"aliases: {statistics.alias_count}")
     print(f"parent links: {statistics.parent_link_count}")

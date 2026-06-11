@@ -6,16 +6,31 @@ Predicts the cuisine of a dish from its ingredient list — as a **blend**, not 
 Data: Kaggle "What's Cooking" playground competition — 39,774 training recipes,
 9,944 test recipes, 20 cuisines.
 
-## Layout
+## Layout (medallion architecture)
 
-| Path | What it is |
-|------|------------|
-| `raw/kaggle/` | Immutable source data, exactly as downloaded |
-| `lexicons/` | Curated, version-controlled mapping data: modifier lists, brand patterns, merge/preserve rules, resolved merge decisions |
-| `pipeline/` | Pure-stdlib transform code (raw → staged) |
-| `staged/` | Generated canonical entities: ingredient vocabulary, ID-resolved recipes, cuisine taxonomy |
-| `reports/` | Generated review queue and coverage reports |
-| `tests/` | Pytest suite (TDD) |
+| Tier | Path | What it is |
+|------|------|------------|
+| Bronze | `bronze/kaggle/` | Immutable source data, exactly as downloaded |
+| — | `lexicons/` | Curated, version-controlled mapping data: modifier lists, brand patterns, merge/preserve rules, resolved merge decisions |
+| — | `pipeline/` | Pure-stdlib transform code (bronze → silver) |
+| Silver | `silver/` | Canonical entities: ingredient vocabulary, ID-resolved recipes, cuisine taxonomy |
+| Gold | `gold/` | Model-ready features and splits — produced by the model phase (see `gold/README.md`) |
+| — | `reports/` | Build observability: coverage report, resolution statistics, merge review queue |
+| — | `tests/` | Pytest suite (TDD; 342 tests) |
+
+## Pipeline module map
+
+In data-flow order:
+
+| Stage | Modules |
+|-------|---------|
+| Load bronze | `load_bronze_recipes` |
+| String cleaning | `normalize_text` → `singularize` → `strip_modifiers` → `resolve_brands` |
+| Evidence & merge gate | `cuisine_divergence`, `merge_evidence`, `merge_gate` |
+| Vocabulary build | `build_vocabulary` → review queue → `compile_alias_table` |
+| Silver staging | `resolve_ingredient` (runtime fallback chain), `transform_bronze_to_silver`, `build_cuisines` |
+| Quality gates | `validate_silver`, `build_coverage_report` |
+| Shared infrastructure | `artifact_io` (atomic writes, build fingerprints) |
 
 ## Core rule
 
@@ -23,24 +38,28 @@ Raw ingredient strings ("Kikkoman Less Sodium Soy Sauce") resolve to canonical i
 (`soy_sauce`) via an evidence-driven alias table. Variants are merged **unless the variant
 carries cuisine signal** — "dark soy sauce" stays separate from "soy sauce" (74% Chinese vs 41%),
 "low sodium soy sauce" does not. Every merge decision records its provenance and statistical
-evidence (Jensen-Shannon divergence vs a Monte Carlo null).
+evidence (Jensen-Shannon divergence vs a Monte Carlo null); borderline calls were resolved by
+a judge/skeptic/tiebreaker review panel and live in `lexicons/merge_decisions.jsonl`, each one
+individually reversible.
 
 ## Usage
 
 ```bash
 # one-time setup
-python3 -m venv .venv
-.venv/bin/python -m ensurepip --upgrade
+python3 -m venv --without-pip .venv
+.venv/bin/python <(curl -s https://bootstrap.pypa.io/get-pip.py)  # or get-pip.py
 .venv/bin/python -m pip install pytest
 
-# rebuild staged data from raw + lexicons
-.venv/bin/python run_pipeline.py
+./manage.sh test      # run the suite
+./manage.sh rebuild   # rebuild silver from bronze + lexicons (~35s)
+./manage.sh verify    # prove a rebuild matches disk byte-for-byte
+./manage.sh all       # the full confidence pass
+```
 
-# verify a rebuild produces byte-identical output
-.venv/bin/python run_pipeline.py --check-idempotent
+To interrogate a merge decision (or evaluate a new variant when the vocabulary grows):
 
-# run tests
-.venv/bin/python -m pytest
+```bash
+.venv/bin/python -m pipeline.cuisine_divergence --variant "dark soy sauce" --base "soy sauce"
 ```
 
 ## Known limitations (candidates for future refinement)

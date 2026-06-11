@@ -1,7 +1,7 @@
 """Runtime ingredient resolution: the single tiered fallback chain.
 
 IngredientResolver is the SOLE lookup implementation mapping raw
-ingredient strings onto staged vocabulary ids; staging and the future
+ingredient strings onto silver vocabulary ids; staging and the future
 model/CLI all reuse it. Resolution walks six tiers and returns at the
 first hit:
 
@@ -85,7 +85,7 @@ class ResolutionResult:
 
 @dataclass(frozen=True)
 class _VocabularyRecord:
-    """One staged ingredient reduced to what index construction needs."""
+    """One silver ingredient reduced to what index construction needs."""
 
     ingredient_id: str
     name: str
@@ -105,7 +105,7 @@ class _DropCandidate:
 class IngredientResolver:
     """Tiered lookup from raw ingredient strings to vocabulary ids.
 
-    Construction builds three deterministic indexes over a staged
+    Construction builds three deterministic indexes over a silver
     vocabulary payload: raw alias -> id (case-sensitive), cleaned form
     -> id, and singularized lookup key -> id. Collisions in the cleaned
     and key indexes resolve to the ingredient with the higher
@@ -113,7 +113,7 @@ class IngredientResolver:
 
     Examples:
         >>> resolver = IngredientResolver.from_paths(
-        ...     Path("staged/ingredients.json"), Path("lexicons"))
+        ...     Path("silver/ingredients.json"), Path("lexicons"))
         >>> resolver.resolve("chopped fresh cilantro").ingredient_id
         'cilantro'
     """
@@ -122,7 +122,7 @@ class IngredientResolver:
         """Build the resolver indexes from a vocabulary payload.
 
         Args:
-            payload: Parsed staged/ingredients.json document (pinned
+            payload: Parsed silver/ingredients.json document (pinned
                 schema version 1).
             lexicons: Preloaded pipeline lexicons used for cleaning,
                 singularization, modifier stripping, and brand patterns.
@@ -157,7 +157,7 @@ class IngredientResolver:
         """Build a resolver from an already-parsed vocabulary payload.
 
         Args:
-            payload: Parsed staged/ingredients.json document.
+            payload: Parsed silver/ingredients.json document.
             lexicons: Preloaded pipeline lexicons.
 
         Returns:
@@ -172,7 +172,7 @@ class IngredientResolver:
         """Build a resolver by loading the payload and lexicons from disk.
 
         Args:
-            vocabulary_path: Path to staged/ingredients.json.
+            vocabulary_path: Path to silver/ingredients.json.
             lexicons_directory: Directory holding the curated lexicons.
 
         Returns:

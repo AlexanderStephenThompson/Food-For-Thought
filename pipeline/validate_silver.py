@@ -1,7 +1,7 @@
-"""Validate staged artifacts against the pinned schemas and coverage gates.
+"""Validate silver artifacts against the pinned schemas and coverage gates.
 
 Pure validators over already-loaded payload dicts: the ingredients table,
-both staged recipe splits, and the resolution statistics report. Each gate
+both silver recipe splits, and the resolution statistics report. Each gate
 failure raises ValidationError naming the gate and the offending values.
 File loading happens only in main(), never at import time.
 """
@@ -12,8 +12,8 @@ import json
 import re
 from pathlib import Path
 
-from pipeline.staged_io import SCHEMA_VERSION
-from pipeline.transform_raw_to_staged import (
+from pipeline.artifact_io import SCHEMA_VERSION
+from pipeline.transform_bronze_to_silver import (
     RESOLUTION_METHOD_NAMES,
     RESOLUTION_STATISTICS_FILENAME,
     TEST_RECIPES_FILENAME,
@@ -100,13 +100,13 @@ REQUIRED_STATISTICS_KEYS = frozenset(
 STATISTICS_SPLIT_NAMES = ("train", "test")
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-STAGED_DIRECTORY = PROJECT_ROOT / "staged"
+SILVER_DIRECTORY = PROJECT_ROOT / "silver"
 REPORTS_DIRECTORY = PROJECT_ROOT / "reports"
 INGREDIENTS_FILENAME = "ingredients.json"
 
 
 class ValidationError(ValueError):
-    """A staged artifact violates the pinned schema or a coverage gate."""
+    """A silver artifact violates the pinned schema or a coverage gate."""
 
 
 def _is_non_negative_integer(value: object) -> bool:
@@ -124,7 +124,7 @@ def _require_keys(mapping: object, required_keys: frozenset, context: str) -> No
 
 
 def _validate_envelope(payload: dict, artifact_name: str) -> None:
-    """Check schema_version and build block shared by every staged payload."""
+    """Check schema_version and build block shared by every silver payload."""
     _require_keys(payload, frozenset({"schema_version", "build"}), artifact_name)
     if payload["schema_version"] != SCHEMA_VERSION:
         raise ValidationError(
@@ -240,10 +240,10 @@ def _validate_parent_links(ingredients: list) -> None:
 
 
 def validate_ingredients_payload(payload: dict) -> None:
-    """Validate the staged ingredients payload against the pinned schema.
+    """Validate the silver ingredients payload against the pinned schema.
 
     Args:
-        payload: Parsed staged/ingredients.json content.
+        payload: Parsed silver/ingredients.json content.
 
     Raises:
         ValidationError: On schema violations, malformed ids, alias
@@ -305,7 +305,7 @@ def _validate_recipe_ingredient_ids(
 def _validate_recipe_record(
     recipe: dict, known_ingredient_ids: frozenset, requires_cuisine: bool
 ) -> None:
-    """Check one staged recipe record against the pinned schema."""
+    """Check one silver recipe record against the pinned schema."""
     _require_keys(recipe, REQUIRED_RECIPE_KEYS, "recipe record")
     _validate_recipe_cuisine(recipe, requires_cuisine)
     _validate_recipe_ingredient_ids(recipe, known_ingredient_ids, requires_cuisine)
@@ -328,11 +328,11 @@ def validate_recipes_payload(
     expected_count: int,
     requires_cuisine: bool,
 ) -> None:
-    """Validate one staged recipes payload against the pinned schema.
+    """Validate one silver recipes payload against the pinned schema.
 
     Args:
-        payload: Parsed staged recipes payload (train or test split).
-        ingredients_payload: Parsed staged ingredients payload providing the
+        payload: Parsed silver recipes payload (train or test split).
+        ingredients_payload: Parsed silver ingredients payload providing the
             set of valid ingredient ids.
         expected_count: Exact number of recipes the split must contain.
         requires_cuisine: True for the train split, where each recipe must
@@ -462,7 +462,7 @@ def validate_resolution_statistics(statistics: dict) -> None:
 def _validate_build_fingerprints(
     ingredients_payload: dict, train_payload: dict, test_payload: dict
 ) -> None:
-    """Check the three staged payloads share one build fingerprint."""
+    """Check the three silver payloads share one build fingerprint."""
     reference_build = ingredients_payload["build"]
     other_builds = {
         "recipes_train": train_payload["build"],
@@ -477,23 +477,23 @@ def _validate_build_fingerprints(
             )
 
 
-def validate_staged_artifacts(
+def validate_silver_artifacts(
     ingredients_payload: dict,
     train_payload: dict,
     test_payload: dict,
     statistics: dict,
 ) -> None:
-    """Run every staged-artifact validator plus cross-artifact checks.
+    """Run every silver-artifact validator plus cross-artifact checks.
 
     Args:
-        ingredients_payload: Parsed staged/ingredients.json.
-        train_payload: Parsed staged/recipes_train.json.
-        test_payload: Parsed staged/recipes_test.json.
+        ingredients_payload: Parsed silver/ingredients.json.
+        train_payload: Parsed silver/recipes_train.json.
+        test_payload: Parsed silver/recipes_test.json.
         statistics: Parsed reports/resolution_statistics.json.
 
     Raises:
         ValidationError: On any per-artifact gate failure or when the build
-            fingerprints of the three staged payloads disagree.
+            fingerprints of the three silver payloads disagree.
     """
     validate_ingredients_payload(ingredients_payload)
     validate_recipes_payload(
@@ -513,17 +513,17 @@ def _load_json(path: Path) -> dict:
 
 
 def main() -> None:
-    """Load the staged artifacts, validate them, and print a PASS summary."""
-    ingredients_payload = _load_json(STAGED_DIRECTORY / INGREDIENTS_FILENAME)
-    train_payload = _load_json(STAGED_DIRECTORY / TRAIN_RECIPES_FILENAME)
-    test_payload = _load_json(STAGED_DIRECTORY / TEST_RECIPES_FILENAME)
+    """Load the silver artifacts, validate them, and print a PASS summary."""
+    ingredients_payload = _load_json(SILVER_DIRECTORY / INGREDIENTS_FILENAME)
+    train_payload = _load_json(SILVER_DIRECTORY / TRAIN_RECIPES_FILENAME)
+    test_payload = _load_json(SILVER_DIRECTORY / TEST_RECIPES_FILENAME)
     statistics = _load_json(REPORTS_DIRECTORY / RESOLUTION_STATISTICS_FILENAME)
-    validate_staged_artifacts(
+    validate_silver_artifacts(
         ingredients_payload, train_payload, test_payload, statistics
     )
     train_unresolved = statistics["train"]["by_method"][UNRESOLVED_METHOD]
     test_unresolved = statistics["test"]["by_method"][UNRESOLVED_METHOD]
-    print("PASS: staged artifacts are valid")
+    print("PASS: silver artifacts are valid")
     print(f"  ingredients: {len(ingredients_payload['ingredients'])}")
     print(f"  train recipes: {len(train_payload['recipes'])}")
     print(f"  test recipes: {len(test_payload['recipes'])}")

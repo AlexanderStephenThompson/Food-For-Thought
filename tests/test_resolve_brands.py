@@ -6,7 +6,7 @@ ordering, word boundaries, whole-string replacement), input guards, and
 structural spot checks of the production lexicons.
 
 Trap strings come from the brands-noise analysis lens over
-raw/kaggle/train.json: 'vegeta' must never match inside 'vegetables' and
+bronze/kaggle/train.json: 'vegeta' must never match inside 'vegetables' and
 'nilla' must never match inside 'vanilla'.
 """
 

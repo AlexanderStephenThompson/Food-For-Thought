@@ -31,8 +31,8 @@ from pathlib import Path
 from typing import Iterable
 
 from pipeline.cuisine_divergence import evaluate_merge_candidate
-from pipeline.load_raw_recipes import (
-    RAW_TRAIN_PATH,
+from pipeline.load_bronze_recipes import (
+    BRONZE_TRAIN_PATH,
     TrainIndex,
     build_train_index,
     load_train_recipes,
@@ -697,7 +697,7 @@ def main() -> None:
     arguments = parser.parse_args()
 
     lexicons = load_pipeline_lexicons(arguments.lexicons_directory)
-    index = build_train_index(load_train_recipes(RAW_TRAIN_PATH))
+    index = build_train_index(load_train_recipes(BRONZE_TRAIN_PATH))
     raw_strings = sorted(index.string_to_recipe_ids)
     print(f"raw unique strings: {len(raw_strings)}")
 

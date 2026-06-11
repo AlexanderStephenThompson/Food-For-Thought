@@ -1,7 +1,7 @@
 """Deterministic cleaning of raw ingredient strings into stable key text.
 
 Implements the ordered chain validated by the brands-noise and morphology
-analyses of raw/kaggle/train.json: mojibake repair, trademark-mark
+analyses of bronze/kaggle/train.json: mojibake repair, trademark-mark
 stripping, casefolding, quote normalization, quantity stripping, accent
 folding, ampersand mapping, apostrophe deletion, punctuation folding,
 whitespace collapse, and a degenerate-key guard.

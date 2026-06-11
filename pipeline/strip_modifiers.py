@@ -1,7 +1,7 @@
 """Strip cuisine-neutral modifiers from cleaned ingredient text.
 
 Implements the SAFE-STRIP side of the descriptors analysis lens over
-raw/kaggle/train.json: marketing phrases (low sodium, fat free), prep
+bronze/kaggle/train.json: marketing phrases (low sodium, fat free), prep
 tokens (chopped, minced), size/grade words, and part words are removed,
 while identity-bearing modifiers (ground, dried, baby, roasted, ...)
 are protected via a never-strip list, per-token conditional guards

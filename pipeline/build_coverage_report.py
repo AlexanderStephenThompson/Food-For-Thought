@@ -1,6 +1,6 @@
 """Build the human-facing coverage summary for one pipeline run.
 
-Condenses reports/resolution_statistics.json and staged/ingredients.json
+Condenses reports/resolution_statistics.json and silver/ingredients.json
 into a single coverage payload, renders it as readable Markdown, and writes
 both artifacts atomically. Pure functions over already-loaded payloads:
 no file I/O happens at import time.
@@ -12,7 +12,7 @@ import os
 import tempfile
 from pathlib import Path
 
-from pipeline.staged_io import write_staged_json
+from pipeline.artifact_io import write_artifact_json
 
 RESOLUTION_SPLITS = ("train", "test")
 RESOLUTION_METHODS = (
@@ -66,7 +66,7 @@ def build_coverage_payload(
     Args:
         resolution_statistics: reports/resolution_statistics.json payload with
             "train" and "test" splits.
-        ingredients_payload: staged/ingredients.json payload.
+        ingredients_payload: silver/ingredients.json payload.
         fingerprint: Build block from compute_build_fingerprint.
 
     Returns:
@@ -118,7 +118,7 @@ def write_coverage_reports(coverage_payload: dict, reports_directory: Path) -> N
         coverage_payload: Output of build_coverage_payload.
         reports_directory: Existing directory to write both reports into.
     """
-    write_staged_json(coverage_payload, reports_directory / COVERAGE_JSON_FILENAME)
+    write_artifact_json(coverage_payload, reports_directory / COVERAGE_JSON_FILENAME)
     markdown = render_coverage_markdown(coverage_payload)
     _write_text_atomically(markdown, reports_directory / COVERAGE_MARKDOWN_FILENAME)
 

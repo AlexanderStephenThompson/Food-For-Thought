@@ -22,7 +22,7 @@ from pipeline.build_vocabulary import (
     merge_groups_by_strip_and_brand,
     representative_cleaned,
 )
-from pipeline.load_raw_recipes import Recipe, build_train_index
+from pipeline.load_bronze_recipes import Recipe, build_train_index
 
 FIXTURE_LEXICONS_DIRECTORY = Path(__file__).parent / "fixtures" / "build_vocabulary"
 PRODUCTION_LEXICONS_DIRECTORY = Path(__file__).parent.parent / "lexicons"

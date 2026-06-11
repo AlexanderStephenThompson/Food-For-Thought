@@ -22,7 +22,7 @@ from collections import Counter
 from collections.abc import Collection
 from itertools import accumulate
 
-from pipeline.load_raw_recipes import TrainIndex, build_train_index, load_train_recipes
+from pipeline.load_bronze_recipes import TrainIndex, build_train_index, load_train_recipes
 from pipeline.merge_evidence import CuisineShare, MergeEvidence
 
 # Merge-gate thresholds validated in the signal-variants analysis

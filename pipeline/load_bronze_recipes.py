@@ -1,4 +1,4 @@
-"""Load the raw Kaggle What's Cooking JSON files into validated Recipe records.
+"""Load the bronze Kaggle What's Cooking JSON files into validated Recipe records.
 
 Provides frozen Recipe records, fail-fast schema validation against the known
 Kaggle dataset shape (39,774 labeled train recipes across exactly 20 cuisines;
@@ -15,18 +15,18 @@ from dataclasses import dataclass
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-RAW_TRAIN_PATH = PROJECT_ROOT / "raw" / "kaggle" / "train.json"
-RAW_TEST_PATH = PROJECT_ROOT / "raw" / "kaggle" / "test.json"
+BRONZE_TRAIN_PATH = PROJECT_ROOT / "bronze" / "kaggle" / "train.json"
+BRONZE_TEST_PATH = PROJECT_ROOT / "bronze" / "kaggle" / "test.json"
 
 EXPECTED_TRAIN_RECIPE_COUNT = 39_774
 EXPECTED_TEST_RECIPE_COUNT = 9_944
 EXPECTED_CUISINE_COUNT = 20
 
-RAW_FILE_ENCODING = "utf-8"
+BRONZE_FILE_ENCODING = "utf-8"
 
 
 class SchemaValidationError(ValueError):
-    """Raised when a raw recipe file violates the expected Kaggle schema.
+    """Raised when a bronze recipe file violates the expected Kaggle schema.
 
     Covers malformed JSON, records with missing or mistyped fields, and
     dataset-level violations (wrong recipe count, wrong cuisine count).
@@ -35,7 +35,7 @@ class SchemaValidationError(ValueError):
 
 @dataclass(frozen=True)
 class Recipe:
-    """One raw recipe exactly as read from the Kaggle JSON.
+    """One bronze recipe exactly as read from the Kaggle JSON.
 
     Attributes:
         id: Kaggle recipe identifier.
@@ -68,11 +68,11 @@ class TrainIndex:
     recipe_id_to_cuisine: dict[int, str]
 
 
-def load_train_recipes(path: Path = RAW_TRAIN_PATH) -> list[Recipe]:
+def load_train_recipes(path: Path = BRONZE_TRAIN_PATH) -> list[Recipe]:
     """Load and validate the labeled Kaggle train recipes.
 
     Args:
-        path: JSON file to read; defaults to raw/kaggle/train.json.
+        path: JSON file to read; defaults to bronze/kaggle/train.json.
 
     Returns:
         All train recipes in file order, each with a cuisine label.
@@ -102,11 +102,11 @@ def load_train_recipes(path: Path = RAW_TRAIN_PATH) -> list[Recipe]:
     return recipes
 
 
-def load_test_recipes(path: Path = RAW_TEST_PATH) -> list[Recipe]:
+def load_test_recipes(path: Path = BRONZE_TEST_PATH) -> list[Recipe]:
     """Load and validate the unlabeled Kaggle test recipes.
 
     Args:
-        path: JSON file to read; defaults to raw/kaggle/test.json.
+        path: JSON file to read; defaults to bronze/kaggle/test.json.
 
     Returns:
         All test recipes in file order, each with cuisine set to None.
@@ -172,8 +172,8 @@ def build_train_index(recipes: Sequence[Recipe]) -> TrainIndex:
 def _read_json_records(path: Path) -> list[object]:
     """Read a JSON file and require a top-level list of records."""
     try:
-        with path.open(encoding=RAW_FILE_ENCODING) as raw_file:
-            payload = json.load(raw_file)
+        with path.open(encoding=BRONZE_FILE_ENCODING) as bronze_file:
+            payload = json.load(bronze_file)
     except json.JSONDecodeError as error:
         raise SchemaValidationError(f"{path}: invalid JSON ({error})") from error
     if not isinstance(payload, list):
@@ -184,7 +184,7 @@ def _read_json_records(path: Path) -> list[object]:
 
 
 def _parse_record(record: object, position: int, is_cuisine_required: bool) -> Recipe:
-    """Validate one raw record and convert it to a frozen Recipe."""
+    """Validate one bronze record and convert it to a frozen Recipe."""
     if not isinstance(record, dict):
         raise SchemaValidationError(
             f"record {position}: expected an object, got {type(record).__name__}"

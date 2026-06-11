@@ -1,4 +1,4 @@
-"""Rebuild every staged artifact from raw data and curated lexicons.
+"""Rebuild every silver artifact from bronze data and curated lexicons.
 
 Usage:
     .venv/bin/python run_pipeline.py                    # full rebuild
@@ -6,7 +6,7 @@ Usage:
                                                         # verify disk matches
 
 The pipeline is deterministic end to end: rerunning it against unchanged
-raw data and lexicons produces byte-identical staged artifacts.
+bronze data and lexicons produces byte-identical silver artifacts.
 """
 
 from __future__ import annotations
@@ -33,39 +33,39 @@ from pipeline.compile_alias_table import (
     load_merge_decisions,
     validate_compiled_payload,
 )
-from pipeline.load_raw_recipes import (
-    RAW_TRAIN_PATH,
+from pipeline.artifact_io import (
+    ARTIFACT_JSON_INDENT,
+    compute_build_fingerprint,
+    write_artifact_json,
+)
+from pipeline.load_bronze_recipes import (
+    BRONZE_TRAIN_PATH,
     build_train_index,
     load_test_recipes,
     load_train_recipes,
 )
 from pipeline.resolve_ingredient import IngredientResolver
-from pipeline.staged_io import (
-    STAGED_JSON_INDENT,
-    compute_build_fingerprint,
-    write_staged_json,
-)
-from pipeline.transform_raw_to_staged import stage_recipes, write_staged_recipes
-from pipeline.validate_staged import validate_staged_artifacts
+from pipeline.transform_bronze_to_silver import stage_recipes, write_silver_recipes
+from pipeline.validate_silver import validate_silver_artifacts
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 LEXICONS_DIRECTORY = PROJECT_ROOT / "lexicons"
-STAGED_DIRECTORY = PROJECT_ROOT / "staged"
+SILVER_DIRECTORY = PROJECT_ROOT / "silver"
 REPORTS_DIRECTORY = PROJECT_ROOT / "reports"
 MERGE_DECISIONS_PATH = LEXICONS_DIRECTORY / "merge_decisions.jsonl"
 CUISINE_FAMILIES_PATH = LEXICONS_DIRECTORY / "cuisine_families.json"
 REVIEW_QUEUE_PATH = REPORTS_DIRECTORY / "merge_review_queue.jsonl"
 
-INGREDIENTS_PATH = STAGED_DIRECTORY / "ingredients.json"
-RECIPES_TRAIN_PATH = STAGED_DIRECTORY / "recipes_train.json"
-RECIPES_TEST_PATH = STAGED_DIRECTORY / "recipes_test.json"
-CUISINES_PATH = STAGED_DIRECTORY / "cuisines.json"
+INGREDIENTS_PATH = SILVER_DIRECTORY / "ingredients.json"
+RECIPES_TRAIN_PATH = SILVER_DIRECTORY / "recipes_train.json"
+RECIPES_TEST_PATH = SILVER_DIRECTORY / "recipes_test.json"
+CUISINES_PATH = SILVER_DIRECTORY / "cuisines.json"
 RESOLUTION_STATISTICS_PATH = REPORTS_DIRECTORY / "resolution_statistics.json"
 COVERAGE_PATH = REPORTS_DIRECTORY / "coverage.json"
 
 
 @dataclass
-class StagedArtifacts:
+class SilverArtifacts:
     """Every payload one full pipeline run produces."""
 
     review_queue_entries: list[dict]
@@ -78,19 +78,19 @@ class StagedArtifacts:
     compile_statistics: CompileStatistics
 
 
-def build_staged_artifacts() -> StagedArtifacts:
-    """Run the full raw-to-staged build in memory.
+def build_silver_artifacts() -> SilverArtifacts:
+    """Run the full bronze-to-silver build in memory.
 
     Returns:
-        StagedArtifacts with every payload, already validated by the
-        compile gates and the staged-artifact validators.
+        SilverArtifacts with every payload, already validated by the
+        compile gates and the silver-artifact validators.
 
     Raises:
-        ValidationError: If any staged-artifact gate fails.
+        ValidationError: If any silver-artifact gate fails.
         ValueError: If merge decisions are missing, malformed, or stale.
     """
     lexicons = load_pipeline_lexicons(LEXICONS_DIRECTORY)
-    fingerprint = compute_build_fingerprint(RAW_TRAIN_PATH, LEXICONS_DIRECTORY)
+    fingerprint = compute_build_fingerprint(BRONZE_TRAIN_PATH, LEXICONS_DIRECTORY)
     train_recipes = load_train_recipes()
     test_recipes = load_test_recipes()
     index = build_train_index(train_recipes)
@@ -123,17 +123,17 @@ def build_staged_artifacts() -> StagedArtifacts:
     for split_name, split_statistics in sorted(resolution_statistics.items()):
         unresolved = split_statistics["by_method"]["unresolved"]
         total = split_statistics["mentions_total"]
-        print(f"staged {split_name}: {total} mentions, {unresolved} unresolved")
+        print(f"silver {split_name}: {total} mentions, {unresolved} unresolved")
 
     families = load_cuisine_families(CUISINE_FAMILIES_PATH)
     cuisines = build_cuisines_payload(recipes_train, families, fingerprint)
-    validate_staged_artifacts(
+    validate_silver_artifacts(
         ingredients, recipes_train, recipes_test, resolution_statistics
     )
     print("validation gates: PASS")
 
     coverage = build_coverage_payload(resolution_statistics, ingredients, fingerprint)
-    return StagedArtifacts(
+    return SilverArtifacts(
         review_queue_entries=review_queue_entries,
         ingredients=ingredients,
         recipes_train=recipes_train,
@@ -145,50 +145,50 @@ def build_staged_artifacts() -> StagedArtifacts:
     )
 
 
-def write_staged_artifacts(artifacts: StagedArtifacts) -> None:
-    """Persist every artifact atomically to staged/ and reports/."""
+def write_silver_artifacts(artifacts: SilverArtifacts) -> None:
+    """Persist every artifact atomically to silver/ and reports/."""
     write_review_queue_to_path(artifacts.review_queue_entries, REVIEW_QUEUE_PATH)
-    write_staged_json(artifacts.ingredients, INGREDIENTS_PATH)
-    write_staged_recipes(
+    write_artifact_json(artifacts.ingredients, INGREDIENTS_PATH)
+    write_silver_recipes(
         artifacts.recipes_train,
         artifacts.recipes_test,
         artifacts.resolution_statistics,
-        STAGED_DIRECTORY,
+        SILVER_DIRECTORY,
         REPORTS_DIRECTORY,
     )
-    write_staged_json(artifacts.cuisines, CUISINES_PATH)
+    write_artifact_json(artifacts.cuisines, CUISINES_PATH)
     write_coverage_reports(artifacts.coverage, REPORTS_DIRECTORY)
-    print(f"wrote staged artifacts to {STAGED_DIRECTORY} and {REPORTS_DIRECTORY}")
+    print(f"wrote silver artifacts to {SILVER_DIRECTORY} and {REPORTS_DIRECTORY}")
 
 
-def _serialize_staged(payload: dict) -> str:
+def _serialize_artifact(payload: dict) -> str:
     return (
         json.dumps(
-            payload, ensure_ascii=False, indent=STAGED_JSON_INDENT, sort_keys=True
+            payload, ensure_ascii=False, indent=ARTIFACT_JSON_INDENT, sort_keys=True
         )
         + "\n"
     )
 
 
-def verify_rebuild_matches_disk(artifacts: StagedArtifacts) -> list[str]:
+def verify_rebuild_matches_disk(artifacts: SilverArtifacts) -> list[str]:
     """Compare freshly built payloads against the files on disk.
 
     Args:
-        artifacts: Payloads from build_staged_artifacts.
+        artifacts: Payloads from build_silver_artifacts.
 
     Returns:
-        Names of staged files whose on-disk bytes differ from the rebuild
+        Names of artifact files whose on-disk bytes differ from the rebuild
         (empty when the pipeline is idempotent).
     """
     expected_by_path = {
-        INGREDIENTS_PATH: _serialize_staged(artifacts.ingredients),
-        RECIPES_TRAIN_PATH: _serialize_staged(artifacts.recipes_train),
-        RECIPES_TEST_PATH: _serialize_staged(artifacts.recipes_test),
-        CUISINES_PATH: _serialize_staged(artifacts.cuisines),
-        RESOLUTION_STATISTICS_PATH: _serialize_staged(
+        INGREDIENTS_PATH: _serialize_artifact(artifacts.ingredients),
+        RECIPES_TRAIN_PATH: _serialize_artifact(artifacts.recipes_train),
+        RECIPES_TEST_PATH: _serialize_artifact(artifacts.recipes_test),
+        CUISINES_PATH: _serialize_artifact(artifacts.cuisines),
+        RESOLUTION_STATISTICS_PATH: _serialize_artifact(
             artifacts.resolution_statistics
         ),
-        COVERAGE_PATH: _serialize_staged(artifacts.coverage),
+        COVERAGE_PATH: _serialize_artifact(artifacts.coverage),
     }
     mismatches = []
     for path, expected_content in expected_by_path.items():
@@ -201,18 +201,18 @@ def verify_rebuild_matches_disk(artifacts: StagedArtifacts) -> list[str]:
 
 
 def main() -> int:
-    """Entry point: rebuild staged artifacts or verify idempotency."""
+    """Entry point: rebuild silver artifacts or verify idempotency."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--check-idempotent",
         action="store_true",
-        help="rebuild in memory and verify the staged files on disk match",
+        help="rebuild in memory and verify the silver files on disk match",
     )
     arguments = parser.parse_args()
 
-    artifacts = build_staged_artifacts()
+    artifacts = build_silver_artifacts()
     if not arguments.check_idempotent:
-        write_staged_artifacts(artifacts)
+        write_silver_artifacts(artifacts)
         return 0
 
     mismatches = verify_rebuild_matches_disk(artifacts)

@@ -1,6 +1,6 @@
-"""Regenerate the cuisine taxonomy deterministically from staged payloads.
+"""Regenerate the cuisine taxonomy deterministically from silver payloads.
 
-Builds staged/cuisines.json content from the staged train recipes payload:
+Builds silver/cuisines.json content from the silver train recipes payload:
 per-cuisine TF-IDF ingredient vectors, cosine-similarity neighbors, and
 lift-ranked distinctive ingredients, with curated family assignments loaded
 from lexicons/cuisine_families.json.
@@ -17,7 +17,7 @@ from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 
-from pipeline.staged_io import SCHEMA_VERSION
+from pipeline.artifact_io import SCHEMA_VERSION
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CUISINE_FAMILIES_PATH = PROJECT_ROOT / "lexicons" / "cuisine_families.json"
@@ -35,7 +35,7 @@ ROUNDED_DECIMAL_PLACES = 4
 
 @dataclass(frozen=True)
 class _CorpusStatistics:
-    """Aggregate recipe counts derived from one staged recipes payload.
+    """Aggregate recipe counts derived from one silver recipes payload.
 
     Attributes:
         total_recipe_count: Number of recipes in the payload.
@@ -82,10 +82,10 @@ def load_cuisine_families(
 def build_cuisines_payload(
     recipes_train_payload: dict, families: dict[str, str], fingerprint: dict
 ) -> dict:
-    """Build the staged cuisines payload from staged train recipes.
+    """Build the silver cuisines payload from silver train recipes.
 
     Args:
-        recipes_train_payload: Staged recipes_train.json payload (each recipe
+        recipes_train_payload: Silver recipes_train.json payload (each recipe
             carries "cuisine" and "ingredient_ids").
         families: Cuisine id -> family id mapping from the curated lexicon.
         fingerprint: Build block from compute_build_fingerprint.
