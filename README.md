@@ -14,10 +14,10 @@ tests, and reports that transform it into the next tier.**
 | Tier | Produced by | Contents |
 |------|-------------|----------|
 | `01-bronze/` | Downloading from Kaggle | `data/` (immutable source files) · `silver_pipeline/` (bronze→silver transforms) · `lexicons/` (curated rules & merge decisions) · `reports/` (coverage, review queue) · `tests/` · `build.py` |
-| `02-silver/` | `01-bronze/pipeline/` | `datasets/` — the four canonical entities |
-| `03-gold/` | The model phase (upcoming) | `datasets/` only — see `03-gold/README.md` |
+| `02-silver/` | `01-bronze/silver_pipeline/` | `datasets/` (the four canonical entities) · `gold_pipeline/` (silver→gold transforms) · `reports/` (fold balance) · `tests/` · `build.py` |
+| `03-gold/` | `02-silver/gold_pipeline/` | `datasets/` — feature space, feature rows, CV folds (see `03-gold/README.md`) |
 
-## Silver datasets (the current product)
+## Silver datasets (the canonical entities)
 
 | File | What it is |
 |------|------------|
@@ -25,6 +25,15 @@ tests, and reports that transform it into the next tier.**
 | `02-silver/datasets/recipes_train.json` | 39,774 labeled recipes, ingredients as canonical IDs |
 | `02-silver/datasets/recipes_test.json` | 9,944 unlabeled recipes, same form |
 | `02-silver/datasets/cuisines.json` | 20-cuisine taxonomy: families, neighbors, distinctive ingredients |
+
+## Gold datasets (model-ready)
+
+| File | What it is |
+|------|------------|
+| `03-gold/datasets/feature_space.json` | Ingredient id ↔ feature index bijection (sorted ids); each feature carries its parent's index for back-off |
+| `03-gold/datasets/features_train.json` | 39,774 rows: `ingredient_indices` + deduplicated `parent_indices` per recipe, with cuisine |
+| `03-gold/datasets/features_test.json` | 9,944 unlabeled rows, same form minus cuisine |
+| `03-gold/datasets/folds.json` | Stratified 5-fold cross-validation assignment, seeded per cuisine (fold spread ≤ 1 within every cuisine) |
 
 ## Pipeline module map (`01-bronze/silver_pipeline/`)
 
@@ -39,6 +48,16 @@ In data-flow order:
 | Silver staging | `resolve_ingredient` (runtime fallback chain), `transform_bronze_to_silver`, `build_cuisines` |
 | Quality gates | `validate_silver`, `build_coverage_report` |
 | Shared infrastructure | `artifact_io` (serialization, atomic writes, fingerprints), `locations` (every filesystem anchor) |
+
+## Gold pipeline module map (`02-silver/gold_pipeline/`)
+
+| Stage | Modules |
+|-------|---------|
+| Load silver | `load_silver_datasets` (the four inputs + the gold fingerprint) |
+| Feature build | `build_feature_space` → `build_features` |
+| Folds | `assign_folds` (per-cuisine keyed RNG) → `build_fold_balance_report` |
+| Quality gates | `validate_gold` |
+| Shared infrastructure | reuses `silver_pipeline.artifact_io`; `locations` (gold anchors) |
 
 ## Core rule of the vocabulary
 
@@ -58,9 +77,9 @@ python3 -m venv --without-pip .venv
 .venv/bin/python get-pip.py          # system python has no pip/ensurepip
 .venv/bin/python -m pip install pytest
 
-./manage.sh test      # run the suite (358 tests)
-./manage.sh rebuild   # rebuild silver from bronze + lexicons (~35s)
-./manage.sh verify    # prove a rebuild matches disk byte-for-byte
+./manage.sh test      # run both tiers' suites (393 tests)
+./manage.sh rebuild   # rebuild silver from bronze (~35s), then gold from silver
+./manage.sh verify    # prove both rebuilds match disk byte-for-byte
 ./manage.sh all       # the full confidence pass
 ```
 

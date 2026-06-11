@@ -7,7 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [Unreleased]
+## [0.4.0] — 2026-06-11 — Region Feel / Gold: feature space, features, stratified folds
+
+### Added
+- Gold tier datasets, regenerable from silver + code: `feature_space.json`
+  (sorted-id ↔ index bijection with per-feature parent indices),
+  `features_train.json` / `features_test.json` (per-recipe
+  `ingredient_indices` plus deduplicated `parent_indices`), and
+  `folds.json` (stratified 5-fold CV, independently seeded per cuisine,
+  fold spread ≤ 1 within every cuisine)
+- `02-silver/gold_pipeline/` package — load_silver_datasets,
+  build_feature_space, build_features, assign_folds,
+  build_fold_balance_report, validate_gold — built test-first (35 tests;
+  suite now 393)
+- `02-silver/build.py` orchestrator with `--check-idempotent`; fold-balance
+  report (JSON + Markdown) in `02-silver/reports/`
+- Gold build fingerprint: sha256 of all four silver inputs plus the build
+  seed and fold count, embedded in every gold artifact and checked fresh
+  against disk by the validation gates
+
+### Changed
+- `01-bronze/pipeline/` renamed to `01-bronze/silver_pipeline/`
+  (convention: `<tier>_pipeline` is the package that builds that tier),
+  clearing the package-name collision with the new gold pipeline
+- `find_artifact_mismatches` moved into `silver_pipeline.artifact_io`,
+  shared by both tier builders
+- `manage.sh` rebuild/verify now chain both tiers; `test` runs both suites
+
+---
+
+## [0.3.0] — 2026-06-11 — Region Feel / Quality: single-owner contracts & naming
 
 ### Added
 - `pipeline.artifact_io.serialize_artifact_json` and `write_text_atomically`:

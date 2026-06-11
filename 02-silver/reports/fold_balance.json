@@ -1,0 +1,241 @@
+{
+  "build": {
+    "cuisines_sha256": "8eb81f5fc04c6b4cfcda656503c73ab1c784aa28285c1cfbf3e84f2ef428beb0",
+    "fold_count": 5,
+    "ingredients_sha256": "f2e1736e8f78ee5fcf1ce0b710940a2a5388168314e753f305ad224b87848515",
+    "random_seed": 42,
+    "recipes_test_sha256": "e1d51b6fdc1ab929038a2dd5054b3918a96c9fd43f5b121a0d3a41a033c17732",
+    "recipes_train_sha256": "9d46e43c556581dec7860c57eb63ace41a00f98cbef147b25f3005f79d8e9f29"
+  },
+  "by_cuisine": [
+    {
+      "cuisine": "brazilian",
+      "fold_counts": [
+        94,
+        94,
+        93,
+        93,
+        93
+      ],
+      "recipe_count": 467
+    },
+    {
+      "cuisine": "british",
+      "fold_counts": [
+        161,
+        161,
+        161,
+        161,
+        160
+      ],
+      "recipe_count": 804
+    },
+    {
+      "cuisine": "cajun_creole",
+      "fold_counts": [
+        310,
+        309,
+        309,
+        309,
+        309
+      ],
+      "recipe_count": 1546
+    },
+    {
+      "cuisine": "chinese",
+      "fold_counts": [
+        535,
+        535,
+        535,
+        534,
+        534
+      ],
+      "recipe_count": 2673
+    },
+    {
+      "cuisine": "filipino",
+      "fold_counts": [
+        151,
+        151,
+        151,
+        151,
+        151
+      ],
+      "recipe_count": 755
+    },
+    {
+      "cuisine": "french",
+      "fold_counts": [
+        530,
+        529,
+        529,
+        529,
+        529
+      ],
+      "recipe_count": 2646
+    },
+    {
+      "cuisine": "greek",
+      "fold_counts": [
+        235,
+        235,
+        235,
+        235,
+        235
+      ],
+      "recipe_count": 1175
+    },
+    {
+      "cuisine": "indian",
+      "fold_counts": [
+        601,
+        601,
+        601,
+        600,
+        600
+      ],
+      "recipe_count": 3003
+    },
+    {
+      "cuisine": "irish",
+      "fold_counts": [
+        134,
+        134,
+        133,
+        133,
+        133
+      ],
+      "recipe_count": 667
+    },
+    {
+      "cuisine": "italian",
+      "fold_counts": [
+        1568,
+        1568,
+        1568,
+        1567,
+        1567
+      ],
+      "recipe_count": 7838
+    },
+    {
+      "cuisine": "jamaican",
+      "fold_counts": [
+        106,
+        105,
+        105,
+        105,
+        105
+      ],
+      "recipe_count": 526
+    },
+    {
+      "cuisine": "japanese",
+      "fold_counts": [
+        285,
+        285,
+        285,
+        284,
+        284
+      ],
+      "recipe_count": 1423
+    },
+    {
+      "cuisine": "korean",
+      "fold_counts": [
+        166,
+        166,
+        166,
+        166,
+        166
+      ],
+      "recipe_count": 830
+    },
+    {
+      "cuisine": "mexican",
+      "fold_counts": [
+        1288,
+        1288,
+        1288,
+        1287,
+        1287
+      ],
+      "recipe_count": 6438
+    },
+    {
+      "cuisine": "moroccan",
+      "fold_counts": [
+        165,
+        164,
+        164,
+        164,
+        164
+      ],
+      "recipe_count": 821
+    },
+    {
+      "cuisine": "russian",
+      "fold_counts": [
+        98,
+        98,
+        98,
+        98,
+        97
+      ],
+      "recipe_count": 489
+    },
+    {
+      "cuisine": "southern_us",
+      "fold_counts": [
+        864,
+        864,
+        864,
+        864,
+        864
+      ],
+      "recipe_count": 4320
+    },
+    {
+      "cuisine": "spanish",
+      "fold_counts": [
+        198,
+        198,
+        198,
+        198,
+        197
+      ],
+      "recipe_count": 989
+    },
+    {
+      "cuisine": "thai",
+      "fold_counts": [
+        308,
+        308,
+        308,
+        308,
+        307
+      ],
+      "recipe_count": 1539
+    },
+    {
+      "cuisine": "vietnamese",
+      "fold_counts": [
+        165,
+        165,
+        165,
+        165,
+        165
+      ],
+      "recipe_count": 825
+    }
+  ],
+  "fold_count": 5,
+  "fold_sizes": [
+    7962,
+    7958,
+    7956,
+    7951,
+    7947
+  ],
+  "schema_version": 1
+}
