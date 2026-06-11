@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
 # Project task runner. Usage: ./manage.sh <test|rebuild|verify|all>
 set -euo pipefail
+cd "$(dirname "$0")"
 
 PYTHON=".venv/bin/python"
 
 case "${1:-help}" in
   test)     # run the test suite
-    "$PYTHON" -m pytest -q
+    "$PYTHON" -m pytest silver/tests -q
     ;;
-  rebuild)  # rebuild every silver artifact from bronze + lexicons
-    "$PYTHON" run_pipeline.py
+  rebuild)  # rebuild every silver dataset from bronze + lexicons
+    "$PYTHON" -m silver.build
     ;;
   verify)   # prove a rebuild matches disk byte-for-byte
-    "$PYTHON" run_pipeline.py --check-idempotent
+    "$PYTHON" -m silver.build --check-idempotent
     ;;
   all)      # full confidence pass
     "$0" test && "$0" rebuild && "$0" verify
