@@ -1,6 +1,6 @@
 """Compile the vocabulary build plus merge decisions into silver ingredients.
 
-Takes the VocabularyBuild produced by pipeline.build_vocabulary,
+Takes the VocabularyBuild produced by silver_pipeline.build_vocabulary,
 applies the human/LLM verdicts from the merge-decision JSONL, and emits the
 pinned 02-silver/datasets/ingredients.json artifact: one entry per alias-scope
 ingredient with
@@ -11,7 +11,7 @@ artifact is written.
 
 The compile is deterministic: sorted iteration everywhere, evidence floats
 rounded to a fixed precision, and atomic sorted-key serialization via
-pipeline.artifact_io.
+silver_pipeline.artifact_io.
 """
 
 from __future__ import annotations
@@ -22,8 +22,8 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from pipeline import locations
-from pipeline.build_vocabulary import (
+from silver_pipeline import locations
+from silver_pipeline.build_vocabulary import (
     ALIAS_SCOPE_MINIMUM_FREQUENCY,
     DEFAULT_LEXICONS_DIRECTORY,
     GroupMember,
@@ -38,12 +38,12 @@ from pipeline.build_vocabulary import (
     make_decision_id,
     select_representative_cleaned,
 )
-from pipeline.artifact_io import (
+from silver_pipeline.artifact_io import (
     SCHEMA_VERSION,
     compute_build_fingerprint,
     write_artifact_json,
 )
-from pipeline.load_bronze_recipes import (
+from silver_pipeline.load_bronze_recipes import (
     BRONZE_TRAIN_PATH,
     TrainIndex,
     build_train_index,
@@ -646,7 +646,7 @@ def _require_alias_coverage(
 def main() -> None:
     """CLI: compile, validate, and write 02-silver/datasets/ingredients.json."""
     parser = argparse.ArgumentParser(
-        prog="PYTHONPATH=01-bronze .venv/bin/python -m pipeline.compile_alias_table",
+        prog="PYTHONPATH=01-bronze .venv/bin/python -m silver_pipeline.compile_alias_table",
         description=__doc__,
     )
     parser.add_argument(

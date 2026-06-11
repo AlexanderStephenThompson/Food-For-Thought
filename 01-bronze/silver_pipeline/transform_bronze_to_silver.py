@@ -14,8 +14,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Protocol, Sequence
 
-from pipeline.artifact_io import SCHEMA_VERSION, write_artifact_json
-from pipeline.load_bronze_recipes import Recipe
+from silver_pipeline.artifact_io import SCHEMA_VERSION, write_artifact_json
+from silver_pipeline.load_bronze_recipes import Recipe
 
 TOP_UNRESOLVED_LIMIT = 50
 UNRESOLVED_METHOD = "unresolved"

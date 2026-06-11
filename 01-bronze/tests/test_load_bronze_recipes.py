@@ -1,4 +1,4 @@
-"""Tests for pipeline.load_bronze_recipes.
+"""Tests for silver_pipeline.load_bronze_recipes.
 
 Schema/shape tests run against tiny JSON fixtures under
 tests/fixtures/cuisine_divergence/; count-validation tests run against the
@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from pipeline.load_bronze_recipes import (
+from silver_pipeline.load_bronze_recipes import (
     BRONZE_TEST_PATH,
     BRONZE_TRAIN_PATH,
     Recipe,

@@ -1,4 +1,4 @@
-"""Tests for pipeline.build_cuisines.
+"""Tests for silver_pipeline.build_cuisines.
 
 All taxonomy tests run on small in-test recipe payloads. Only the production
 smoke test reads 01-bronze/lexicons/cuisine_families.json, and only ever read-only.
@@ -8,8 +8,8 @@ from pathlib import Path
 
 import pytest
 
-from pipeline import locations
-from pipeline.build_cuisines import build_cuisines_payload, load_cuisine_families
+from silver_pipeline import locations
+from silver_pipeline.build_cuisines import build_cuisines_payload, load_cuisine_families
 
 FIXTURE_FAMILIES_PATH = (
     Path(__file__).parent / "fixtures" / "build_cuisines" / "cuisine_families.json"

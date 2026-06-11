@@ -1,7 +1,7 @@
 """Shared evidence types exchanged between the divergence harness and the merge gate.
 
-pipeline.cuisine_divergence produces MergeEvidence for each (variant, base)
-merge candidate; pipeline.merge_gate consumes it to decide merge or preserve,
+silver_pipeline.cuisine_divergence produces MergeEvidence for each (variant, base)
+merge candidate; silver_pipeline.merge_gate consumes it to decide merge or preserve,
 and the review queue serializes it for human/LLM judgment.
 """
 

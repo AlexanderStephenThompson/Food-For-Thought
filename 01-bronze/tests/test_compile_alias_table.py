@@ -1,4 +1,4 @@
-"""Tests for pipeline.compile_alias_table — the silver ingredients compiler.
+"""Tests for silver_pipeline.compile_alias_table — the silver ingredients compiler.
 
 All tests run on synthetic VocabularyBuild structures and mini train
 indexes built from handmade Recipe rows, so they are independent of
@@ -11,20 +11,20 @@ from pathlib import Path
 
 import pytest
 
-from pipeline.build_vocabulary import (
+from silver_pipeline.build_vocabulary import (
     GroupMember,
     PreservedVariant,
     ReviewCandidate,
     VocabularyBuild,
     VocabularyGroup,
 )
-from pipeline.compile_alias_table import (
+from silver_pipeline.compile_alias_table import (
     apply_merge_decisions,
     compile_ingredients_payload,
     load_merge_decisions,
     validate_compiled_payload,
 )
-from pipeline.merge_evidence import CuisineShare, MergeEvidence
+from silver_pipeline.merge_evidence import CuisineShare, MergeEvidence
 from tests.recipe_builders import make_index, repeat_recipes
 
 FIXTURES_DIRECTORY = Path(__file__).parent / "fixtures" / "compile_alias_table"

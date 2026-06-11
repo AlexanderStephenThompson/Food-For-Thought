@@ -1,4 +1,4 @@
-"""Tests for pipeline.strip_modifiers.
+"""Tests for silver_pipeline.strip_modifiers.
 
 Covers lexicon loading (frozen structure, fail-fast validation) and the
 strip algorithm: protected exact strings, phrase-regex pass for stacked
@@ -15,8 +15,8 @@ from pathlib import Path
 
 import pytest
 
-from pipeline import locations
-from pipeline.strip_modifiers import (
+from silver_pipeline import locations
+from silver_pipeline.strip_modifiers import (
     ConditionalGuard,
     ModifierLexicon,
     load_modifier_lexicon,

@@ -14,7 +14,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
-from pipeline import locations
+from silver_pipeline import locations
 
 BRONZE_TRAIN_PATH = locations.BRONZE_DATA_DIRECTORY / "train.json"
 BRONZE_TEST_PATH = locations.BRONZE_DATA_DIRECTORY / "test.json"

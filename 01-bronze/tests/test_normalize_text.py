@@ -1,4 +1,4 @@
-"""Tests for pipeline.normalize_text.
+"""Tests for silver_pipeline.normalize_text.
 
 Covers the ordered cleaning chain: mojibake repair, trademark stripping,
 casefold, quote normalization, quantity stripping, accent folding,
@@ -11,7 +11,7 @@ over 01-bronze/data/train.json.
 
 import pytest
 
-from pipeline.normalize_text import (
+from silver_pipeline.normalize_text import (
     DegenerateKeyError,
     clean_ingredient_text,
     collapse_whitespace,

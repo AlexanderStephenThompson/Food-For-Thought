@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from pipeline.artifact_io import write_artifact_json, write_text_atomically
+from silver_pipeline.artifact_io import write_artifact_json, write_text_atomically
 
 RESOLUTION_SPLITS = ("train", "test")
 RESOLUTION_METHODS = (

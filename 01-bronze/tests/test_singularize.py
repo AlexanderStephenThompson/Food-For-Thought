@@ -1,4 +1,4 @@
-"""Tests for pipeline.singularize: token singularization and lookup keys.
+"""Tests for silver_pipeline.singularize: token singularization and lookup keys.
 
 The lexicon under test is 01-bronze/lexicons/singularize_exceptions.json, built from
 the morphology lens over the 459 s-ending tokens in the train vocabulary.
@@ -11,8 +11,8 @@ from pathlib import Path
 
 import pytest
 
-from pipeline import locations
-from pipeline.singularize import (
+from silver_pipeline import locations
+from silver_pipeline.singularize import (
     SingularizeExceptions,
     load_singularize_exceptions,
     make_lookup_key,

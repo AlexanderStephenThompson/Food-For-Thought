@@ -28,17 +28,17 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterable
 
-from pipeline import locations
-from pipeline.artifact_io import write_text_atomically
-from pipeline.cuisine_divergence import evaluate_merge_candidate
-from pipeline.load_bronze_recipes import (
+from silver_pipeline import locations
+from silver_pipeline.artifact_io import write_text_atomically
+from silver_pipeline.cuisine_divergence import evaluate_merge_candidate
+from silver_pipeline.load_bronze_recipes import (
     BRONZE_TRAIN_PATH,
     TrainIndex,
     build_train_index,
     load_train_recipes,
 )
-from pipeline.merge_evidence import CuisineShare, MergeEvidence
-from pipeline.merge_gate import (
+from silver_pipeline.merge_evidence import CuisineShare, MergeEvidence
+from silver_pipeline.merge_gate import (
     JSD_FLOOR_BITS,
     NULL_MULTIPLIER,
     GateAction,
@@ -47,18 +47,18 @@ from pipeline.merge_gate import (
     decide_merge,
     load_gate_lexicons,
 )
-from pipeline.normalize_text import clean_ingredient_text
-from pipeline.resolve_brands import (
+from silver_pipeline.normalize_text import clean_ingredient_text
+from silver_pipeline.resolve_brands import (
     BrandLexicon,
     load_brand_lexicon,
     resolve_brand_to_generic,
 )
-from pipeline.singularize import (
+from silver_pipeline.singularize import (
     SingularizeExceptions,
     load_singularize_exceptions,
     make_lookup_key,
 )
-from pipeline.strip_modifiers import (
+from silver_pipeline.strip_modifiers import (
     ModifierLexicon,
     load_modifier_lexicon,
     strip_safe_modifiers,
@@ -768,7 +768,7 @@ def write_review_queue_to_path(entries: Iterable[dict], path: Path) -> None:
 def main() -> None:
     """CLI: build the vocabulary from real data and write the review queue."""
     parser = argparse.ArgumentParser(
-        prog="PYTHONPATH=01-bronze .venv/bin/python -m pipeline.build_vocabulary",
+        prog="PYTHONPATH=01-bronze .venv/bin/python -m silver_pipeline.build_vocabulary",
         description=__doc__,
     )
     parser.add_argument(

@@ -23,7 +23,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from pipeline.merge_evidence import MergeEvidence
+from silver_pipeline.merge_evidence import MergeEvidence
 
 # Statistical gate thresholds validated against ~160 (variant, base) pairs.
 MIN_SUPPORT = 20

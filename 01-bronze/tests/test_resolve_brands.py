@@ -1,4 +1,4 @@
-"""Tests for pipeline.resolve_brands.
+"""Tests for silver_pipeline.resolve_brands.
 
 Covers lexicon loading (structure validation, regex compilation, frozen
 result), brand resolution semantics (keep-list precedence, first-match-wins
@@ -17,8 +17,8 @@ from pathlib import Path
 
 import pytest
 
-from pipeline import locations
-from pipeline.resolve_brands import (
+from silver_pipeline import locations
+from silver_pipeline.resolve_brands import (
     BrandLexicon,
     BrandPattern,
     load_brand_lexicon,

@@ -1,4 +1,4 @@
-"""Tests for pipeline.validate_silver.
+"""Tests for silver_pipeline.validate_silver.
 
 Each validator gate gets one test that corrupts an otherwise valid tiny
 payload and asserts ValidationError names the gate; one end-to-end test
@@ -10,9 +10,9 @@ import copy
 
 import pytest
 
-import pipeline.validate_silver as validate_silver
-from pipeline.artifact_io import SCHEMA_VERSION
-from pipeline.validate_silver import (
+import silver_pipeline.validate_silver as validate_silver
+from silver_pipeline.artifact_io import SCHEMA_VERSION
+from silver_pipeline.validate_silver import (
     EXPECTED_CUISINE_NAMES,
     EXPECTED_TEST_RECIPE_COUNT,
     EXPECTED_TRAIN_RECIPE_COUNT,

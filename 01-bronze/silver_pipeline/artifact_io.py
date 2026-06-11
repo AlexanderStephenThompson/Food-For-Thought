@@ -137,3 +137,29 @@ def write_artifact_json(payload: dict, path: Path) -> None:
         OSError: If the atomic write fails.
     """
     write_text_atomically(serialize_artifact_json(payload), path)
+
+
+def find_artifact_mismatches(expected_content_by_path: dict[Path, str]) -> list[str]:
+    """Compare expected artifact content against the files on disk.
+
+    Both tier builders use this for their idempotency checks: a rebuild is
+    idempotent exactly when every expected serialization matches its file
+    byte-for-byte.
+
+    Args:
+        expected_content_by_path: Destination path -> exact expected file
+            content (the canonical serialization, newline-terminated).
+
+    Returns:
+        Names of files that are missing (suffixed " (missing)") or whose
+        bytes differ from the expected content; empty when everything
+        matches.
+    """
+    mismatches = []
+    for path, expected_content in expected_content_by_path.items():
+        if not path.is_file():
+            mismatches.append(f"{path.name} (missing)")
+            continue
+        if path.read_text(encoding=ARTIFACT_TEXT_ENCODING) != expected_content:
+            mismatches.append(path.name)
+    return mismatches

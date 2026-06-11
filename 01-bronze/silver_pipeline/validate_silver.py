@@ -6,7 +6,7 @@ failure raises ValidationError naming the gate and the offending values.
 File loading happens only in main(), never at import time.
 
 Usage:
-    PYTHONPATH=01-bronze .venv/bin/python -m pipeline.validate_silver
+    PYTHONPATH=01-bronze .venv/bin/python -m silver_pipeline.validate_silver
 """
 
 from __future__ import annotations
@@ -15,9 +15,9 @@ import json
 import re
 from pathlib import Path
 
-from pipeline import locations
-from pipeline.artifact_io import SCHEMA_VERSION
-from pipeline.transform_bronze_to_silver import (
+from silver_pipeline import locations
+from silver_pipeline.artifact_io import SCHEMA_VERSION
+from silver_pipeline.transform_bronze_to_silver import (
     RESOLUTION_METHOD_NAMES,
     RESOLUTION_STATISTICS_FILENAME,
     TEST_RECIPES_FILENAME,

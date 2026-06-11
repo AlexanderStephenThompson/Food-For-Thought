@@ -1,4 +1,4 @@
-"""Tests for pipeline.build_coverage_report.
+"""Tests for silver_pipeline.build_coverage_report.
 
 All tests run on small in-test statistics and ingredients payloads; file
 writes go to pytest tmp_path only.
@@ -8,7 +8,7 @@ import json
 
 import pytest
 
-from pipeline.build_coverage_report import (
+from silver_pipeline.build_coverage_report import (
     build_coverage_payload,
     render_coverage_markdown,
     write_coverage_reports,

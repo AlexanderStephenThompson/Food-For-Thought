@@ -11,7 +11,7 @@ Method and thresholds follow the signal-variants analysis: PRESERVE requires
 support >= 20, JSD >= 0.07 bits, and JSD >= 1.5x the n-matched null95.
 
 CLI usage:
-    PYTHONPATH=01-bronze .venv/bin/python -m pipeline.cuisine_divergence \\
+    PYTHONPATH=01-bronze .venv/bin/python -m silver_pipeline.cuisine_divergence \\
         --variant "dark soy sauce" --base "soy sauce"
 """
 
@@ -22,12 +22,12 @@ from collections import Counter
 from collections.abc import Collection
 from itertools import accumulate
 
-from pipeline.load_bronze_recipes import (
+from silver_pipeline.load_bronze_recipes import (
     TrainIndex,
     build_train_index,
     load_train_recipes,
 )
-from pipeline.merge_evidence import CuisineShare, MergeEvidence
+from silver_pipeline.merge_evidence import CuisineShare, MergeEvidence
 
 # Merge-gate thresholds validated in the signal-variants analysis
 # (dark soy 0.1105 bits / 6.4x null -> PRESERVE; low sodium 0.0181 -> MERGE).
@@ -333,7 +333,7 @@ def _top_cuisine_shares(
 def _build_argument_parser() -> argparse.ArgumentParser:
     """Build the CLI parser for one (variant, base) divergence check."""
     parser = argparse.ArgumentParser(
-        prog="PYTHONPATH=01-bronze .venv/bin/python -m pipeline.cuisine_divergence",
+        prog="PYTHONPATH=01-bronze .venv/bin/python -m silver_pipeline.cuisine_divergence",
         description=(
             "Measure cuisine-distribution divergence between a variant and a "
             "base ingredient string on the real train data."

@@ -1,4 +1,4 @@
-"""Tests for pipeline.build_vocabulary — the vocabulary build orchestration.
+"""Tests for silver_pipeline.build_vocabulary — the vocabulary build orchestration.
 
 All tests run on synthetic mini-indexes and the small fixture lexicons under
 tests/fixtures/build_vocabulary/ so they are independent of production
@@ -10,8 +10,8 @@ from pathlib import Path
 
 import pytest
 
-from pipeline import locations
-from pipeline.build_vocabulary import (
+from silver_pipeline import locations
+from silver_pipeline.build_vocabulary import (
     ALIAS_SCOPE_MINIMUM_FREQUENCY,
     apply_pair_outcomes,
     build_review_queue_entries,

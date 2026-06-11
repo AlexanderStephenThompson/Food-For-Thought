@@ -1,4 +1,4 @@
-"""Make the bronze pipeline importable when pytest runs from the repo root."""
+"""Make silver_pipeline importable when pytest runs from the repo root."""
 import sys
 from pathlib import Path
 

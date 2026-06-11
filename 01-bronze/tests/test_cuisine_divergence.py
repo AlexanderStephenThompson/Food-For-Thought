@@ -1,15 +1,15 @@
-"""Tests for pipeline.cuisine_divergence.
+"""Tests for silver_pipeline.cuisine_divergence.
 
 All tests run on synthetic mini-indexes built in-memory from hand-made
 Recipe objects -- no file I/O. Real-data validation lives in the CLI
-(PYTHONPATH=01-bronze .venv/bin/python -m pipeline.cuisine_divergence) and is
+(PYTHONPATH=01-bronze .venv/bin/python -m silver_pipeline.cuisine_divergence) and is
 reported separately.
 """
 
 import pytest
 
-from pipeline import cuisine_divergence
-from pipeline.cuisine_divergence import (
+from silver_pipeline import cuisine_divergence
+from silver_pipeline.cuisine_divergence import (
     VERDICT_MERGE,
     VERDICT_PRESERVE,
     VERDICT_REVIEW,
@@ -19,8 +19,8 @@ from pipeline.cuisine_divergence import (
     evaluate_merge_candidate,
     jensen_shannon_divergence_bits,
 )
-from pipeline.load_bronze_recipes import Recipe, TrainIndex, build_train_index
-from pipeline.merge_evidence import MergeEvidence
+from silver_pipeline.load_bronze_recipes import Recipe, TrainIndex, build_train_index
+from silver_pipeline.merge_evidence import MergeEvidence
 
 FAST_TRIALS = 200
 JSD_TOLERANCE = 1e-9

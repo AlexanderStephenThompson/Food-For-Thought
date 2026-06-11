@@ -13,7 +13,7 @@ tests, and reports that transform it into the next tier.**
 
 | Tier | Produced by | Contents |
 |------|-------------|----------|
-| `01-bronze/` | Downloading from Kaggle | `data/` (immutable source files) · `pipeline/` (bronze→silver transforms) · `lexicons/` (curated rules & merge decisions) · `reports/` (coverage, review queue) · `tests/` · `build.py` |
+| `01-bronze/` | Downloading from Kaggle | `data/` (immutable source files) · `silver_pipeline/` (bronze→silver transforms) · `lexicons/` (curated rules & merge decisions) · `reports/` (coverage, review queue) · `tests/` · `build.py` |
 | `02-silver/` | `01-bronze/pipeline/` | `datasets/` — the four canonical entities |
 | `03-gold/` | The model phase (upcoming) | `datasets/` only — see `03-gold/README.md` |
 
@@ -26,7 +26,7 @@ tests, and reports that transform it into the next tier.**
 | `02-silver/datasets/recipes_test.json` | 9,944 unlabeled recipes, same form |
 | `02-silver/datasets/cuisines.json` | 20-cuisine taxonomy: families, neighbors, distinctive ingredients |
 
-## Pipeline module map (`01-bronze/pipeline/`)
+## Pipeline module map (`01-bronze/silver_pipeline/`)
 
 In data-flow order:
 
@@ -67,7 +67,7 @@ python3 -m venv --without-pip .venv
 To interrogate a merge decision (or evaluate a new variant when the vocabulary grows):
 
 ```bash
-PYTHONPATH=01-bronze .venv/bin/python -m pipeline.cuisine_divergence --variant "dark soy sauce" --base "soy sauce"
+PYTHONPATH=01-bronze .venv/bin/python -m silver_pipeline.cuisine_divergence --variant "dark soy sauce" --base "soy sauce"
 ```
 
 ## Known limitations (candidates for future refinement)

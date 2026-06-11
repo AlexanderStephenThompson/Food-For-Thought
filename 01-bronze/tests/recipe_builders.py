@@ -7,7 +7,7 @@ structures so every suite constructs them the same way.
 
 from collections.abc import Iterable, Sequence
 
-from pipeline.load_bronze_recipes import Recipe, TrainIndex, build_train_index
+from silver_pipeline.load_bronze_recipes import Recipe, TrainIndex, build_train_index
 
 RecipeRow = tuple[int, str, Sequence[str]]
 

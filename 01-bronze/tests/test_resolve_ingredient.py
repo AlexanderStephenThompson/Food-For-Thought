@@ -1,4 +1,4 @@
-"""Tests for pipeline.resolve_ingredient — the runtime fallback chain.
+"""Tests for silver_pipeline.resolve_ingredient — the runtime fallback chain.
 
 Exercises every tier of the IngredientResolver against a handwritten
 vocabulary fixture (tests/fixtures/resolve_ingredient/vocabulary.json)
@@ -24,9 +24,9 @@ from pathlib import Path
 
 import pytest
 
-from pipeline import locations
-from pipeline.build_vocabulary import load_pipeline_lexicons
-from pipeline.resolve_ingredient import IngredientResolver, ResolutionResult
+from silver_pipeline import locations
+from silver_pipeline.build_vocabulary import load_pipeline_lexicons
+from silver_pipeline.resolve_ingredient import IngredientResolver, ResolutionResult
 
 VOCABULARY_FIXTURE_PATH = (
     Path(__file__).parent / "fixtures" / "resolve_ingredient" / "vocabulary.json"

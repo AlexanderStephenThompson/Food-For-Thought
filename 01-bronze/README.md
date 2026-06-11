@@ -7,8 +7,8 @@ silver is rebuilt *from* it, never the other way around.
 
 The rest of this tier is everything that turns bronze into silver:
 
-- `pipeline/` — the bronze→silver transform modules (see the module map in
-  the root README)
+- `silver_pipeline/` — the bronze→silver transform modules (see the module
+  map in the root README)
 - `lexicons/` — curated rules and reviewed merge decisions that drive the
   vocabulary build
 - `reports/` — build reports and the merge review queue

@@ -17,8 +17,8 @@ from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 
-from pipeline import locations
-from pipeline.artifact_io import SCHEMA_VERSION
+from silver_pipeline import locations
+from silver_pipeline.artifact_io import SCHEMA_VERSION
 
 DEFAULT_CUISINE_FAMILIES_PATH = locations.LEXICONS_DIRECTORY / "cuisine_families.json"
 

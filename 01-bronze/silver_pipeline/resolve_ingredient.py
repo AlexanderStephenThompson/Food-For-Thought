@@ -29,11 +29,11 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
-from pipeline.build_vocabulary import PipelineLexicons, load_pipeline_lexicons
-from pipeline.normalize_text import DegenerateKeyError, clean_ingredient_text
-from pipeline.resolve_brands import resolve_brand_to_generic
-from pipeline.singularize import make_lookup_key
-from pipeline.strip_modifiers import strip_safe_modifiers
+from silver_pipeline.build_vocabulary import PipelineLexicons, load_pipeline_lexicons
+from silver_pipeline.normalize_text import DegenerateKeyError, clean_ingredient_text
+from silver_pipeline.resolve_brands import resolve_brand_to_generic
+from silver_pipeline.singularize import make_lookup_key
+from silver_pipeline.strip_modifiers import strip_safe_modifiers
 
 METHOD_EXACT_ALIAS = "exact_alias"
 METHOD_CLEANED_MATCH = "cleaned_match"

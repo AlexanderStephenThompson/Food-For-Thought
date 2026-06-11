@@ -17,37 +17,38 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-from pipeline import locations
-from pipeline.artifact_io import (
+from silver_pipeline import locations
+from silver_pipeline.artifact_io import (
     compute_build_fingerprint,
+    find_artifact_mismatches,
     serialize_artifact_json,
     write_artifact_json,
 )
-from pipeline.build_coverage_report import (
+from silver_pipeline.build_coverage_report import (
     build_coverage_payload,
     write_coverage_reports,
 )
-from pipeline.build_cuisines import build_cuisines_payload, load_cuisine_families
-from pipeline.build_vocabulary import (
+from silver_pipeline.build_cuisines import build_cuisines_payload, load_cuisine_families
+from silver_pipeline.build_vocabulary import (
     build_vocabulary_from_index,
     load_pipeline_lexicons,
     write_review_queue_to_path,
 )
-from pipeline.compile_alias_table import (
+from silver_pipeline.compile_alias_table import (
     CompileStatistics,
     compile_ingredients_payload,
     load_merge_decisions,
     validate_compiled_payload,
 )
-from pipeline.load_bronze_recipes import (
+from silver_pipeline.load_bronze_recipes import (
     BRONZE_TRAIN_PATH,
     build_train_index,
     load_test_recipes,
     load_train_recipes,
 )
-from pipeline.resolve_ingredient import IngredientResolver
-from pipeline.transform_bronze_to_silver import stage_recipes, write_silver_recipes
-from pipeline.validate_silver import validate_silver_artifacts
+from silver_pipeline.resolve_ingredient import IngredientResolver
+from silver_pipeline.transform_bronze_to_silver import stage_recipes, write_silver_recipes
+from silver_pipeline.validate_silver import validate_silver_artifacts
 
 MERGE_DECISIONS_PATH = locations.LEXICONS_DIRECTORY / "merge_decisions.jsonl"
 CUISINE_FAMILIES_PATH = locations.LEXICONS_DIRECTORY / "cuisine_families.json"
@@ -174,28 +175,6 @@ def write_silver_artifacts(artifacts: SilverArtifacts) -> None:
         locations.SILVER_DATASETS_DIRECTORY,
         locations.REPORTS_DIRECTORY,
     )
-
-
-def find_artifact_mismatches(expected_content_by_path: dict[Path, str]) -> list[str]:
-    """Compare expected artifact content against the files on disk.
-
-    Args:
-        expected_content_by_path: Destination path -> exact expected file
-            content (the canonical serialization, newline-terminated).
-
-    Returns:
-        Names of files that are missing (suffixed " (missing)") or whose
-        bytes differ from the expected content; empty when everything
-        matches.
-    """
-    mismatches = []
-    for path, expected_content in expected_content_by_path.items():
-        if not path.is_file():
-            mismatches.append(f"{path.name} (missing)")
-            continue
-        if path.read_text(encoding="utf-8") != expected_content:
-            mismatches.append(path.name)
-    return mismatches
 
 
 def verify_rebuild_matches_disk(artifacts: SilverArtifacts) -> list[str]:

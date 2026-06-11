@@ -1,4 +1,4 @@
-"""Tests for pipeline.transform_bronze_to_silver.
+"""Tests for silver_pipeline.transform_bronze_to_silver.
 
 stage_recipes turns bronze Recipe records plus an injected resolver into the
 pinned silver recipes payload and a per-split resolution statistics block;
@@ -14,9 +14,9 @@ from pathlib import Path
 
 import pytest
 
-from pipeline.artifact_io import SCHEMA_VERSION
-from pipeline.load_bronze_recipes import Recipe
-from pipeline.transform_bronze_to_silver import (
+from silver_pipeline.artifact_io import SCHEMA_VERSION
+from silver_pipeline.load_bronze_recipes import Recipe
+from silver_pipeline.transform_bronze_to_silver import (
     TOP_UNRESOLVED_LIMIT,
     stage_recipes,
     write_silver_recipes,

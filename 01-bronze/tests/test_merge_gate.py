@@ -1,4 +1,4 @@
-"""Tests for pipeline.merge_gate.
+"""Tests for silver_pipeline.merge_gate.
 
 Gate decisions run on synthetic MergeEvidence instances plus a small fixture
 lexicon directory (tests/fixtures/merge_gate). One test group loads the four
@@ -12,9 +12,9 @@ from pathlib import Path
 
 import pytest
 
-from pipeline import locations
-from pipeline.merge_evidence import CuisineShare, MergeEvidence
-from pipeline.merge_gate import (
+from silver_pipeline import locations
+from silver_pipeline.merge_evidence import CuisineShare, MergeEvidence
+from silver_pipeline.merge_gate import (
     BORDERLINE_JSD_BAND,
     BORDERLINE_RATIO_BAND,
     JSD_FLOOR_BITS,
