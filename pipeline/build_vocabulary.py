@@ -175,6 +175,7 @@ class VocabularyBuild:
     alias_scope_keys: frozenset[str]
     review_candidates: tuple[ReviewCandidate, ...]
     review_entries: list[dict]
+    absorbed_into: dict[str, str] = field(default_factory=dict)
 
     @property
     def parent_keys(self) -> dict[str, str]:
@@ -494,10 +495,12 @@ def apply_pair_outcomes(
         index: Train index for evidence evaluation.
 
     Returns:
-        (groups, preserved, review_candidates) where preserved links each
-        gate-preserved variant to its base with the deciding layer and
-        evidence, and review_candidates holds every REVIEW outcome for
-        queue serialization.
+        (groups, preserved, review_candidates, absorbed_into) where
+        preserved links each gate-preserved variant to its base with the
+        deciding layer and evidence, review_candidates holds every REVIEW
+        outcome for queue serialization, and absorbed_into maps each
+        gate-merged group key to the key that absorbed it (chains possible;
+        consumers must chase them).
     """
     ordered = sorted(pairs, key=lambda p: (-len(p.variant_key.split()), p.variant_key))
     redirects: dict[str, str] = {}
@@ -544,7 +547,7 @@ def apply_pair_outcomes(
         )
         for variant, base, decision, evidence in preserve_records
     }
-    return groups, preserved, review_candidates
+    return groups, preserved, review_candidates, redirects
 
 
 def _cuisine_shares_to_dicts(shares) -> list[dict]:
@@ -634,7 +637,7 @@ def build_vocabulary_from_index(
     groups = group_strings_mechanically(raw_strings, lexicons)
     groups = merge_groups_by_strip_and_brand(groups, lexicons, index)
     pairs = generate_candidate_pairs(groups, lexicons, index)
-    groups, preserved, review_candidates = apply_pair_outcomes(
+    groups, preserved, review_candidates, absorbed_into = apply_pair_outcomes(
         groups, pairs, lexicons, index
     )
     alias_scope_keys = frozenset(
@@ -648,6 +651,7 @@ def build_vocabulary_from_index(
         alias_scope_keys=alias_scope_keys,
         review_candidates=tuple(review_candidates),
         review_entries=build_review_queue_entries(review_candidates, index),
+        absorbed_into=absorbed_into,
     )
 
 
@@ -691,7 +695,7 @@ def main() -> None:
 
     pairs = generate_candidate_pairs(groups, lexicons, index)
     print(f"candidate pairs: {len(pairs)}")
-    groups, preserved, review_candidates = apply_pair_outcomes(
+    groups, preserved, review_candidates, _ = apply_pair_outcomes(
         groups, pairs, lexicons, index
     )
     print(

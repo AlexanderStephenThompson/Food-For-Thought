@@ -1,0 +1,2010 @@
+{
+  "build": {
+    "lexicon_fingerprint": "115518a203f65ca774deadbac864212824bff38b4b65ad6fb713d0702d7ad3cf",
+    "random_seed": 42,
+    "train_sha256": "f18e7e568d1c606774bfb134ece51ef0a143cd5069e6f9241bb6036b45b7d2b0"
+  },
+  "cuisines": [
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.03,
+          "id": "acai",
+          "lift": 85.1692
+        },
+        {
+          "cuisine_coverage": 0.1499,
+          "id": "cachaca",
+          "lift": 85.1692
+        },
+        {
+          "cuisine_coverage": 0.0257,
+          "id": "manioc_flour",
+          "lift": 85.1692
+        },
+        {
+          "cuisine_coverage": 0.0257,
+          "id": "palm_oil",
+          "lift": 85.1692
+        },
+        {
+          "cuisine_coverage": 0.0214,
+          "id": "granola",
+          "lift": 77.4265
+        },
+        {
+          "cuisine_coverage": 0.0343,
+          "id": "chocolate_sprinkles",
+          "lift": 75.7059
+        },
+        {
+          "cuisine_coverage": 0.0236,
+          "id": "hearts_of_palm",
+          "lift": 49.3085
+        },
+        {
+          "cuisine_coverage": 0.0385,
+          "id": "dried_black_beans",
+          "lift": 42.5846
+        },
+        {
+          "cuisine_coverage": 0.0278,
+          "id": "almond_milk",
+          "lift": 33.5515
+        },
+        {
+          "cuisine_coverage": 0.0364,
+          "id": "tapioca_flour",
+          "lift": 29.5485
+        },
+        {
+          "cuisine_coverage": 0.0835,
+          "id": "ice",
+          "lift": 20.76
+        },
+        {
+          "cuisine_coverage": 0.1221,
+          "id": "sweetened_condensed_milk",
+          "lift": 17.5893
+        },
+        {
+          "cuisine_coverage": 0.03,
+          "id": "superfine_sugar",
+          "lift": 16.3338
+        },
+        {
+          "cuisine_coverage": 0.0236,
+          "id": "condensed_milk",
+          "lift": 12.4915
+        },
+        {
+          "cuisine_coverage": 0.0236,
+          "id": "dried_shrimp",
+          "lift": 12.4915
+        }
+      ],
+      "family": "latin_american",
+      "id": "brazilian",
+      "neighbors": [
+        {
+          "id": "spanish",
+          "similarity": 0.515
+        },
+        {
+          "id": "filipino",
+          "similarity": 0.4659
+        },
+        {
+          "id": "mexican",
+          "similarity": 0.4581
+        },
+        {
+          "id": "french",
+          "similarity": 0.4394
+        }
+      ],
+      "recipe_count": 467
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0211,
+          "id": "stilton_cheese",
+          "lift": 46.7218
+        },
+        {
+          "cuisine_coverage": 0.0261,
+          "id": "golden_syrup",
+          "lift": 34.6291
+        },
+        {
+          "cuisine_coverage": 0.0224,
+          "id": "malt_vinegar",
+          "lift": 17.1243
+        },
+        {
+          "cuisine_coverage": 0.0224,
+          "id": "puff_pastry",
+          "lift": 15.3528
+        },
+        {
+          "cuisine_coverage": 0.0498,
+          "id": "dried_currants",
+          "lift": 13.9353
+        },
+        {
+          "cuisine_coverage": 0.0336,
+          "id": "dates",
+          "lift": 11.8203
+        },
+        {
+          "cuisine_coverage": 0.0311,
+          "id": "frozen_pastry_puff_sheets",
+          "lift": 11.6675
+        },
+        {
+          "cuisine_coverage": 0.0336,
+          "id": "caster_sugar",
+          "lift": 9.3405
+        },
+        {
+          "cuisine_coverage": 0.0398,
+          "id": "self_rising_flour",
+          "lift": 8.2023
+        },
+        {
+          "cuisine_coverage": 0.0299,
+          "id": "brandy",
+          "lift": 7.0253
+        },
+        {
+          "cuisine_coverage": 0.0286,
+          "id": "beef_stock",
+          "lift": 6.5392
+        },
+        {
+          "cuisine_coverage": 0.0261,
+          "id": "fresh_raspberries",
+          "lift": 6.111
+        },
+        {
+          "cuisine_coverage": 0.0348,
+          "id": "beer",
+          "lift": 6.0753
+        },
+        {
+          "cuisine_coverage": 0.0336,
+          "id": "strawberries",
+          "lift": 5.8074
+        },
+        {
+          "cuisine_coverage": 0.0211,
+          "id": "cream_of_tartar",
+          "lift": 5.2893
+        }
+      ],
+      "family": "anglo_northern_european",
+      "id": "british",
+      "neighbors": [
+        {
+          "id": "irish",
+          "similarity": 0.7884
+        },
+        {
+          "id": "southern_us",
+          "similarity": 0.7659
+        },
+        {
+          "id": "french",
+          "similarity": 0.7202
+        },
+        {
+          "id": "russian",
+          "similarity": 0.6871
+        }
+      ],
+      "recipe_count": 804
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.031,
+          "id": "file_powder",
+          "lift": 24.2137
+        },
+        {
+          "cuisine_coverage": 0.1514,
+          "id": "andouille_sausage",
+          "lift": 21.7333
+        },
+        {
+          "cuisine_coverage": 0.141,
+          "id": "creole_seasoning",
+          "lift": 20.1744
+        },
+        {
+          "cuisine_coverage": 0.1908,
+          "id": "cajun_seasoning",
+          "lift": 20.078
+        },
+        {
+          "cuisine_coverage": 0.0712,
+          "id": "smoked_sausage",
+          "lift": 18.8665
+        },
+        {
+          "cuisine_coverage": 0.0349,
+          "id": "red_beans",
+          "lift": 17.5856
+        },
+        {
+          "cuisine_coverage": 0.0285,
+          "id": "creole_mustard",
+          "lift": 17.4152
+        },
+        {
+          "cuisine_coverage": 0.0459,
+          "id": "crawfish",
+          "lift": 15.4798
+        },
+        {
+          "cuisine_coverage": 0.0944,
+          "id": "okra",
+          "lift": 12.647
+        },
+        {
+          "cuisine_coverage": 0.0285,
+          "id": "red_kidney_beans",
+          "lift": 9.5125
+        },
+        {
+          "cuisine_coverage": 0.0259,
+          "id": "lump_crab_meat",
+          "lift": 8.7956
+        },
+        {
+          "cuisine_coverage": 0.0239,
+          "id": "catfish_fillets",
+          "lift": 8.733
+        },
+        {
+          "cuisine_coverage": 0.2704,
+          "id": "celery",
+          "lift": 7.9248
+        },
+        {
+          "cuisine_coverage": 0.1119,
+          "id": "celery_ribs",
+          "lift": 7.8497
+        },
+        {
+          "cuisine_coverage": 0.0692,
+          "id": "long_grain_rice",
+          "lift": 7.7326
+        }
+      ],
+      "family": "american_south",
+      "id": "cajun_creole",
+      "neighbors": [
+        {
+          "id": "spanish",
+          "similarity": 0.5385
+        },
+        {
+          "id": "southern_us",
+          "similarity": 0.5354
+        },
+        {
+          "id": "french",
+          "similarity": 0.4774
+        },
+        {
+          "id": "italian",
+          "similarity": 0.4648
+        }
+      ],
+      "recipe_count": 1546
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0471,
+          "id": "chinese_rice_wine",
+          "lift": 14.312
+        },
+        {
+          "cuisine_coverage": 0.0501,
+          "id": "szechwan_peppercorns",
+          "lift": 14.0416
+        },
+        {
+          "cuisine_coverage": 0.0924,
+          "id": "shaoxing_wine",
+          "lift": 13.9217
+        },
+        {
+          "cuisine_coverage": 0.0318,
+          "id": "chinese_black_vinegar",
+          "lift": 13.7477
+        },
+        {
+          "cuisine_coverage": 0.0834,
+          "id": "chinese_five_spice_powder",
+          "lift": 13.1155
+        },
+        {
+          "cuisine_coverage": 0.122,
+          "id": "hoisin_sauce",
+          "lift": 11.2029
+        },
+        {
+          "cuisine_coverage": 0.0864,
+          "id": "dark_soy_sauce",
+          "lift": 10.9817
+        },
+        {
+          "cuisine_coverage": 0.1276,
+          "id": "oyster_sauce",
+          "lift": 10.9355
+        },
+        {
+          "cuisine_coverage": 0.0535,
+          "id": "water_chestnuts",
+          "lift": 10.9119
+        },
+        {
+          "cuisine_coverage": 0.095,
+          "id": "light_soy_sauce",
+          "lift": 10.8919
+        },
+        {
+          "cuisine_coverage": 0.0378,
+          "id": "wonton_wrappers",
+          "lift": 9.5118
+        },
+        {
+          "cuisine_coverage": 0.0288,
+          "id": "chili_oil",
+          "lift": 9.3151
+        },
+        {
+          "cuisine_coverage": 0.0239,
+          "id": "cornflour",
+          "lift": 9.2458
+        },
+        {
+          "cuisine_coverage": 0.0513,
+          "id": "rice_wine",
+          "lift": 9.0602
+        },
+        {
+          "cuisine_coverage": 0.0288,
+          "id": "bamboo_shoots",
+          "lift": 8.3632
+        }
+      ],
+      "family": "east_asian",
+      "id": "chinese",
+      "neighbors": [
+        {
+          "id": "korean",
+          "similarity": 0.7186
+        },
+        {
+          "id": "japanese",
+          "similarity": 0.6253
+        },
+        {
+          "id": "filipino",
+          "similarity": 0.59
+        },
+        {
+          "id": "vietnamese",
+          "similarity": 0.5556
+        }
+      ],
+      "recipe_count": 2673
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0225,
+          "id": "calamansi_juice",
+          "lift": 52.6808
+        },
+        {
+          "cuisine_coverage": 0.0212,
+          "id": "lumpia_wrappers",
+          "lift": 52.6808
+        },
+        {
+          "cuisine_coverage": 0.0238,
+          "id": "shrimp_paste",
+          "lift": 16.9331
+        },
+        {
+          "cuisine_coverage": 0.049,
+          "id": "pork_belly",
+          "lift": 15.7193
+        },
+        {
+          "cuisine_coverage": 0.0225,
+          "id": "spring_roll_wrappers",
+          "lift": 14.6815
+        },
+        {
+          "cuisine_coverage": 0.0252,
+          "id": "condensed_milk",
+          "lift": 13.3458
+        },
+        {
+          "cuisine_coverage": 0.0517,
+          "id": "peppercorns",
+          "lift": 12.6824
+        },
+        {
+          "cuisine_coverage": 0.0238,
+          "id": "coconut_cream",
+          "lift": 12.315
+        },
+        {
+          "cuisine_coverage": 0.0861,
+          "id": "vinegar",
+          "lift": 10.8362
+        },
+        {
+          "cuisine_coverage": 0.1219,
+          "id": "cooking_oil",
+          "lift": 10.0344
+        },
+        {
+          "cuisine_coverage": 0.0225,
+          "id": "hard_boiled_egg",
+          "lift": 8.6113
+        },
+        {
+          "cuisine_coverage": 0.0212,
+          "id": "leaves",
+          "lift": 8.1047
+        },
+        {
+          "cuisine_coverage": 0.0464,
+          "id": "evaporated_milk",
+          "lift": 7.4649
+        },
+        {
+          "cuisine_coverage": 0.0596,
+          "id": "pork",
+          "lift": 6.9725
+        },
+        {
+          "cuisine_coverage": 0.0371,
+          "id": "thai_chile",
+          "lift": 6.6146
+        }
+      ],
+      "family": "southeast_asian",
+      "id": "filipino",
+      "neighbors": [
+        {
+          "id": "chinese",
+          "similarity": 0.59
+        },
+        {
+          "id": "vietnamese",
+          "similarity": 0.5618
+        },
+        {
+          "id": "thai",
+          "similarity": 0.516
+        },
+        {
+          "id": "korean",
+          "similarity": 0.4992
+        }
+      ],
+      "recipe_count": 755
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0454,
+          "id": "gruyere_cheese",
+          "lift": 11.2738
+        },
+        {
+          "cuisine_coverage": 0.0253,
+          "id": "cognac",
+          "lift": 10.7141
+        },
+        {
+          "cuisine_coverage": 0.0227,
+          "id": "swiss_cheese",
+          "lift": 8.2744
+        },
+        {
+          "cuisine_coverage": 0.0219,
+          "id": "frozen_pastry_puff_sheets",
+          "lift": 8.2249
+        },
+        {
+          "cuisine_coverage": 0.0344,
+          "id": "fresh_tarragon",
+          "lift": 7.8614
+        },
+        {
+          "cuisine_coverage": 0.028,
+          "id": "creme_fraiche",
+          "lift": 7.6188
+        },
+        {
+          "cuisine_coverage": 0.0302,
+          "id": "vanilla_beans",
+          "lift": 7.2008
+        },
+        {
+          "cuisine_coverage": 0.037,
+          "id": "thyme_sprigs",
+          "lift": 6.9486
+        },
+        {
+          "cuisine_coverage": 0.0272,
+          "id": "semisweet_chocolate",
+          "lift": 6.5198
+        },
+        {
+          "cuisine_coverage": 0.0208,
+          "id": "bittersweet_chocolate",
+          "lift": 5.8222
+        },
+        {
+          "cuisine_coverage": 0.0223,
+          "id": "cream_of_tartar",
+          "lift": 5.5778
+        },
+        {
+          "cuisine_coverage": 0.0215,
+          "id": "ice_water",
+          "lift": 5.2244
+        },
+        {
+          "cuisine_coverage": 0.0642,
+          "id": "dijon_mustard",
+          "lift": 4.9523
+        },
+        {
+          "cuisine_coverage": 0.0204,
+          "id": "fresh_raspberries",
+          "lift": 4.7748
+        },
+        {
+          "cuisine_coverage": 0.0522,
+          "id": "leeks",
+          "lift": 4.7252
+        }
+      ],
+      "family": "western_european",
+      "id": "french",
+      "neighbors": [
+        {
+          "id": "british",
+          "similarity": 0.7202
+        },
+        {
+          "id": "italian",
+          "similarity": 0.662
+        },
+        {
+          "id": "southern_us",
+          "similarity": 0.6604
+        },
+        {
+          "id": "irish",
+          "similarity": 0.65
+        }
+      ],
+      "recipe_count": 2646
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0349,
+          "id": "greek_seasoning",
+          "lift": 30.8413
+        },
+        {
+          "cuisine_coverage": 0.1626,
+          "id": "feta_cheese",
+          "lift": 24.1246
+        },
+        {
+          "cuisine_coverage": 0.2145,
+          "id": "feta_cheese_crumbles",
+          "lift": 23.8275
+        },
+        {
+          "cuisine_coverage": 0.0221,
+          "id": "pita_bread",
+          "lift": 22.0026
+        },
+        {
+          "cuisine_coverage": 0.0357,
+          "id": "phyllo_dough",
+          "lift": 21.2195
+        },
+        {
+          "cuisine_coverage": 0.0247,
+          "id": "pitas",
+          "lift": 20.8863
+        },
+        {
+          "cuisine_coverage": 0.0579,
+          "id": "ground_lamb",
+          "lift": 16.9251
+        },
+        {
+          "cuisine_coverage": 0.137,
+          "id": "fresh_dill",
+          "lift": 15.5711
+        },
+        {
+          "cuisine_coverage": 0.0409,
+          "id": "greek_style_plain_yogurt",
+          "lift": 13.8873
+        },
+        {
+          "cuisine_coverage": 0.0664,
+          "id": "kalamata",
+          "lift": 13.471
+        },
+        {
+          "cuisine_coverage": 0.0204,
+          "id": "tahini",
+          "lift": 13.1033
+        },
+        {
+          "cuisine_coverage": 0.097,
+          "id": "greek_yogurt",
+          "lift": 12.529
+        },
+        {
+          "cuisine_coverage": 0.0638,
+          "id": "mezzetta_greek_kalamata_olives",
+          "lift": 12.1472
+        },
+        {
+          "cuisine_coverage": 0.0238,
+          "id": "orzo",
+          "lift": 10.4155
+        },
+        {
+          "cuisine_coverage": 0.2009,
+          "id": "cucumber",
+          "lift": 8.0207
+        }
+      ],
+      "family": "mediterranean",
+      "id": "greek",
+      "neighbors": [
+        {
+          "id": "italian",
+          "similarity": 0.5677
+        },
+        {
+          "id": "spanish",
+          "similarity": 0.5662
+        },
+        {
+          "id": "french",
+          "similarity": 0.4704
+        },
+        {
+          "id": "moroccan",
+          "similarity": 0.4651
+        }
+      ],
+      "recipe_count": 1175
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0266,
+          "id": "urad_dal",
+          "lift": 12.9217
+        },
+        {
+          "cuisine_coverage": 0.022,
+          "id": "masala",
+          "lift": 12.6689
+        },
+        {
+          "cuisine_coverage": 0.0926,
+          "id": "curry_leaves",
+          "lift": 12.6531
+        },
+        {
+          "cuisine_coverage": 0.0353,
+          "id": "black_mustard_seeds",
+          "lift": 12.5352
+        },
+        {
+          "cuisine_coverage": 0.2877,
+          "id": "garam_masala",
+          "lift": 12.3446
+        },
+        {
+          "cuisine_coverage": 0.034,
+          "id": "paneer",
+          "lift": 12.2815
+        },
+        {
+          "cuisine_coverage": 0.0206,
+          "id": "curds",
+          "lift": 12.2563
+        },
+        {
+          "cuisine_coverage": 0.0223,
+          "id": "asafoetida",
+          "lift": 12.1561
+        },
+        {
+          "cuisine_coverage": 0.0216,
+          "id": "fenugreek_seeds",
+          "lift": 11.7933
+        },
+        {
+          "cuisine_coverage": 0.0909,
+          "id": "ghee",
+          "lift": 11.7779
+        },
+        {
+          "cuisine_coverage": 0.0709,
+          "id": "coriander_powder",
+          "lift": 11.468
+        },
+        {
+          "cuisine_coverage": 0.0716,
+          "id": "yoghurt",
+          "lift": 11.3451
+        },
+        {
+          "cuisine_coverage": 0.0509,
+          "id": "cardamom",
+          "lift": 10.9538
+        },
+        {
+          "cuisine_coverage": 0.0846,
+          "id": "mustard_seeds",
+          "lift": 10.7481
+        },
+        {
+          "cuisine_coverage": 0.0623,
+          "id": "cardamom_pods",
+          "lift": 10.6757
+        }
+      ],
+      "family": "south_asian",
+      "id": "indian",
+      "neighbors": [
+        {
+          "id": "moroccan",
+          "similarity": 0.5313
+        },
+        {
+          "id": "filipino",
+          "similarity": 0.3932
+        },
+        {
+          "id": "mexican",
+          "similarity": 0.3883
+        },
+        {
+          "id": "brazilian",
+          "similarity": 0.3711
+        }
+      ],
+      "recipe_count": 3003
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0495,
+          "id": "irish_whiskey",
+          "lift": 56.2237
+        },
+        {
+          "cuisine_coverage": 0.0285,
+          "id": "irish_cream_liqueur",
+          "lift": 51.4997
+        },
+        {
+          "cuisine_coverage": 0.036,
+          "id": "corned_beef",
+          "lift": 44.7234
+        },
+        {
+          "cuisine_coverage": 0.054,
+          "id": "guinness_beer",
+          "lift": 40.5042
+        },
+        {
+          "cuisine_coverage": 0.0345,
+          "id": "beef_brisket",
+          "lift": 22.4839
+        },
+        {
+          "cuisine_coverage": 0.0345,
+          "id": "mashed_potatoes",
+          "lift": 21.7701
+        },
+        {
+          "cuisine_coverage": 0.0285,
+          "id": "caraway_seeds",
+          "lift": 13.817
+        },
+        {
+          "cuisine_coverage": 0.057,
+          "id": "whole_wheat_flour",
+          "lift": 12.5888
+        },
+        {
+          "cuisine_coverage": 0.03,
+          "id": "dried_currants",
+          "lift": 8.3988
+        },
+        {
+          "cuisine_coverage": 0.045,
+          "id": "beer",
+          "lift": 7.8462
+        },
+        {
+          "cuisine_coverage": 0.0525,
+          "id": "red_potato",
+          "lift": 7.3231
+        },
+        {
+          "cuisine_coverage": 0.1724,
+          "id": "baking_soda",
+          "lift": 7.2798
+        },
+        {
+          "cuisine_coverage": 0.1844,
+          "id": "potatoes",
+          "lift": 6.9523
+        },
+        {
+          "cuisine_coverage": 0.045,
+          "id": "russet_potatoes",
+          "lift": 6.7253
+        },
+        {
+          "cuisine_coverage": 0.036,
+          "id": "yukon_gold_potatoes",
+          "lift": 6.5649
+        }
+      ],
+      "family": "anglo_northern_european",
+      "id": "irish",
+      "neighbors": [
+        {
+          "id": "british",
+          "similarity": 0.7884
+        },
+        {
+          "id": "southern_us",
+          "similarity": 0.736
+        },
+        {
+          "id": "russian",
+          "similarity": 0.6779
+        },
+        {
+          "id": "french",
+          "similarity": 0.65
+        }
+      ],
+      "recipe_count": 667
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0295,
+          "id": "marinara_sauce",
+          "lift": 4.9253
+        },
+        {
+          "cuisine_coverage": 0.0254,
+          "id": "lasagna_noodles",
+          "lift": 4.7633
+        },
+        {
+          "cuisine_coverage": 0.0305,
+          "id": "italian_sausage",
+          "lift": 4.7375
+        },
+        {
+          "cuisine_coverage": 0.0621,
+          "id": "ricotta_cheese",
+          "lift": 4.7162
+        },
+        {
+          "cuisine_coverage": 0.037,
+          "id": "pasta_sauce",
+          "lift": 4.6132
+        },
+        {
+          "cuisine_coverage": 0.0327,
+          "id": "prosciutto",
+          "lift": 4.5742
+        },
+        {
+          "cuisine_coverage": 0.0333,
+          "id": "arborio_rice",
+          "lift": 4.5358
+        },
+        {
+          "cuisine_coverage": 0.0452,
+          "id": "italian_seasoning",
+          "lift": 4.4575
+        },
+        {
+          "cuisine_coverage": 0.1393,
+          "id": "shredded_mozzarella_cheese",
+          "lift": 4.4049
+        },
+        {
+          "cuisine_coverage": 0.0453,
+          "id": "parmigiano_reggiano_cheese",
+          "lift": 4.4045
+        },
+        {
+          "cuisine_coverage": 0.0387,
+          "id": "spaghetti",
+          "lift": 4.2949
+        },
+        {
+          "cuisine_coverage": 0.297,
+          "id": "grated_parmesan_cheese",
+          "lift": 4.2251
+        },
+        {
+          "cuisine_coverage": 0.0378,
+          "id": "pasta",
+          "lift": 4.0706
+        },
+        {
+          "cuisine_coverage": 0.0208,
+          "id": "cannellini_beans",
+          "lift": 4.0153
+        },
+        {
+          "cuisine_coverage": 0.0248,
+          "id": "linguine",
+          "lift": 3.9536
+        }
+      ],
+      "family": "mediterranean",
+      "id": "italian",
+      "neighbors": [
+        {
+          "id": "french",
+          "similarity": 0.662
+        },
+        {
+          "id": "spanish",
+          "similarity": 0.6589
+        },
+        {
+          "id": "greek",
+          "similarity": 0.5677
+        },
+        {
+          "id": "southern_us",
+          "similarity": 0.4729
+        }
+      ],
+      "recipe_count": 7838
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0399,
+          "id": "jamaican_jerk_season",
+          "lift": 72.1789
+        },
+        {
+          "cuisine_coverage": 0.0741,
+          "id": "scotch_bonnet_chile",
+          "lift": 64.1092
+        },
+        {
+          "cuisine_coverage": 0.0304,
+          "id": "habanero_pepper",
+          "lift": 39.0276
+        },
+        {
+          "cuisine_coverage": 0.0266,
+          "id": "ground_thyme",
+          "lift": 29.4062
+        },
+        {
+          "cuisine_coverage": 0.3517,
+          "id": "ground_allspice",
+          "lift": 28.1468
+        },
+        {
+          "cuisine_coverage": 0.0209,
+          "id": "berries",
+          "lift": 22.4804
+        },
+        {
+          "cuisine_coverage": 0.038,
+          "id": "hot_pepper",
+          "lift": 22.24
+        },
+        {
+          "cuisine_coverage": 0.0513,
+          "id": "rum",
+          "lift": 19.4441
+        },
+        {
+          "cuisine_coverage": 0.0532,
+          "id": "dark_rum",
+          "lift": 18.2521
+        },
+        {
+          "cuisine_coverage": 0.0209,
+          "id": "malt_vinegar",
+          "lift": 15.9957
+        },
+        {
+          "cuisine_coverage": 0.0228,
+          "id": "tomato_ketchup",
+          "lift": 13.1506
+        },
+        {
+          "cuisine_coverage": 0.0361,
+          "id": "red_kidney_beans",
+          "lift": 12.0731
+        },
+        {
+          "cuisine_coverage": 0.0228,
+          "id": "pineapple_juice",
+          "lift": 10.4298
+        },
+        {
+          "cuisine_coverage": 0.4639,
+          "id": "dried_thyme",
+          "lift": 9.5498
+        },
+        {
+          "cuisine_coverage": 0.0304,
+          "id": "molasses",
+          "lift": 8.704
+        }
+      ],
+      "family": "caribbean",
+      "id": "jamaican",
+      "neighbors": [
+        {
+          "id": "filipino",
+          "similarity": 0.4697
+        },
+        {
+          "id": "southern_us",
+          "similarity": 0.4604
+        },
+        {
+          "id": "cajun_creole",
+          "similarity": 0.4429
+        },
+        {
+          "id": "british",
+          "similarity": 0.43
+        }
+      ],
+      "recipe_count": 526
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0548,
+          "id": "dried_bonito_flakes",
+          "lift": 27.252
+        },
+        {
+          "cuisine_coverage": 0.0267,
+          "id": "wasabi_paste",
+          "lift": 27.2341
+        },
+        {
+          "cuisine_coverage": 0.0864,
+          "id": "dashi",
+          "lift": 26.859
+        },
+        {
+          "cuisine_coverage": 0.0436,
+          "id": "konbu",
+          "lift": 26.2568
+        },
+        {
+          "cuisine_coverage": 0.0703,
+          "id": "nori",
+          "lift": 24.3051
+        },
+        {
+          "cuisine_coverage": 0.1012,
+          "id": "white_miso",
+          "lift": 24.1013
+        },
+        {
+          "cuisine_coverage": 0.2031,
+          "id": "sake",
+          "lift": 23.4139
+        },
+        {
+          "cuisine_coverage": 0.0471,
+          "id": "sushi_rice",
+          "lift": 23.1198
+        },
+        {
+          "cuisine_coverage": 0.0429,
+          "id": "miso_paste",
+          "lift": 23.0405
+        },
+        {
+          "cuisine_coverage": 0.0288,
+          "id": "gari",
+          "lift": 22.9197
+        },
+        {
+          "cuisine_coverage": 0.2825,
+          "id": "mirin",
+          "lift": 22.3384
+        },
+        {
+          "cuisine_coverage": 0.0387,
+          "id": "soba_noodles",
+          "lift": 21.9613
+        },
+        {
+          "cuisine_coverage": 0.0316,
+          "id": "udon",
+          "lift": 19.6529
+        },
+        {
+          "cuisine_coverage": 0.0281,
+          "id": "seaweed",
+          "lift": 19.2764
+        },
+        {
+          "cuisine_coverage": 0.026,
+          "id": "ramen_noodles",
+          "lift": 17.2363
+        }
+      ],
+      "family": "east_asian",
+      "id": "japanese",
+      "neighbors": [
+        {
+          "id": "korean",
+          "similarity": 0.6404
+        },
+        {
+          "id": "chinese",
+          "similarity": 0.6253
+        },
+        {
+          "id": "filipino",
+          "similarity": 0.472
+        },
+        {
+          "id": "vietnamese",
+          "similarity": 0.4369
+        }
+      ],
+      "recipe_count": 1423
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0361,
+          "id": "gochugaru",
+          "lift": 47.9205
+        },
+        {
+          "cuisine_coverage": 0.1639,
+          "id": "gochujang_base",
+          "lift": 45.8957
+        },
+        {
+          "cuisine_coverage": 0.0253,
+          "id": "korean_chile_flakes",
+          "lift": 45.7423
+        },
+        {
+          "cuisine_coverage": 0.1277,
+          "id": "kimchi",
+          "lift": 45.3533
+        },
+        {
+          "cuisine_coverage": 0.0494,
+          "id": "asian_pear",
+          "lift": 44.6532
+        },
+        {
+          "cuisine_coverage": 0.0325,
+          "id": "rice_cakes",
+          "lift": 39.2077
+        },
+        {
+          "cuisine_coverage": 0.0398,
+          "id": "beef_rib_short",
+          "lift": 22.2729
+        },
+        {
+          "cuisine_coverage": 0.0277,
+          "id": "pepper_flakes",
+          "lift": 19.3363
+        },
+        {
+          "cuisine_coverage": 0.0277,
+          "id": "rib_eye_steaks",
+          "lift": 18.3695
+        },
+        {
+          "cuisine_coverage": 0.4133,
+          "id": "sesame_seeds",
+          "lift": 16.5526
+        },
+        {
+          "cuisine_coverage": 0.0205,
+          "id": "anchovies",
+          "lift": 15.3707
+        },
+        {
+          "cuisine_coverage": 0.0265,
+          "id": "corn_syrup",
+          "lift": 14.6424
+        },
+        {
+          "cuisine_coverage": 0.0361,
+          "id": "pears",
+          "lift": 13.6916
+        },
+        {
+          "cuisine_coverage": 0.0675,
+          "id": "rice_wine",
+          "lift": 11.9269
+        },
+        {
+          "cuisine_coverage": 0.0422,
+          "id": "daikon",
+          "lift": 11.1814
+        }
+      ],
+      "family": "east_asian",
+      "id": "korean",
+      "neighbors": [
+        {
+          "id": "chinese",
+          "similarity": 0.7186
+        },
+        {
+          "id": "japanese",
+          "similarity": 0.6404
+        },
+        {
+          "id": "filipino",
+          "similarity": 0.4992
+        },
+        {
+          "id": "vietnamese",
+          "similarity": 0.4889
+        }
+      ],
+      "recipe_count": 830
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0289,
+          "id": "taco_seasoning_mix",
+          "lift": 6.178
+        },
+        {
+          "cuisine_coverage": 0.0614,
+          "id": "enchilada_sauce",
+          "lift": 6.1624
+        },
+        {
+          "cuisine_coverage": 0.0443,
+          "id": "refried_beans",
+          "lift": 6.1564
+        },
+        {
+          "cuisine_coverage": 0.0221,
+          "id": "cotija",
+          "lift": 6.1348
+        },
+        {
+          "cuisine_coverage": 0.0486,
+          "id": "taco_seasoning",
+          "lift": 6.1194
+        },
+        {
+          "cuisine_coverage": 0.0283,
+          "id": "guacamole",
+          "lift": 6.0778
+        },
+        {
+          "cuisine_coverage": 0.1513,
+          "id": "corn_tortillas",
+          "lift": 6.0598
+        },
+        {
+          "cuisine_coverage": 0.0275,
+          "id": "mexican_cheese_blend",
+          "lift": 6.0083
+        },
+        {
+          "cuisine_coverage": 0.0483,
+          "id": "tortilla_chips",
+          "lift": 6.0042
+        },
+        {
+          "cuisine_coverage": 0.0482,
+          "id": "tomatillos",
+          "lift": 5.9478
+        },
+        {
+          "cuisine_coverage": 0.0261,
+          "id": "queso_fresco",
+          "lift": 5.9309
+        },
+        {
+          "cuisine_coverage": 0.1594,
+          "id": "salsa",
+          "lift": 5.9184
+        },
+        {
+          "cuisine_coverage": 0.021,
+          "id": "salsa_verde",
+          "lift": 5.9151
+        },
+        {
+          "cuisine_coverage": 0.1313,
+          "id": "flour_tortillas",
+          "lift": 5.8459
+        },
+        {
+          "cuisine_coverage": 0.0323,
+          "id": "tortillas",
+          "lift": 5.7884
+        }
+      ],
+      "family": "latin_american",
+      "id": "mexican",
+      "neighbors": [
+        {
+          "id": "brazilian",
+          "similarity": 0.4581
+        },
+        {
+          "id": "spanish",
+          "similarity": 0.4415
+        },
+        {
+          "id": "moroccan",
+          "similarity": 0.3931
+        },
+        {
+          "id": "indian",
+          "similarity": 0.3883
+        }
+      ],
+      "recipe_count": 6438
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0524,
+          "id": "ras_el_hanout",
+          "lift": 47.3448
+        },
+        {
+          "cuisine_coverage": 0.0706,
+          "id": "preserved_lemon",
+          "lift": 44.6009
+        },
+        {
+          "cuisine_coverage": 0.0231,
+          "id": "harissa_paste",
+          "lift": 43.8319
+        },
+        {
+          "cuisine_coverage": 0.0451,
+          "id": "harissa",
+          "lift": 42.6784
+        },
+        {
+          "cuisine_coverage": 0.173,
+          "id": "couscous",
+          "lift": 36.3984
+        },
+        {
+          "cuisine_coverage": 0.0877,
+          "id": "dried_apricot",
+          "lift": 26.2263
+        },
+        {
+          "cuisine_coverage": 0.0219,
+          "id": "orange_flower_water",
+          "lift": 23.5682
+        },
+        {
+          "cuisine_coverage": 0.0378,
+          "id": "prunes",
+          "lift": 18.541
+        },
+        {
+          "cuisine_coverage": 0.0353,
+          "id": "lamb_shoulder",
+          "lift": 16.1486
+        },
+        {
+          "cuisine_coverage": 0.0682,
+          "id": "sweet_paprika",
+          "lift": 15.8653
+        },
+        {
+          "cuisine_coverage": 0.0365,
+          "id": "leg_of_lamb",
+          "lift": 15.7975
+        },
+        {
+          "cuisine_coverage": 0.028,
+          "id": "lamb",
+          "lift": 15.4757
+        },
+        {
+          "cuisine_coverage": 0.1596,
+          "id": "chickpeas",
+          "lift": 15.0033
+        },
+        {
+          "cuisine_coverage": 0.0414,
+          "id": "dates",
+          "lift": 14.5766
+        },
+        {
+          "cuisine_coverage": 0.0743,
+          "id": "green_olives",
+          "lift": 13.252
+        }
+      ],
+      "family": "north_african",
+      "id": "moroccan",
+      "neighbors": [
+        {
+          "id": "spanish",
+          "similarity": 0.561
+        },
+        {
+          "id": "indian",
+          "similarity": 0.5313
+        },
+        {
+          "id": "greek",
+          "similarity": 0.4651
+        },
+        {
+          "id": "italian",
+          "similarity": 0.4054
+        }
+      ],
+      "recipe_count": 821
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0225,
+          "id": "farmer_cheese",
+          "lift": 59.6474
+        },
+        {
+          "cuisine_coverage": 0.0286,
+          "id": "buckwheat_flour",
+          "lift": 54.2249
+        },
+        {
+          "cuisine_coverage": 0.0327,
+          "id": "sauerkraut",
+          "lift": 46.4785
+        },
+        {
+          "cuisine_coverage": 0.1186,
+          "id": "beets",
+          "lift": 38.6686
+        },
+        {
+          "cuisine_coverage": 0.0245,
+          "id": "pickles",
+          "lift": 20.767
+        },
+        {
+          "cuisine_coverage": 0.0204,
+          "id": "dill_pickles",
+          "lift": 19.3661
+        },
+        {
+          "cuisine_coverage": 0.1677,
+          "id": "fresh_dill",
+          "lift": 19.0562
+        },
+        {
+          "cuisine_coverage": 0.0389,
+          "id": "caraway_seeds",
+          "lift": 18.8465
+        },
+        {
+          "cuisine_coverage": 0.0348,
+          "id": "hard_boiled_egg",
+          "lift": 13.2955
+        },
+        {
+          "cuisine_coverage": 0.0348,
+          "id": "yeast",
+          "lift": 12.3459
+        },
+        {
+          "cuisine_coverage": 0.0204,
+          "id": "poppy_seeds",
+          "lift": 10.845
+        },
+        {
+          "cuisine_coverage": 0.0327,
+          "id": "cottage_cheese",
+          "lift": 7.984
+        },
+        {
+          "cuisine_coverage": 0.0716,
+          "id": "active_dry_yeast",
+          "lift": 7.5114
+        },
+        {
+          "cuisine_coverage": 0.0204,
+          "id": "granny_smith_apples",
+          "lift": 6.8351
+        },
+        {
+          "cuisine_coverage": 0.0225,
+          "id": "red_cabbage",
+          "lift": 6.677
+        }
+      ],
+      "family": "anglo_northern_european",
+      "id": "russian",
+      "neighbors": [
+        {
+          "id": "british",
+          "similarity": 0.6871
+        },
+        {
+          "id": "irish",
+          "similarity": 0.6779
+        },
+        {
+          "id": "french",
+          "similarity": 0.6367
+        },
+        {
+          "id": "southern_us",
+          "similarity": 0.618
+        }
+      ],
+      "recipe_count": 489
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0377,
+          "id": "grits",
+          "lift": 8.1562
+        },
+        {
+          "cuisine_coverage": 0.0398,
+          "id": "bourbon_whiskey",
+          "lift": 7.8786
+        },
+        {
+          "cuisine_coverage": 0.0329,
+          "id": "collard_greens",
+          "lift": 7.8287
+        },
+        {
+          "cuisine_coverage": 0.0336,
+          "id": "black_eyed_peas",
+          "lift": 6.8113
+        },
+        {
+          "cuisine_coverage": 0.0461,
+          "id": "peaches",
+          "lift": 6.5906
+        },
+        {
+          "cuisine_coverage": 0.1583,
+          "id": "buttermilk",
+          "lift": 6.499
+        },
+        {
+          "cuisine_coverage": 0.0713,
+          "id": "chopped_pecans",
+          "lift": 6.2738
+        },
+        {
+          "cuisine_coverage": 0.0299,
+          "id": "self_rising_flour",
+          "lift": 6.1539
+        },
+        {
+          "cuisine_coverage": 0.05,
+          "id": "yellow_corn_meal",
+          "lift": 5.832
+        },
+        {
+          "cuisine_coverage": 0.0211,
+          "id": "light_corn_syrup",
+          "lift": 5.2694
+        },
+        {
+          "cuisine_coverage": 0.0447,
+          "id": "cornmeal",
+          "lift": 4.8025
+        },
+        {
+          "cuisine_coverage": 0.1035,
+          "id": "baking_soda",
+          "lift": 4.3689
+        },
+        {
+          "cuisine_coverage": 0.0456,
+          "id": "shredded_sharp_cheddar_cheese",
+          "lift": 4.0759
+        },
+        {
+          "cuisine_coverage": 0.0215,
+          "id": "bacon_slices",
+          "lift": 4.0389
+        },
+        {
+          "cuisine_coverage": 0.0231,
+          "id": "shortening",
+          "lift": 4.0205
+        }
+      ],
+      "family": "american_south",
+      "id": "southern_us",
+      "neighbors": [
+        {
+          "id": "british",
+          "similarity": 0.7659
+        },
+        {
+          "id": "irish",
+          "similarity": 0.736
+        },
+        {
+          "id": "french",
+          "similarity": 0.6604
+        },
+        {
+          "id": "russian",
+          "similarity": 0.618
+        }
+      ],
+      "recipe_count": 4320
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0243,
+          "id": "serrano_ham",
+          "lift": 34.4712
+        },
+        {
+          "cuisine_coverage": 0.0415,
+          "id": "spanish_chorizo",
+          "lift": 32.3308
+        },
+        {
+          "cuisine_coverage": 0.0283,
+          "id": "spanish_paprika",
+          "lift": 26.1874
+        },
+        {
+          "cuisine_coverage": 0.0374,
+          "id": "manchego_cheese",
+          "lift": 24.0001
+        },
+        {
+          "cuisine_coverage": 0.0485,
+          "id": "chorizo_sausage",
+          "lift": 18.5614
+        },
+        {
+          "cuisine_coverage": 0.0698,
+          "id": "sherry_vinegar",
+          "lift": 17.3433
+        },
+        {
+          "cuisine_coverage": 0.0961,
+          "id": "saffron_threads",
+          "lift": 13.7926
+        },
+        {
+          "cuisine_coverage": 0.0222,
+          "id": "chorizo",
+          "lift": 12.2883
+        },
+        {
+          "cuisine_coverage": 0.0263,
+          "id": "tomato_juice",
+          "lift": 11.8821
+        },
+        {
+          "cuisine_coverage": 0.0435,
+          "id": "mussels",
+          "lift": 9.8817
+        },
+        {
+          "cuisine_coverage": 0.0212,
+          "id": "clams",
+          "lift": 8.9845
+        },
+        {
+          "cuisine_coverage": 0.0212,
+          "id": "blanched_almonds",
+          "lift": 8.7066
+        },
+        {
+          "cuisine_coverage": 0.0222,
+          "id": "pimentos",
+          "lift": 6.2749
+        },
+        {
+          "cuisine_coverage": 0.0313,
+          "id": "saffron",
+          "lift": 6.052
+        },
+        {
+          "cuisine_coverage": 0.0495,
+          "id": "smoked_paprika",
+          "lift": 5.679
+        }
+      ],
+      "family": "mediterranean",
+      "id": "spanish",
+      "neighbors": [
+        {
+          "id": "italian",
+          "similarity": 0.6589
+        },
+        {
+          "id": "french",
+          "similarity": 0.6366
+        },
+        {
+          "id": "greek",
+          "similarity": 0.5662
+        },
+        {
+          "id": "moroccan",
+          "similarity": 0.561
+        }
+      ],
+      "recipe_count": 989
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.0591,
+          "id": "thai_green_curry_paste",
+          "lift": 24.7559
+        },
+        {
+          "cuisine_coverage": 0.0526,
+          "id": "galangal",
+          "lift": 24.6279
+        },
+        {
+          "cuisine_coverage": 0.152,
+          "id": "thai_red_curry_paste",
+          "lift": 24.2872
+        },
+        {
+          "cuisine_coverage": 0.0279,
+          "id": "lime_leaves",
+          "lift": 24.1586
+        },
+        {
+          "cuisine_coverage": 0.0741,
+          "id": "kaffir_lime_leaves",
+          "lift": 22.152
+        },
+        {
+          "cuisine_coverage": 0.0585,
+          "id": "thai_fish_sauce",
+          "lift": 21.5367
+        },
+        {
+          "cuisine_coverage": 0.065,
+          "id": "palm_sugar",
+          "lift": 21.1837
+        },
+        {
+          "cuisine_coverage": 0.0442,
+          "id": "lemon_grass",
+          "lift": 17.574
+        },
+        {
+          "cuisine_coverage": 0.1494,
+          "id": "lemongrass",
+          "lift": 16.33
+        },
+        {
+          "cuisine_coverage": 0.1144,
+          "id": "peanut_butter",
+          "lift": 15.3667
+        },
+        {
+          "cuisine_coverage": 0.0422,
+          "id": "sweet_chili_sauce",
+          "lift": 14.866
+        },
+        {
+          "cuisine_coverage": 0.0663,
+          "id": "thai_basil",
+          "lift": 14.8095
+        },
+        {
+          "cuisine_coverage": 0.4659,
+          "id": "fish_sauce",
+          "lift": 13.1887
+        },
+        {
+          "cuisine_coverage": 0.0266,
+          "id": "tamarind_paste",
+          "lift": 12.6144
+        },
+        {
+          "cuisine_coverage": 0.0975,
+          "id": "rice_noodles",
+          "lift": 12.3853
+        }
+      ],
+      "family": "southeast_asian",
+      "id": "thai",
+      "neighbors": [
+        {
+          "id": "vietnamese",
+          "similarity": 0.8129
+        },
+        {
+          "id": "filipino",
+          "similarity": 0.516
+        },
+        {
+          "id": "chinese",
+          "similarity": 0.5006
+        },
+        {
+          "id": "korean",
+          "similarity": 0.4145
+        }
+      ],
+      "recipe_count": 1539
+    },
+    {
+      "distinctive_ingredients": [
+        {
+          "cuisine_coverage": 0.023,
+          "id": "vietnamese_coriander",
+          "lift": 43.6194
+        },
+        {
+          "cuisine_coverage": 0.0352,
+          "id": "vietnamese_fish_sauce",
+          "lift": 36.7925
+        },
+        {
+          "cuisine_coverage": 0.0594,
+          "id": "rice_paper",
+          "lift": 32.8102
+        },
+        {
+          "cuisine_coverage": 0.0691,
+          "id": "rice_vermicelli",
+          "lift": 29.5486
+        },
+        {
+          "cuisine_coverage": 0.0267,
+          "id": "rice_stick_noodles",
+          "lift": 21.6457
+        },
+        {
+          "cuisine_coverage": 0.0255,
+          "id": "bird_chile",
+          "lift": 16.8738
+        },
+        {
+          "cuisine_coverage": 0.0339,
+          "id": "mung_bean_sprouts",
+          "lift": 15.8812
+        },
+        {
+          "cuisine_coverage": 0.0703,
+          "id": "thai_basil",
+          "lift": 15.7092
+        },
+        {
+          "cuisine_coverage": 0.0582,
+          "id": "daikon",
+          "lift": 15.4275
+        },
+        {
+          "cuisine_coverage": 0.537,
+          "id": "fish_sauce",
+          "lift": 15.201
+        },
+        {
+          "cuisine_coverage": 0.1176,
+          "id": "rice_noodles",
+          "lift": 14.9408
+        },
+        {
+          "cuisine_coverage": 0.1539,
+          "id": "beansprouts",
+          "lift": 13.4863
+        },
+        {
+          "cuisine_coverage": 0.1188,
+          "id": "lemongrass",
+          "lift": 12.9799
+        },
+        {
+          "cuisine_coverage": 0.0715,
+          "id": "thai_chile",
+          "lift": 12.7554
+        },
+        {
+          "cuisine_coverage": 0.0279,
+          "id": "lemon_grass",
+          "lift": 11.0885
+        }
+      ],
+      "family": "southeast_asian",
+      "id": "vietnamese",
+      "neighbors": [
+        {
+          "id": "thai",
+          "similarity": 0.8129
+        },
+        {
+          "id": "filipino",
+          "similarity": 0.5618
+        },
+        {
+          "id": "chinese",
+          "similarity": 0.5556
+        },
+        {
+          "id": "korean",
+          "similarity": 0.4889
+        }
+      ],
+      "recipe_count": 825
+    }
+  ],
+  "schema_version": 1
+}

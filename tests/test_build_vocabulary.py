@@ -306,14 +306,18 @@ class TestApplyPairOutcomesChains:
         )
         pairs = generate_candidate_pairs(groups, lexicons, index)
 
-        groups, parent_keys, review_candidates = apply_pair_outcomes(
+        groups, preserved, review_candidates, absorbed_into = apply_pair_outcomes(
             groups, pairs, lexicons, index
         )
 
         assert set(groups) == {"soy sauce"}
         assert "dark sweet soy sauce" in groups["soy sauce"].members
-        assert parent_keys == {}
+        assert preserved == {}
         assert review_candidates == []
+        assert absorbed_into == {
+            "dark sweet soy sauce": "sweet soy sauce",
+            "sweet soy sauce": "soy sauce",
+        }
 
 
 class TestProductionLexicons:

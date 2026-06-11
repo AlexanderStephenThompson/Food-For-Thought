@@ -1,0 +1,428 @@
+{
+  "test": {
+    "by_method": {
+      "brand_resolved_match": 64,
+      "cleaned_match": 0,
+      "exact_alias": 106088,
+      "modifier_stripped_match": 45,
+      "token_drop_match": 189,
+      "unresolved": 1009
+    },
+    "mentions_total": 107395,
+    "top_unresolved": [
+      {
+        "count": 5,
+        "string": "lemon verbena"
+      },
+      {
+        "count": 4,
+        "string": "candied pineapple"
+      },
+      {
+        "count": 4,
+        "string": "chocolate frosting"
+      },
+      {
+        "count": 4,
+        "string": "puy lentils"
+      },
+      {
+        "count": 4,
+        "string": "rump steak"
+      },
+      {
+        "count": 4,
+        "string": "toast points"
+      },
+      {
+        "count": 3,
+        "string": "Fuyu persimmons"
+      },
+      {
+        "count": 3,
+        "string": "biscotti"
+      },
+      {
+        "count": 3,
+        "string": "bologna"
+      },
+      {
+        "count": 3,
+        "string": "celery flakes"
+      },
+      {
+        "count": 3,
+        "string": "cured pork"
+      },
+      {
+        "count": 3,
+        "string": "egg pasta"
+      },
+      {
+        "count": 3,
+        "string": "guava paste"
+      },
+      {
+        "count": 3,
+        "string": "hot sausage"
+      },
+      {
+        "count": 3,
+        "string": "kim chee"
+      },
+      {
+        "count": 3,
+        "string": "konbu dashi"
+      },
+      {
+        "count": 3,
+        "string": "lady fingers"
+      },
+      {
+        "count": 3,
+        "string": "melon liqueur"
+      },
+      {
+        "count": 3,
+        "string": "mi"
+      },
+      {
+        "count": 3,
+        "string": "orange segments"
+      },
+      {
+        "count": 3,
+        "string": "pandan extract"
+      },
+      {
+        "count": 3,
+        "string": "pineapple preserves"
+      },
+      {
+        "count": 3,
+        "string": "plum wine"
+      },
+      {
+        "count": 3,
+        "string": "regular or convert rice"
+      },
+      {
+        "count": 3,
+        "string": "shoulder roast"
+      },
+      {
+        "count": 3,
+        "string": "sorghum"
+      },
+      {
+        "count": 3,
+        "string": "sweet relish"
+      },
+      {
+        "count": 3,
+        "string": "tuna in oil"
+      },
+      {
+        "count": 3,
+        "string": "tuna, drain and flake"
+      },
+      {
+        "count": 3,
+        "string": "turkey carcass"
+      },
+      {
+        "count": 3,
+        "string": "vanilla almondmilk"
+      },
+      {
+        "count": 3,
+        "string": "violets"
+      },
+      {
+        "count": 3,
+        "string": "whole peel tomatoes, undrain and chop"
+      },
+      {
+        "count": 3,
+        "string": "wondra flour"
+      },
+      {
+        "count": 2,
+        "string": "Best Foods Mayonnaise Dressing with Extra Virgin Olive Oil"
+      },
+      {
+        "count": 2,
+        "string": "Ciabatta rolls"
+      },
+      {
+        "count": 2,
+        "string": "Greek dressing"
+      },
+      {
+        "count": 2,
+        "string": "Texas toast bread"
+      },
+      {
+        "count": 2,
+        "string": "aka miso"
+      },
+      {
+        "count": 2,
+        "string": "american eggplant"
+      },
+      {
+        "count": 2,
+        "string": "annatto"
+      },
+      {
+        "count": 2,
+        "string": "bacon, crisp-cooked and crumbled"
+      },
+      {
+        "count": 2,
+        "string": "baking apples"
+      },
+      {
+        "count": 2,
+        "string": "balm"
+      },
+      {
+        "count": 2,
+        "string": "beaujolais"
+      },
+      {
+        "count": 2,
+        "string": "beef strips"
+      },
+      {
+        "count": 2,
+        "string": "bitter chocolate"
+      },
+      {
+        "count": 2,
+        "string": "black bass"
+      },
+      {
+        "count": 2,
+        "string": "black forest ham"
+      },
+      {
+        "count": 2,
+        "string": "black mushrooms"
+      }
+    ]
+  },
+  "train": {
+    "by_method": {
+      "brand_resolved_match": 11,
+      "cleaned_match": 0,
+      "exact_alias": 424530,
+      "modifier_stripped_match": 0,
+      "token_drop_match": 666,
+      "unresolved": 3068
+    },
+    "mentions_total": 428275,
+    "top_unresolved": [
+      {
+        "count": 3,
+        "string": "French bread loaves"
+      },
+      {
+        "count": 3,
+        "string": "Fuyu persimmons"
+      },
+      {
+        "count": 3,
+        "string": "Good Seasons Italian Dressing Mix"
+      },
+      {
+        "count": 3,
+        "string": "Greek feta"
+      },
+      {
+        "count": 3,
+        "string": "Japanese mountain yam"
+      },
+      {
+        "count": 3,
+        "string": "Kerrygold Pure Irish Butter"
+      },
+      {
+        "count": 3,
+        "string": "Melba toast"
+      },
+      {
+        "count": 3,
+        "string": "Quinoa Flour"
+      },
+      {
+        "count": 3,
+        "string": "Scotch whisky"
+      },
+      {
+        "count": 3,
+        "string": "Thai eggplants"
+      },
+      {
+        "count": 3,
+        "string": "Tokyo negi"
+      },
+      {
+        "count": 3,
+        "string": "acini di pepe"
+      },
+      {
+        "count": 3,
+        "string": "ajinomoto"
+      },
+      {
+        "count": 3,
+        "string": "aka miso"
+      },
+      {
+        "count": 3,
+        "string": "albacore"
+      },
+      {
+        "count": 3,
+        "string": "ampalaya"
+      },
+      {
+        "count": 3,
+        "string": "anisette"
+      },
+      {
+        "count": 3,
+        "string": "annatto"
+      },
+      {
+        "count": 3,
+        "string": "annatto powder"
+      },
+      {
+        "count": 3,
+        "string": "arhar dal"
+      },
+      {
+        "count": 3,
+        "string": "asian noodles"
+      },
+      {
+        "count": 3,
+        "string": "baby gem lettuce"
+      },
+      {
+        "count": 3,
+        "string": "back bacon"
+      },
+      {
+        "count": 3,
+        "string": "bacon, crisp-cooked and crumbled"
+      },
+      {
+        "count": 3,
+        "string": "bagels"
+      },
+      {
+        "count": 3,
+        "string": "baking apples"
+      },
+      {
+        "count": 3,
+        "string": "baking chocolate"
+      },
+      {
+        "count": 3,
+        "string": "baking yeast"
+      },
+      {
+        "count": 3,
+        "string": "balm"
+      },
+      {
+        "count": 3,
+        "string": "banana squash"
+      },
+      {
+        "count": 3,
+        "string": "barbecue rub"
+      },
+      {
+        "count": 3,
+        "string": "basil mayonnaise"
+      },
+      {
+        "count": 3,
+        "string": "bean soup"
+      },
+      {
+        "count": 3,
+        "string": "beef heart"
+      },
+      {
+        "count": 3,
+        "string": "besan (flour)"
+      },
+      {
+        "count": 3,
+        "string": "bhindi"
+      },
+      {
+        "count": 3,
+        "string": "biscotti"
+      },
+      {
+        "count": 3,
+        "string": "black bass"
+      },
+      {
+        "count": 3,
+        "string": "black bean and corn salsa"
+      },
+      {
+        "count": 3,
+        "string": "black forest ham"
+      },
+      {
+        "count": 3,
+        "string": "blanched hazelnuts"
+      },
+      {
+        "count": 3,
+        "string": "boiled ham"
+      },
+      {
+        "count": 3,
+        "string": "bolillo"
+      },
+      {
+        "count": 3,
+        "string": "boudin"
+      },
+      {
+        "count": 3,
+        "string": "braising steak"
+      },
+      {
+        "count": 3,
+        "string": "bread and butter pickle slices"
+      },
+      {
+        "count": 3,
+        "string": "bread, cut french into loaf"
+      },
+      {
+        "count": 3,
+        "string": "brewed tea"
+      },
+      {
+        "count": 3,
+        "string": "brioche buns"
+      },
+      {
+        "count": 3,
+        "string": "brownies"
+      }
+    ]
+  }
+}

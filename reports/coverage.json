@@ -1,0 +1,297 @@
+{
+  "build": {
+    "lexicon_fingerprint": "115518a203f65ca774deadbac864212824bff38b4b65ad6fb713d0702d7ad3cf",
+    "random_seed": 42,
+    "train_sha256": "f18e7e568d1c606774bfb134ece51ef0a143cd5069e6f9241bb6036b45b7d2b0"
+  },
+  "resolution": {
+    "test": {
+      "alias_tier_coverage": 0.9878,
+      "by_method": {
+        "brand_resolved_match": {
+          "count": 64,
+          "percentage": 0.0006
+        },
+        "cleaned_match": {
+          "count": 0,
+          "percentage": 0.0
+        },
+        "exact_alias": {
+          "count": 106088,
+          "percentage": 0.9878
+        },
+        "modifier_stripped_match": {
+          "count": 45,
+          "percentage": 0.0004
+        },
+        "token_drop_match": {
+          "count": 189,
+          "percentage": 0.0018
+        },
+        "unresolved": {
+          "count": 1009,
+          "percentage": 0.0094
+        }
+      },
+      "full_chain_coverage": 0.9906,
+      "mentions_total": 107395
+    },
+    "train": {
+      "alias_tier_coverage": 0.9913,
+      "by_method": {
+        "brand_resolved_match": {
+          "count": 11,
+          "percentage": 0.0
+        },
+        "cleaned_match": {
+          "count": 0,
+          "percentage": 0.0
+        },
+        "exact_alias": {
+          "count": 424530,
+          "percentage": 0.9913
+        },
+        "modifier_stripped_match": {
+          "count": 0,
+          "percentage": 0.0
+        },
+        "token_drop_match": {
+          "count": 666,
+          "percentage": 0.0016
+        },
+        "unresolved": {
+          "count": 3068,
+          "percentage": 0.0072
+        }
+      },
+      "full_chain_coverage": 0.9928,
+      "mentions_total": 428275
+    }
+  },
+  "top_unresolved": [
+    {
+      "count": 6,
+      "string": "Fuyu persimmons"
+    },
+    {
+      "count": 6,
+      "string": "biscotti"
+    },
+    {
+      "count": 5,
+      "string": "aka miso"
+    },
+    {
+      "count": 5,
+      "string": "annatto"
+    },
+    {
+      "count": 5,
+      "string": "bacon, crisp-cooked and crumbled"
+    },
+    {
+      "count": 5,
+      "string": "baking apples"
+    },
+    {
+      "count": 5,
+      "string": "balm"
+    },
+    {
+      "count": 5,
+      "string": "black bass"
+    },
+    {
+      "count": 5,
+      "string": "black forest ham"
+    },
+    {
+      "count": 5,
+      "string": "lemon verbena"
+    },
+    {
+      "count": 4,
+      "string": "candied pineapple"
+    },
+    {
+      "count": 4,
+      "string": "chocolate frosting"
+    },
+    {
+      "count": 4,
+      "string": "puy lentils"
+    },
+    {
+      "count": 4,
+      "string": "rump steak"
+    },
+    {
+      "count": 4,
+      "string": "toast points"
+    },
+    {
+      "count": 3,
+      "string": "French bread loaves"
+    },
+    {
+      "count": 3,
+      "string": "Good Seasons Italian Dressing Mix"
+    },
+    {
+      "count": 3,
+      "string": "Greek feta"
+    },
+    {
+      "count": 3,
+      "string": "Japanese mountain yam"
+    },
+    {
+      "count": 3,
+      "string": "Kerrygold Pure Irish Butter"
+    },
+    {
+      "count": 3,
+      "string": "Melba toast"
+    },
+    {
+      "count": 3,
+      "string": "Quinoa Flour"
+    },
+    {
+      "count": 3,
+      "string": "Scotch whisky"
+    },
+    {
+      "count": 3,
+      "string": "Thai eggplants"
+    },
+    {
+      "count": 3,
+      "string": "Tokyo negi"
+    },
+    {
+      "count": 3,
+      "string": "acini di pepe"
+    },
+    {
+      "count": 3,
+      "string": "ajinomoto"
+    },
+    {
+      "count": 3,
+      "string": "albacore"
+    },
+    {
+      "count": 3,
+      "string": "ampalaya"
+    },
+    {
+      "count": 3,
+      "string": "anisette"
+    },
+    {
+      "count": 3,
+      "string": "annatto powder"
+    },
+    {
+      "count": 3,
+      "string": "arhar dal"
+    },
+    {
+      "count": 3,
+      "string": "asian noodles"
+    },
+    {
+      "count": 3,
+      "string": "baby gem lettuce"
+    },
+    {
+      "count": 3,
+      "string": "back bacon"
+    },
+    {
+      "count": 3,
+      "string": "bagels"
+    },
+    {
+      "count": 3,
+      "string": "baking chocolate"
+    },
+    {
+      "count": 3,
+      "string": "baking yeast"
+    },
+    {
+      "count": 3,
+      "string": "banana squash"
+    },
+    {
+      "count": 3,
+      "string": "barbecue rub"
+    },
+    {
+      "count": 3,
+      "string": "basil mayonnaise"
+    },
+    {
+      "count": 3,
+      "string": "bean soup"
+    },
+    {
+      "count": 3,
+      "string": "beef heart"
+    },
+    {
+      "count": 3,
+      "string": "besan (flour)"
+    },
+    {
+      "count": 3,
+      "string": "bhindi"
+    },
+    {
+      "count": 3,
+      "string": "black bean and corn salsa"
+    },
+    {
+      "count": 3,
+      "string": "blanched hazelnuts"
+    },
+    {
+      "count": 3,
+      "string": "boiled ham"
+    },
+    {
+      "count": 3,
+      "string": "bolillo"
+    },
+    {
+      "count": 3,
+      "string": "bologna"
+    }
+  ],
+  "vocabulary": {
+    "alias_count": 4350,
+    "aliases_by_source": {
+      "always_merge_lexicon": 295,
+      "brand_pattern": 303,
+      "canonical_surface_form": 2806,
+      "forced_merge_override": 11,
+      "manual_alias": 31,
+      "manual_review": 58,
+      "mechanical_normalization": 117,
+      "modifier_strip": 423,
+      "named_variety_lexicon": 0,
+      "statistical_gate": 306
+    },
+    "ingredient_count": 2806,
+    "merge_group_size_histogram": {
+      "1": 2164,
+      "11-20": 17,
+      "2-5": 568,
+      "21+": 2,
+      "6-10": 55
+    },
+    "preserved_variant_count": 221
+  }
+}

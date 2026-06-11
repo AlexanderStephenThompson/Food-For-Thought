@@ -266,6 +266,50 @@ class TestCompileIngredientsPayload:
         assert by_id["dark_hot_sauce"]["parent_id"] == "hot_sauce"
         assert by_id["dark_hot_sauce"]["preserve_evidence"]["layer"] == "statistical_gate"
 
+    def test_preserve_chain_flattens_to_root_parent(self):
+        # Real-data shape: crushed red pepper -> red pepper -> pepper.
+        # The schema requires parents to be roots, so both deep variants
+        # must link directly to 'pepper'.
+        rows = (
+            repeat_recipes(1, "italian", ["pepper"], 12)
+            + repeat_recipes(100, "mexican", ["red pepper"], 8)
+            + repeat_recipes(200, "italian", ["crushed red pepper"], 6)
+        )
+        index = make_index(rows)
+        groups = {
+            "pepper": make_group("pepper"),
+            "red pepper": make_group("red pepper"),
+            "crushed red pepper": make_group("crushed red pepper"),
+        }
+        preserved = {
+            "red pepper": PreservedVariant(
+                base_key="pepper",
+                layer="statistical_gate",
+                reason="distinct profile",
+                evidence=make_evidence(),
+            ),
+            "crushed red pepper": PreservedVariant(
+                base_key="red pepper",
+                layer="statistical_gate",
+                reason="distinct profile",
+                evidence=make_evidence(),
+            ),
+        }
+        build = VocabularyBuild(
+            groups=groups,
+            preserved=preserved,
+            alias_scope_keys=frozenset(groups),
+            review_candidates=(),
+            review_entries=[],
+        )
+
+        payload = compile_ingredients_payload(build, {}, index, FAKE_FINGERPRINT)
+
+        by_id = {entry["id"]: entry for entry in payload["ingredients"]}
+        assert by_id["red_pepper"]["parent_id"] == "pepper"
+        assert by_id["crushed_red_pepper"]["parent_id"] == "pepper"
+        validate_compiled_payload(payload, index)
+
     def test_parent_absorbed_by_decision_raises(self):
         # 'bean sauce' is preserved under 'dark hot sauce', but the review
         # decision merges 'dark hot sauce' away — the parent vanishes.

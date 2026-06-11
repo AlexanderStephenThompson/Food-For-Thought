@@ -374,13 +374,15 @@ def test_alias_tier_coverage_below_threshold_raises():
 
 
 def test_train_full_chain_coverage_below_threshold_raises():
+    # Alias tier 0.989 passes its 0.988 gate, but the full chain at 0.989
+    # sits below the 0.990 train gate.
     statistics = _build_statistics()
     statistics["train"]["by_method"]["exact_alias"] = 988
-    statistics["train"]["by_method"]["cleaned_match"] = 2
+    statistics["train"]["by_method"]["cleaned_match"] = 1
     statistics["train"]["by_method"]["modifier_stripped_match"] = 0
     statistics["train"]["by_method"]["brand_resolved_match"] = 0
     statistics["train"]["by_method"]["token_drop_match"] = 0
-    statistics["train"]["by_method"]["unresolved"] = 10
+    statistics["train"]["by_method"]["unresolved"] = 11
 
     with pytest.raises(ValidationError, match="full chain"):
         validate_resolution_statistics(statistics)

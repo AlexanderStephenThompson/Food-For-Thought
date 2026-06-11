@@ -239,8 +239,14 @@ def _apply_merge_verdicts(
     decisions: dict[str, dict],
     build: VocabularyBuild,
 ) -> dict[str, str]:
-    """Absorb every merge/merge_into variant; return the redirect map."""
-    redirects: dict[str, str] = {}
+    """Absorb every merge/merge_into variant; return the redirect map.
+
+    The map is seeded with the build's gate-time absorptions so a decision
+    whose target group was itself merged during the gate pass (e.g. a
+    review base later absorbed into a shorter key) chases through to the
+    surviving group instead of failing on a stale key.
+    """
+    redirects: dict[str, str] = dict(build.absorbed_into)
     for decision_id in sorted(candidates):
         record = decisions[decision_id]
         if record["decision"] == DECISION_PRESERVE:
@@ -385,24 +391,42 @@ def _resolve_parent_links(
     eligible_groups: dict[str, VocabularyGroup],
     index: TrainIndex,
 ) -> dict[str, tuple[str, dict]]:
-    """Map preserved variant keys to (parent_id, preserve_evidence)."""
+    """Map preserved variant keys to (parent_id, preserve_evidence).
+
+    Parents are always chain roots: real data produces preserve chains
+    like crushed red pepper -> red pepper -> pepper, and the schema
+    requires a parent's parent to be null, so deeper variants link
+    directly to the root of their chain.
+    """
     links: dict[str, tuple[str, dict]] = {}
     for variant_key in sorted(build.preserved):
         if variant_key not in eligible_groups:
             continue
         preserved = build.preserved[variant_key]
-        base_group = eligible_groups.get(preserved.base_key)
+        root_key = _chase_preserve_chain_to_root(variant_key, build)
+        base_group = eligible_groups.get(root_key)
         if base_group is None:
             raise ValueError(
-                f"preserved variant {variant_key!r}: base group "
-                f"{preserved.base_key!r} was absorbed or sits outside the "
-                "vocabulary"
+                f"preserved variant {variant_key!r}: root base group "
+                f"{root_key!r} was absorbed or sits outside the vocabulary"
             )
         parent_id = slugify_ingredient_name(
             representative_cleaned(base_group, index)
         )
         links[variant_key] = (parent_id, _preserve_evidence_to_dict(preserved))
     return links
+
+
+def _chase_preserve_chain_to_root(variant_key: str, build: VocabularyBuild) -> str:
+    """Ascend preserve links until reaching a base that is not preserved."""
+    seen = {variant_key}
+    base_key = build.preserved[variant_key].base_key
+    while base_key in build.preserved:
+        if base_key in seen:
+            raise ValueError(f"preserve chain cycle through {base_key!r}")
+        seen.add(base_key)
+        base_key = build.preserved[base_key].base_key
+    return base_key
 
 
 def _preserve_evidence_to_dict(preserved: PreservedVariant) -> dict:
