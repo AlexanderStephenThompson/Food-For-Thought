@@ -7,13 +7,13 @@ PYTHON=".venv/bin/python"
 
 case "${1:-help}" in
   test)     # run the test suite
-    "$PYTHON" -m pytest silver/tests -q
+    "$PYTHON" -m pytest 01-bronze/tests -q
     ;;
   rebuild)  # rebuild every silver dataset from bronze + lexicons
-    "$PYTHON" -m silver.build
+    "$PYTHON" 01-bronze/build.py
     ;;
   verify)   # prove a rebuild matches disk byte-for-byte
-    "$PYTHON" -m silver.build --check-idempotent
+    "$PYTHON" 01-bronze/build.py --check-idempotent
     ;;
   all)      # full confidence pass
     "$0" test && "$0" rebuild && "$0" verify
