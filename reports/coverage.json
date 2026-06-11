@@ -1,6 +1,6 @@
 {
   "build": {
-    "lexicon_fingerprint": "115518a203f65ca774deadbac864212824bff38b4b65ad6fb713d0702d7ad3cf",
+    "lexicon_fingerprint": "a497148d9f2c9300df2eee09ffdc5b64088adb41668a14a2188487aaab8437f0",
     "random_seed": 42,
     "train_sha256": "f18e7e568d1c606774bfb134ece51ef0a143cd5069e6f9241bb6036b45b7d2b0"
   },
@@ -9,8 +9,8 @@
       "alias_tier_coverage": 0.9878,
       "by_method": {
         "brand_resolved_match": {
-          "count": 64,
-          "percentage": 0.0006
+          "count": 71,
+          "percentage": 0.0007
         },
         "cleaned_match": {
           "count": 0,
@@ -25,22 +25,22 @@
           "percentage": 0.0004
         },
         "token_drop_match": {
-          "count": 189,
+          "count": 188,
           "percentage": 0.0018
         },
         "unresolved": {
-          "count": 1009,
-          "percentage": 0.0094
+          "count": 1003,
+          "percentage": 0.0093
         }
       },
-      "full_chain_coverage": 0.9906,
+      "full_chain_coverage": 0.9907,
       "mentions_total": 107395
     },
     "train": {
       "alias_tier_coverage": 0.9913,
       "by_method": {
         "brand_resolved_match": {
-          "count": 11,
+          "count": 7,
           "percentage": 0.0
         },
         "cleaned_match": {
@@ -48,7 +48,7 @@
           "percentage": 0.0
         },
         "exact_alias": {
-          "count": 424530,
+          "count": 424537,
           "percentage": 0.9913
         },
         "modifier_stripped_match": {
@@ -60,7 +60,7 @@
           "percentage": 0.0016
         },
         "unresolved": {
-          "count": 3068,
+          "count": 3065,
           "percentage": 0.0072
         }
       },
@@ -271,27 +271,27 @@
     }
   ],
   "vocabulary": {
-    "alias_count": 4350,
+    "alias_count": 4356,
     "aliases_by_source": {
-      "always_merge_lexicon": 295,
-      "brand_pattern": 303,
-      "canonical_surface_form": 2806,
+      "always_merge_lexicon": 296,
+      "brand_pattern": 302,
+      "canonical_surface_form": 2813,
       "forced_merge_override": 11,
       "manual_alias": 31,
-      "manual_review": 58,
+      "manual_review": 53,
       "mechanical_normalization": 117,
-      "modifier_strip": 423,
+      "modifier_strip": 437,
       "named_variety_lexicon": 0,
-      "statistical_gate": 306
+      "statistical_gate": 296
     },
-    "ingredient_count": 2806,
+    "ingredient_count": 2813,
     "merge_group_size_histogram": {
-      "1": 2164,
-      "11-20": 17,
+      "1": 2171,
+      "11-20": 16,
       "2-5": 568,
       "21+": 2,
-      "6-10": 55
+      "6-10": 56
     },
-    "preserved_variant_count": 221
+    "preserved_variant_count": 228
   }
 }

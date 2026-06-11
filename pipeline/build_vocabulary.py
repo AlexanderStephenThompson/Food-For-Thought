@@ -42,6 +42,7 @@ from pipeline.merge_gate import (
     JSD_FLOOR_BITS,
     NULL_MULTIPLIER,
     GateAction,
+    GateDecision,
     GateLexicons,
     decide_merge,
     load_gate_lexicons,
@@ -323,15 +324,21 @@ def _matches_always_merge(cleaned: str, gate_lexicons: GateLexicons) -> bool:
 
 def _reduction_move(
     group: VocabularyGroup, lexicons: PipelineLexicons, index: TrainIndex
-) -> tuple[str, str, bool] | None:
-    """Find where a group reduces to: (target_key, source, may_create)."""
+) -> tuple[str, str, bool, str | None] | None:
+    """Find where a group reduces to: (target_key, source, may_create, name).
+
+    The fourth element is the canonical display text for a synthetic
+    target group — always the brand pattern's GENERIC target, never the
+    moving group's own text (a 'Yoplait' group resolving to 'yogurt' must
+    name the new group 'yogurt', not 'yoplait').
+    """
     cleaned = representative_cleaned(group, index)
     brand_generic = resolve_brand_to_generic(cleaned, lexicons.brand_lexicon)
     if brand_generic is not None:
         target_cleaned = clean_ingredient_text(brand_generic)
         target_key = make_lookup_key(target_cleaned, lexicons.singularize_exceptions)
         if target_key != group.key:
-            return target_key, "brand_pattern", True
+            return target_key, "brand_pattern", True, target_cleaned
     stripped = strip_safe_modifiers(cleaned, lexicons.modifier_lexicon)
     stripped_key = make_lookup_key(stripped, lexicons.singularize_exceptions)
     if stripped_key != group.key:
@@ -340,37 +347,36 @@ def _reduction_move(
             if _matches_always_merge(cleaned, lexicons.gate_lexicons)
             else "modifier_strip"
         )
-        return stripped_key, source, False
+        return stripped_key, source, False, None
     return None
 
 
 def _apply_move(
     groups: dict[str, VocabularyGroup],
-    move: tuple[str, str, str],
-    lexicons: PipelineLexicons,
+    move: tuple[str, str, str, str | None],
+    index: TrainIndex,
 ) -> None:
-    """Transfer one group's members into its reduction target."""
-    source_key, target_key, source_label = move
-    moving = groups.pop(source_key)
+    """Transfer one group's members into its reduction target.
+
+    An existing target freezes its canonical name BEFORE absorbing, so a
+    high-frequency joining variant can never rename the concept it merges
+    into. A strip move whose target vanished mid-round is skipped; the
+    fixpoint loop re-evaluates it next round.
+    """
+    source_key, target_key, source_label, synthetic_name = move
     target = groups.get(target_key)
+    if target is None and synthetic_name is None:
+        return
+    moving = groups.pop(source_key)
     if target is None:
-        target_cleaned = strip_safe_modifiers(
-            representative_cleaned_for_override(moving), lexicons.modifier_lexicon
-        )
-        target = VocabularyGroup(key=target_key, canonical_override=target_cleaned)
+        target = VocabularyGroup(key=target_key, canonical_override=synthetic_name)
         groups[target_key] = target
+    elif target.canonical_override is None:
+        target.canonical_override = representative_cleaned(target, index)
     for raw, member in moving.members.items():
         target.members[raw] = GroupMember(
             cleaned=member.cleaned, source=source_label, rule=member.rule
         )
-
-
-def representative_cleaned_for_override(group: VocabularyGroup) -> str:
-    """Best-effort display text for a synthetic target group."""
-    if group.canonical_override is not None:
-        return group.canonical_override
-    first_member = sorted(group.members)[0]
-    return group.members[first_member].cleaned
 
 
 def merge_groups_by_strip_and_brand(
@@ -393,19 +399,19 @@ def merge_groups_by_strip_and_brand(
         The reduced groups mapping.
     """
     for _ in range(REDUCTION_PASS_LIMIT):
-        moves: list[tuple[str, str, str]] = []
+        moves: list[tuple[str, str, str, str | None]] = []
         for key in sorted(groups):
             found = _reduction_move(groups[key], lexicons, index)
             if found is None:
                 continue
-            target_key, source_label, may_create = found
+            target_key, source_label, may_create, synthetic_name = found
             if may_create or target_key in groups:
-                moves.append((key, target_key, source_label))
+                moves.append((key, target_key, source_label, synthetic_name))
         if not moves:
             return groups
         for move in moves:
             if move[0] in groups:
-                _apply_move(groups, move, lexicons)
+                _apply_move(groups, move, index)
     return groups
 
 
@@ -460,9 +466,17 @@ def _resolve_redirects(key: str, redirects: dict[str, str]) -> str:
 def _record_merge(
     groups: dict[str, VocabularyGroup],
     redirects: dict[str, str],
-    outcome: tuple[PairCandidate, "GateDecisionLike"],
+    pair: PairCandidate,
+    decision: GateDecision,
+    base_cleaned: str,
 ) -> None:
-    pair, decision = outcome
+    """Absorb a gate-merged variant, freezing the base's name first.
+
+    Freezing with the base's pre-merge representative prevents the merge
+    from inverting direction in the display name: 'ground black pepper'
+    merging into 'pepper' must leave the concept named 'pepper' even when
+    the variant's raw string is more frequent.
+    """
     source_key = _resolve_redirects(pair.variant_key, redirects)
     target_key = _resolve_redirects(pair.base_key, redirects)
     if source_key == target_key or source_key not in groups:
@@ -470,14 +484,13 @@ def _record_merge(
     alias_source = LAYER_TO_ALIAS_SOURCE.get(decision.layer, "statistical_gate")
     moving = groups.pop(source_key)
     target = groups[target_key]
+    if target.canonical_override is None:
+        target.canonical_override = base_cleaned
     for raw, member in moving.members.items():
         target.members[raw] = GroupMember(
             cleaned=member.cleaned, source=alias_source, rule=decision.reason
         )
     redirects[source_key] = target_key
-
-
-GateDecisionLike = object
 
 
 def apply_pair_outcomes(
@@ -520,7 +533,7 @@ def apply_pair_outcomes(
             variant_cleaned, base_cleaned, evidence, lexicons.gate_lexicons
         )
         if decision.action is GateAction.MERGE:
-            _record_merge(groups, redirects, (pair, decision))
+            _record_merge(groups, redirects, pair, decision, base_cleaned)
         elif decision.action is GateAction.PRESERVE:
             preserve_records.append(
                 (pair.variant_key, pair.base_key, decision, evidence)

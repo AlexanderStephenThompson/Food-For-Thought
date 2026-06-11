@@ -123,11 +123,25 @@ def test_two_token_drop_for_long_strings(resolver: IngredientResolver) -> None:
     )
 
 
+def test_token_drop_prefers_dropping_modifier_over_noun(
+    resolver: IngredientResolver,
+) -> None:
+    # Dropping the modifier 'red' reaches serrano_pepper (104 mentions);
+    # dropping the noun 'serrano' reaches red_pepper (459). Modifier
+    # drops outrank mention count, so the specific pepper wins.
+    result = resolver.resolve("red serrano peppers")
+
+    assert result == ResolutionResult(
+        "serrano_pepper", "token_drop_match", ("red",)
+    )
+
+
 def test_token_drop_prefers_higher_mention_count(
     resolver: IngredientResolver,
 ) -> None:
     # Dropping 'soy' reaches fish_sauce (600 mentions); dropping 'fish'
-    # reaches soy_sauce (4382). Equal-length candidates, higher count wins.
+    # reaches soy_sauce (4382). Equal-length candidates, neither dropped
+    # token is a modifier, so the higher mention count wins.
     result = resolver.resolve("soy fish sauce")
 
     assert result == ResolutionResult("soy_sauce", "token_drop_match", ("fish",))

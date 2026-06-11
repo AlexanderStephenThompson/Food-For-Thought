@@ -3,7 +3,7 @@
 ## Build
 
 - Train sha256: `f18e7e568d1c`
-- Lexicon fingerprint: `115518a203f6`
+- Lexicon fingerprint: `a497148d9f2c`
 - Random seed: 42
 
 ## Resolution (train)
@@ -14,57 +14,57 @@
 
 | Method | Count | % |
 | --- | ---: | ---: |
-| exact_alias | 424530 | 99.13% |
+| exact_alias | 424537 | 99.13% |
 | cleaned_match | 0 | 0.00% |
 | modifier_stripped_match | 0 | 0.00% |
-| brand_resolved_match | 11 | 0.00% |
+| brand_resolved_match | 7 | 0.00% |
 | token_drop_match | 666 | 0.16% |
-| unresolved | 3068 | 0.72% |
+| unresolved | 3065 | 0.72% |
 
 ## Resolution (test)
 
 - Mentions total: 107395
 - Alias tier coverage: 98.78%
-- Full chain coverage: 99.06%
+- Full chain coverage: 99.07%
 
 | Method | Count | % |
 | --- | ---: | ---: |
 | exact_alias | 106088 | 98.78% |
 | cleaned_match | 0 | 0.00% |
 | modifier_stripped_match | 45 | 0.04% |
-| brand_resolved_match | 64 | 0.06% |
-| token_drop_match | 189 | 0.18% |
-| unresolved | 1009 | 0.94% |
+| brand_resolved_match | 71 | 0.07% |
+| token_drop_match | 188 | 0.18% |
+| unresolved | 1003 | 0.93% |
 
 ## Vocabulary
 
-- Ingredients: 2806
-- Aliases: 4350
-- Preserved variants: 221
+- Ingredients: 2813
+- Aliases: 4356
+- Preserved variants: 228
 
 ### Aliases by source
 
 | Source | Count |
 | --- | ---: |
-| canonical_surface_form | 2806 |
+| canonical_surface_form | 2813 |
 | mechanical_normalization | 117 |
-| modifier_strip | 423 |
-| always_merge_lexicon | 295 |
+| modifier_strip | 437 |
+| always_merge_lexicon | 296 |
 | forced_merge_override | 11 |
-| statistical_gate | 306 |
+| statistical_gate | 296 |
 | named_variety_lexicon | 0 |
-| brand_pattern | 303 |
+| brand_pattern | 302 |
 | manual_alias | 31 |
-| manual_review | 58 |
+| manual_review | 53 |
 
 ### Merge group size histogram
 
 | Aliases per ingredient | Ingredients |
 | --- | ---: |
-| 1 | 2164 |
+| 1 | 2171 |
 | 2-5 | 568 |
-| 6-10 | 55 |
-| 11-20 | 17 |
+| 6-10 | 56 |
+| 11-20 | 16 |
 | 21+ | 2 |
 
 ## Top unresolved (first 20)

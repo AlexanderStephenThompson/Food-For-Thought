@@ -1,12 +1,12 @@
 {
   "test": {
     "by_method": {
-      "brand_resolved_match": 64,
+      "brand_resolved_match": 71,
       "cleaned_match": 0,
       "exact_alias": 106088,
       "modifier_stripped_match": 45,
-      "token_drop_match": 189,
-      "unresolved": 1009
+      "token_drop_match": 188,
+      "unresolved": 1003
     },
     "mentions_total": 107395,
     "top_unresolved": [
@@ -148,10 +148,6 @@
       },
       {
         "count": 2,
-        "string": "Best Foods Mayonnaise Dressing with Extra Virgin Olive Oil"
-      },
-      {
-        "count": 2,
         "string": "Ciabatta rolls"
       },
       {
@@ -209,17 +205,21 @@
       {
         "count": 2,
         "string": "black mushrooms"
+      },
+      {
+        "count": 2,
+        "string": "black pudding"
       }
     ]
   },
   "train": {
     "by_method": {
-      "brand_resolved_match": 11,
+      "brand_resolved_match": 7,
       "cleaned_match": 0,
-      "exact_alias": 424530,
+      "exact_alias": 424537,
       "modifier_stripped_match": 0,
       "token_drop_match": 666,
-      "unresolved": 3068
+      "unresolved": 3065
     },
     "mentions_total": 428275,
     "top_unresolved": [

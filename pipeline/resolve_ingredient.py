@@ -134,6 +134,11 @@ class IngredientResolver:
         """
         records = _extract_records(payload)
         self._lexicons = lexicons
+        self._candidate_modifier_tokens = (
+            lexicons.variant_modifier_tokens
+            | lexicons.modifier_lexicon.strip_tokens
+            | lexicons.modifier_lexicon.never_strip_tokens
+        )
         self._mention_counts = {
             record.ingredient_id: record.train_mention_count for record in records
         }
@@ -293,10 +298,20 @@ class IngredientResolver:
 
     def _rank_drop_candidate(
         self, candidate: _DropCandidate
-    ) -> tuple[int, int, str, tuple[str, ...]]:
-        """Sort key: longest key, highest count, smallest id, then tokens."""
+    ) -> tuple[int, int, int, str, tuple[str, ...]]:
+        """Sort key: longest key, modifier drops first, count, id, tokens.
+
+        Dropping known modifier tokens is preferred over dropping nouns:
+        'red serrano peppers' must lose 'red' and land on serrano peppers,
+        not lose 'serrano' and land on the more frequent red pepper.
+        """
+        drops_only_modifiers = all(
+            token in self._candidate_modifier_tokens
+            for token in candidate.dropped_tokens
+        )
         return (
             -candidate.remaining_token_count,
+            0 if drops_only_modifiers else 1,
             -self._mention_counts[candidate.ingredient_id],
             candidate.ingredient_id,
             candidate.dropped_tokens,

@@ -42,3 +42,23 @@ python3 -m venv .venv
 # run tests
 .venv/bin/python -m pytest
 ```
+
+## Known limitations (candidates for future refinement)
+
+- **Parent links are back-off hints, not an ontology.** Head-token pairing
+  gives some preserved variants a semantically loose parent (e.g.
+  `green_pepper` — a vegetable — parents to `pepper`, whose recipes skew
+  toward the spice). The variants themselves stay correctly separate.
+- **Alias provenance records the last hop only.** A string that merged via
+  modifier stripping and whose group later merged again shows the final
+  merge's source/rule.
+- **Preserve evidence is measured against the immediate base** while
+  `parent_id` points at the chain root (schema requires root parents).
+- **Vocabulary fragmentation tail**: a few near-duplicate canonicals remain
+  (`lime_leaves`/`kaffir_lime_leaves`, `lemongrass`/`lemon_grass`,
+  `harissa`/`harissa_paste`, `yoghurt`/`yogurt`). Fix by adding
+  `lexicons/manual_aliases.json` entries — but check the cuisine-divergence
+  CLI first; British spellings can carry real cuisine signal.
+- **~100 canonical names retain prep tokens** (e.g. `fresh_lemon_juice`)
+  where the prep form is the dominant surface and no bare-form group
+  existed to anchor the name.

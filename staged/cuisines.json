@@ -1,6 +1,6 @@
 {
   "build": {
-    "lexicon_fingerprint": "115518a203f65ca774deadbac864212824bff38b4b65ad6fb713d0702d7ad3cf",
+    "lexicon_fingerprint": "a497148d9f2c9300df2eee09ffdc5b64088adb41668a14a2188487aaab8437f0",
     "random_seed": 42,
     "train_sha256": "f18e7e568d1c606774bfb134ece51ef0a143cd5069e6f9241bb6036b45b7d2b0"
   },
@@ -70,7 +70,7 @@
         {
           "cuisine_coverage": 0.03,
           "id": "superfine_sugar",
-          "lift": 16.3338
+          "lift": 16.1131
         },
         {
           "cuisine_coverage": 0.0236,
@@ -129,7 +129,7 @@
         },
         {
           "cuisine_coverage": 0.0498,
-          "id": "dried_currants",
+          "id": "currant",
           "lift": 13.9353
         },
         {
@@ -164,7 +164,7 @@
         },
         {
           "cuisine_coverage": 0.0261,
-          "id": "fresh_raspberries",
+          "id": "raspberries",
           "lift": 6.111
         },
         {
@@ -188,19 +188,19 @@
       "neighbors": [
         {
           "id": "irish",
-          "similarity": 0.7884
+          "similarity": 0.7883
         },
         {
           "id": "southern_us",
-          "similarity": 0.7659
+          "similarity": 0.7661
         },
         {
           "id": "french",
-          "similarity": 0.7202
+          "similarity": 0.7205
         },
         {
           "id": "russian",
-          "similarity": 0.6871
+          "similarity": 0.6868
         }
       ],
       "recipe_count": 804
@@ -218,9 +218,9 @@
           "lift": 21.7333
         },
         {
-          "cuisine_coverage": 0.141,
+          "cuisine_coverage": 0.1404,
           "id": "creole_seasoning",
-          "lift": 20.1744
+          "lift": 20.1544
         },
         {
           "cuisine_coverage": 0.1908,
@@ -228,9 +228,9 @@
           "lift": 20.078
         },
         {
-          "cuisine_coverage": 0.0712,
+          "cuisine_coverage": 0.0699,
           "id": "smoked_sausage",
-          "lift": 18.8665
+          "lift": 18.7738
         },
         {
           "cuisine_coverage": 0.0349,
@@ -288,7 +288,7 @@
       "neighbors": [
         {
           "id": "spanish",
-          "similarity": 0.5385
+          "similarity": 0.5387
         },
         {
           "id": "southern_us",
@@ -296,7 +296,7 @@
         },
         {
           "id": "french",
-          "similarity": 0.4774
+          "similarity": 0.4775
         },
         {
           "id": "italian",
@@ -324,7 +324,7 @@
         },
         {
           "cuisine_coverage": 0.0318,
-          "id": "chinese_black_vinegar",
+          "id": "black_vinegar",
           "lift": 13.7477
         },
         {
@@ -392,15 +392,15 @@
         },
         {
           "id": "japanese",
-          "similarity": 0.6253
+          "similarity": 0.6251
         },
         {
           "id": "filipino",
-          "similarity": 0.59
+          "similarity": 0.5899
         },
         {
           "id": "vietnamese",
-          "similarity": 0.5556
+          "similarity": 0.5555
         }
       ],
       "recipe_count": 2673
@@ -465,7 +465,7 @@
         {
           "cuisine_coverage": 0.0212,
           "id": "leaves",
-          "lift": 8.1047
+          "lift": 8.4289
         },
         {
           "cuisine_coverage": 0.0464,
@@ -488,7 +488,7 @@
       "neighbors": [
         {
           "id": "chinese",
-          "similarity": 0.59
+          "similarity": 0.5899
         },
         {
           "id": "vietnamese",
@@ -496,11 +496,11 @@
         },
         {
           "id": "thai",
-          "similarity": 0.516
+          "similarity": 0.5157
         },
         {
           "id": "korean",
-          "similarity": 0.4992
+          "similarity": 0.4993
         }
       ],
       "recipe_count": 755
@@ -529,7 +529,7 @@
         },
         {
           "cuisine_coverage": 0.0344,
-          "id": "fresh_tarragon",
+          "id": "tarragon",
           "lift": 7.8614
         },
         {
@@ -574,7 +574,7 @@
         },
         {
           "cuisine_coverage": 0.0204,
-          "id": "fresh_raspberries",
+          "id": "raspberries",
           "lift": 4.7748
         },
         {
@@ -588,11 +588,11 @@
       "neighbors": [
         {
           "id": "british",
-          "similarity": 0.7202
+          "similarity": 0.7205
         },
         {
           "id": "italian",
-          "similarity": 0.662
+          "similarity": 0.6621
         },
         {
           "id": "southern_us",
@@ -600,7 +600,7 @@
         },
         {
           "id": "irish",
-          "similarity": 0.65
+          "similarity": 0.6499
         }
       ],
       "recipe_count": 2646
@@ -644,7 +644,7 @@
         },
         {
           "cuisine_coverage": 0.137,
-          "id": "fresh_dill",
+          "id": "dill",
           "lift": 15.5711
         },
         {
@@ -669,7 +669,7 @@
         },
         {
           "cuisine_coverage": 0.0638,
-          "id": "mezzetta_greek_kalamata_olives",
+          "id": "kalamata_olives",
           "lift": 12.1472
         },
         {
@@ -696,7 +696,7 @@
         },
         {
           "id": "french",
-          "similarity": 0.4704
+          "similarity": 0.4705
         },
         {
           "id": "moroccan",
@@ -788,7 +788,7 @@
       "neighbors": [
         {
           "id": "moroccan",
-          "similarity": 0.5313
+          "similarity": 0.5314
         },
         {
           "id": "filipino",
@@ -796,7 +796,7 @@
         },
         {
           "id": "mexican",
-          "similarity": 0.3883
+          "similarity": 0.3884
         },
         {
           "id": "brazilian",
@@ -824,7 +824,7 @@
         },
         {
           "cuisine_coverage": 0.054,
-          "id": "guinness_beer",
+          "id": "stout",
           "lift": 40.5042
         },
         {
@@ -849,7 +849,7 @@
         },
         {
           "cuisine_coverage": 0.03,
-          "id": "dried_currants",
+          "id": "currant",
           "lift": 8.3988
         },
         {
@@ -888,7 +888,7 @@
       "neighbors": [
         {
           "id": "british",
-          "similarity": 0.7884
+          "similarity": 0.7883
         },
         {
           "id": "southern_us",
@@ -896,11 +896,11 @@
         },
         {
           "id": "russian",
-          "similarity": 0.6779
+          "similarity": 0.6776
         },
         {
           "id": "french",
-          "similarity": 0.65
+          "similarity": 0.6499
         }
       ],
       "recipe_count": 667
@@ -918,9 +918,9 @@
           "lift": 4.7633
         },
         {
-          "cuisine_coverage": 0.0305,
+          "cuisine_coverage": 0.0301,
           "id": "italian_sausage",
-          "lift": 4.7375
+          "lift": 4.7335
         },
         {
           "cuisine_coverage": 0.0621,
@@ -938,9 +938,9 @@
           "lift": 4.5742
         },
         {
-          "cuisine_coverage": 0.0333,
+          "cuisine_coverage": 0.0336,
           "id": "arborio_rice",
-          "lift": 4.5358
+          "lift": 4.5394
         },
         {
           "cuisine_coverage": 0.0452,
@@ -949,7 +949,7 @@
         },
         {
           "cuisine_coverage": 0.1393,
-          "id": "shredded_mozzarella_cheese",
+          "id": "mozzarella_cheese",
           "lift": 4.4049
         },
         {
@@ -964,7 +964,7 @@
         },
         {
           "cuisine_coverage": 0.297,
-          "id": "grated_parmesan_cheese",
+          "id": "parmesan_cheese",
           "lift": 4.2251
         },
         {
@@ -988,7 +988,7 @@
       "neighbors": [
         {
           "id": "french",
-          "similarity": 0.662
+          "similarity": 0.6621
         },
         {
           "id": "spanish",
@@ -1000,7 +1000,7 @@
         },
         {
           "id": "southern_us",
-          "similarity": 0.4729
+          "similarity": 0.473
         }
       ],
       "recipe_count": 7838
@@ -1029,7 +1029,7 @@
         },
         {
           "cuisine_coverage": 0.3517,
-          "id": "ground_allspice",
+          "id": "allspice",
           "lift": 28.1468
         },
         {
@@ -1074,7 +1074,7 @@
         },
         {
           "cuisine_coverage": 0.4639,
-          "id": "dried_thyme",
+          "id": "thyme",
           "lift": 9.5498
         },
         {
@@ -1096,11 +1096,11 @@
         },
         {
           "id": "cajun_creole",
-          "similarity": 0.4429
+          "similarity": 0.4431
         },
         {
           "id": "british",
-          "similarity": 0.43
+          "similarity": 0.4299
         }
       ],
       "recipe_count": 526
@@ -1109,7 +1109,7 @@
       "distinctive_ingredients": [
         {
           "cuisine_coverage": 0.0548,
-          "id": "dried_bonito_flakes",
+          "id": "bonito_flakes",
           "lift": 27.252
         },
         {
@@ -1134,7 +1134,7 @@
         },
         {
           "cuisine_coverage": 0.1012,
-          "id": "white_miso",
+          "id": "miso",
           "lift": 24.1013
         },
         {
@@ -1188,19 +1188,19 @@
       "neighbors": [
         {
           "id": "korean",
-          "similarity": 0.6404
+          "similarity": 0.6403
         },
         {
           "id": "chinese",
-          "similarity": 0.6253
+          "similarity": 0.6251
         },
         {
           "id": "filipino",
-          "similarity": 0.472
+          "similarity": 0.4721
         },
         {
           "id": "vietnamese",
-          "similarity": 0.4369
+          "similarity": 0.4368
         }
       ],
       "recipe_count": 1423
@@ -1292,15 +1292,15 @@
         },
         {
           "id": "japanese",
-          "similarity": 0.6404
+          "similarity": 0.6403
         },
         {
           "id": "filipino",
-          "similarity": 0.4992
+          "similarity": 0.4993
         },
         {
           "id": "vietnamese",
-          "similarity": 0.4889
+          "similarity": 0.4888
         }
       ],
       "recipe_count": 830
@@ -1363,9 +1363,9 @@
           "lift": 5.9309
         },
         {
-          "cuisine_coverage": 0.1594,
+          "cuisine_coverage": 0.1591,
           "id": "salsa",
-          "lift": 5.9184
+          "lift": 5.9179
         },
         {
           "cuisine_coverage": 0.021,
@@ -1400,7 +1400,7 @@
         },
         {
           "id": "indian",
-          "similarity": 0.3883
+          "similarity": 0.3884
         }
       ],
       "recipe_count": 6438
@@ -1488,11 +1488,11 @@
       "neighbors": [
         {
           "id": "spanish",
-          "similarity": 0.561
+          "similarity": 0.5609
         },
         {
           "id": "indian",
-          "similarity": 0.5313
+          "similarity": 0.5314
         },
         {
           "id": "greek",
@@ -1539,7 +1539,7 @@
         },
         {
           "cuisine_coverage": 0.1677,
-          "id": "fresh_dill",
+          "id": "dill",
           "lift": 19.0562
         },
         {
@@ -1588,15 +1588,15 @@
       "neighbors": [
         {
           "id": "british",
-          "similarity": 0.6871
+          "similarity": 0.6868
         },
         {
           "id": "irish",
-          "similarity": 0.6779
+          "similarity": 0.6776
         },
         {
           "id": "french",
-          "similarity": 0.6367
+          "similarity": 0.6366
         },
         {
           "id": "southern_us",
@@ -1639,7 +1639,7 @@
         },
         {
           "cuisine_coverage": 0.0713,
-          "id": "chopped_pecans",
+          "id": "pecans",
           "lift": 6.2738
         },
         {
@@ -1669,7 +1669,7 @@
         },
         {
           "cuisine_coverage": 0.0456,
-          "id": "shredded_sharp_cheddar_cheese",
+          "id": "sharp_cheddar_cheese",
           "lift": 4.0759
         },
         {
@@ -1688,7 +1688,7 @@
       "neighbors": [
         {
           "id": "british",
-          "similarity": 0.7659
+          "similarity": 0.7661
         },
         {
           "id": "irish",
@@ -1792,7 +1792,7 @@
         },
         {
           "id": "french",
-          "similarity": 0.6366
+          "similarity": 0.6365
         },
         {
           "id": "greek",
@@ -1800,7 +1800,7 @@
         },
         {
           "id": "moroccan",
-          "similarity": 0.561
+          "similarity": 0.5609
         }
       ],
       "recipe_count": 989
@@ -1809,7 +1809,7 @@
       "distinctive_ingredients": [
         {
           "cuisine_coverage": 0.0591,
-          "id": "thai_green_curry_paste",
+          "id": "green_curry_paste",
           "lift": 24.7559
         },
         {
@@ -1819,7 +1819,7 @@
         },
         {
           "cuisine_coverage": 0.152,
-          "id": "thai_red_curry_paste",
+          "id": "red_curry_paste",
           "lift": 24.2872
         },
         {
@@ -1888,11 +1888,11 @@
       "neighbors": [
         {
           "id": "vietnamese",
-          "similarity": 0.8129
+          "similarity": 0.8128
         },
         {
           "id": "filipino",
-          "similarity": 0.516
+          "similarity": 0.5157
         },
         {
           "id": "chinese",
@@ -1900,7 +1900,7 @@
         },
         {
           "id": "korean",
-          "similarity": 0.4145
+          "similarity": 0.4144
         }
       ],
       "recipe_count": 1539
@@ -1988,7 +1988,7 @@
       "neighbors": [
         {
           "id": "thai",
-          "similarity": 0.8129
+          "similarity": 0.8128
         },
         {
           "id": "filipino",
@@ -1996,11 +1996,11 @@
         },
         {
           "id": "chinese",
-          "similarity": 0.5556
+          "similarity": 0.5555
         },
         {
           "id": "korean",
-          "similarity": 0.4889
+          "similarity": 0.4888
         }
       ],
       "recipe_count": 825

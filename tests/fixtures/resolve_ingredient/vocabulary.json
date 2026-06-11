@@ -143,6 +143,22 @@
     {
       "aliases": [
         {
+          "alias": "red peppers",
+          "rule": null,
+          "source": "canonical_surface_form",
+          "train_frequency": 459
+        }
+      ],
+      "category": null,
+      "id": "red_pepper",
+      "name": "red pepper",
+      "parent_id": null,
+      "preserve_evidence": null,
+      "train_mention_count": 459
+    },
+    {
+      "aliases": [
+        {
           "alias": "sauce",
           "rule": null,
           "source": "canonical_surface_form",
@@ -177,6 +193,22 @@
       "parent_id": null,
       "preserve_evidence": null,
       "train_mention_count": 700
+    },
+    {
+      "aliases": [
+        {
+          "alias": "serrano peppers",
+          "rule": null,
+          "source": "canonical_surface_form",
+          "train_frequency": 104
+        }
+      ],
+      "category": null,
+      "id": "serrano_pepper",
+      "name": "serrano pepper",
+      "parent_id": null,
+      "preserve_evidence": null,
+      "train_mention_count": 104
     },
     {
       "aliases": [

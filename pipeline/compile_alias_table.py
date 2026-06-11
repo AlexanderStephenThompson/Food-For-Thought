@@ -207,7 +207,7 @@ def apply_merge_decisions(
         for candidate in build.review_candidates
     }
     _require_decision_alignment(candidates, decisions)
-    redirects = _apply_merge_verdicts(candidates, decisions, build)
+    redirects = _apply_merge_verdicts(candidates, decisions, build, index)
     _apply_preserve_verdicts(candidates, decisions, build, redirects)
 
 
@@ -238,6 +238,7 @@ def _apply_merge_verdicts(
     candidates: dict[str, ReviewCandidate],
     decisions: dict[str, dict],
     build: VocabularyBuild,
+    index: TrainIndex,
 ) -> dict[str, str]:
     """Absorb every merge/merge_into variant; return the redirect map.
 
@@ -254,7 +255,7 @@ def _apply_merge_verdicts(
         candidate = candidates[decision_id]
         target_key = _resolve_merge_target(candidate, record, build, redirects)
         _absorb_variant_group(
-            build, candidate.variant_key, target_key, record["note"]
+            build, candidate.variant_key, target_key, record["note"], index
         )
         redirects[candidate.variant_key] = target_key
     return redirects
@@ -283,15 +284,27 @@ def _resolve_merge_target(
 
 
 def _absorb_variant_group(
-    build: VocabularyBuild, variant_key: str, target_key: str, note: str
+    build: VocabularyBuild,
+    variant_key: str,
+    target_key: str,
+    note: str,
+    index: TrainIndex,
 ) -> None:
-    """Move a variant group's members into the target as review aliases."""
+    """Move a variant group's members into the target as review aliases.
+
+    The target's canonical name freezes before absorption so a frequent
+    joining variant can never rename the concept it merges into.
+    """
     if variant_key not in build.groups:
         raise ValueError(
             f"variant group {variant_key!r} is not available to merge"
         )
     moving_group = build.groups.pop(variant_key)
     target_group = build.groups[target_key]
+    if target_group.canonical_override is None:
+        target_group.canonical_override = representative_cleaned(
+            target_group, index
+        )
     for raw in sorted(moving_group.members):
         member = moving_group.members[raw]
         target_group.members[raw] = GroupMember(
