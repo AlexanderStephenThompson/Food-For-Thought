@@ -1,0 +1,10 @@
+{
+  "test": [
+    {"id": 7, "ingredients": ["soy sauce", "mystery goo"]},
+    {"id": 9, "ingredients": ["romaine lettuce"]}
+  ],
+  "train": [
+    {"id": 3, "cuisine": "chinese", "ingredients": ["soy sauce", "scallions", "low sodium soy sauce"]},
+    {"id": 5, "cuisine": "greek", "ingredients": ["feta cheese crumbles", "romaine lettuce"]}
+  ]
+}

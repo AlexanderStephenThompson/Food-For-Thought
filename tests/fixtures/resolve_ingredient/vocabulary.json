@@ -1,0 +1,205 @@
+{
+  "build": {
+    "lexicon_fingerprint": "9c4f2b8a1d6e3057face0123456789abcdef0123456789abcdef0123456789ab",
+    "random_seed": 42,
+    "train_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "ingredients": [
+    {
+      "aliases": [
+        {
+          "alias": "chickpeas",
+          "rule": null,
+          "source": "mechanical_normalization",
+          "train_frequency": 250
+        }
+      ],
+      "category": null,
+      "id": "chickpea",
+      "name": "chickpea",
+      "parent_id": null,
+      "preserve_evidence": null,
+      "train_mention_count": 250
+    },
+    {
+      "aliases": [
+        {
+          "alias": "cilantro",
+          "rule": null,
+          "source": "canonical_surface_form",
+          "train_frequency": 1500
+        }
+      ],
+      "category": null,
+      "id": "cilantro",
+      "name": "cilantro",
+      "parent_id": null,
+      "preserve_evidence": null,
+      "train_mention_count": 1500
+    },
+    {
+      "aliases": [
+        {
+          "alias": "dark soy sauce",
+          "rule": null,
+          "source": "canonical_surface_form",
+          "train_frequency": 120
+        }
+      ],
+      "category": null,
+      "id": "dark_soy_sauce",
+      "name": "dark soy sauce",
+      "parent_id": "soy_sauce",
+      "preserve_evidence": {
+        "jsd_bits": 0.42,
+        "layer": "statistical_gate",
+        "null95_bits": 0.18,
+        "variant_count": 120
+      },
+      "train_mention_count": 120
+    },
+    {
+      "aliases": [
+        {
+          "alias": "Thai fish sauce",
+          "rule": null,
+          "source": "manual_review",
+          "train_frequency": 90
+        },
+        {
+          "alias": "fish sauce",
+          "rule": null,
+          "source": "canonical_surface_form",
+          "train_frequency": 510
+        }
+      ],
+      "category": null,
+      "id": "fish_sauce",
+      "name": "fish sauce",
+      "parent_id": null,
+      "preserve_evidence": null,
+      "train_mention_count": 600
+    },
+    {
+      "aliases": [
+        {
+          "alias": "Chickpeas",
+          "rule": null,
+          "source": "manual_alias",
+          "train_frequency": 60
+        },
+        {
+          "alias": "garbanzo beans",
+          "rule": null,
+          "source": "mechanical_normalization",
+          "train_frequency": 190
+        }
+      ],
+      "category": null,
+      "id": "garbanzo_bean",
+      "name": "garbanzo bean",
+      "parent_id": null,
+      "preserve_evidence": null,
+      "train_mention_count": 250
+    },
+    {
+      "aliases": [
+        {
+          "alias": "Spring Onions",
+          "rule": null,
+          "source": "manual_alias",
+          "train_frequency": 80
+        },
+        {
+          "alias": "green onions",
+          "rule": null,
+          "source": "mechanical_normalization",
+          "train_frequency": 420
+        }
+      ],
+      "category": null,
+      "id": "green_onion",
+      "name": "green onion",
+      "parent_id": null,
+      "preserve_evidence": null,
+      "train_mention_count": 500
+    },
+    {
+      "aliases": [
+        {
+          "alias": "pork shoulder",
+          "rule": null,
+          "source": "canonical_surface_form",
+          "train_frequency": 320
+        }
+      ],
+      "category": null,
+      "id": "pork_shoulder",
+      "name": "pork shoulder",
+      "parent_id": null,
+      "preserve_evidence": null,
+      "train_mention_count": 320
+    },
+    {
+      "aliases": [
+        {
+          "alias": "sauce",
+          "rule": null,
+          "source": "canonical_surface_form",
+          "train_frequency": 50
+        }
+      ],
+      "category": null,
+      "id": "sauce",
+      "name": "sauce",
+      "parent_id": null,
+      "preserve_evidence": null,
+      "train_mention_count": 50
+    },
+    {
+      "aliases": [
+        {
+          "alias": "scallions",
+          "rule": null,
+          "source": "mechanical_normalization",
+          "train_frequency": 530
+        },
+        {
+          "alias": "spring onions",
+          "rule": null,
+          "source": "manual_alias",
+          "train_frequency": 170
+        }
+      ],
+      "category": null,
+      "id": "scallion",
+      "name": "scallion",
+      "parent_id": null,
+      "preserve_evidence": null,
+      "train_mention_count": 700
+    },
+    {
+      "aliases": [
+        {
+          "alias": "low sodium soy sauce",
+          "rule": null,
+          "source": "modifier_strip",
+          "train_frequency": 425
+        },
+        {
+          "alias": "soy sauce",
+          "rule": null,
+          "source": "canonical_surface_form",
+          "train_frequency": 3957
+        }
+      ],
+      "category": null,
+      "id": "soy_sauce",
+      "name": "soy sauce",
+      "parent_id": null,
+      "preserve_evidence": null,
+      "train_mention_count": 4382
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,9 @@
+{
+  "_comment": "Fixture for load_cuisine_families tests: underscore keys must be ignored.",
+  "families": {
+    "_note": "this underscore key must not appear in the loaded mapping",
+    "alpha": "family_one",
+    "beta": "family_one",
+    "gamma": "family_two"
+  }
+}

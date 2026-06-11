@@ -1,0 +1,3 @@
+{"decision_id": "dark_hot_sauce__vs__hot_sauce", "decision": "merge", "decided_by": "llm_judge", "note": "same condiment"}
+{"decision_id": "dark_bean_sauce__vs__bean_sauce", "decision": "preserve", "decided_by": "llm_judge", "note": "distinct cuisine profile"}
+{"decision_id": "sweet_hot_sauce__vs__hot_sauce", "decision": "merge_into:bean sauce", "decided_by": "human_reviewer", "note": "mislabeled variant"}
