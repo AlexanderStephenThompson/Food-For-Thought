@@ -1,2 +1,2 @@
 [tool.pytest.ini_options]
-testpaths = ["01-bronze/tests", "02-silver/tests"]
+testpaths = ["01-bronze/tests", "02-silver/tests", "03-gold/tests"]

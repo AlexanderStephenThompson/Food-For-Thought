@@ -1,9 +1,11 @@
-# Gold tier — model-ready data
+# Gold tier — model-ready data and the blend model
 
-Produced by `02-silver/gold_pipeline/` and regenerable from silver + code,
-the same way silver is regenerable from bronze + lexicons. Every artifact
-embeds a fingerprint of the four silver inputs plus the build's random seed
-and fold count, so a gold build from stale silver is detectable.
+The data half is produced by `02-silver/gold_pipeline/`; the model half by
+this tier's own `model_pipeline/` (the last tier transforms its own data
+into model artifacts). Everything is regenerable from silver + code via
+`./manage.sh rebuild`.
+
+## Data artifacts (`datasets/`)
 
 | File | What it is |
 |------|------------|
@@ -12,12 +14,40 @@ and fold count, so a gold build from stale silver is detectable.
 | `datasets/features_test.json` | 9,944 unlabeled rows, same form minus cuisine |
 | `datasets/folds.json` | Stratified 5-fold cross-validation assignment, independently seeded per cuisine; fold spread ≤ 1 within every cuisine |
 
-Feature rows keep direct ingredient evidence and parent back-off in
-separate index lists, so the model phase chooses how to weight back-off
-instead of having that decision baked into the data.
+## Model artifacts
 
-## Still to come (the model phase)
+| File | What it is |
+|------|------------|
+| `model/parameters.json` | Multinomial logistic regression coefficients (20 × 2,813) and intercepts, rounded to 6 decimals — every downstream artifact derives from these rounded values |
+| `model/calibration.json` | Blend temperature (fit on pooled out-of-fold logits) with ECE and reliability tables before/after |
+| `model/blends_test.json` | Per-test-recipe calibrated 20-cuisine blend (4 decimals) + top cuisine |
+| `reports/evaluation.json` + `.md` | Grid search, per-fold and mean metrics, per-cuisine recall, confusion pairs annotated with the taxonomy's neighbor similarities, Naive Bayes baseline comparison |
+| `submission/submission.csv` | Kaggle submission: argmax over the blend, `id,cuisine` format |
 
-- the blend model itself ("58% thai · 24% vietnamese"), trained over the folds
-- calibration artifacts for the blend output
-- the Kaggle submission file (argmax over the blend)
+## How the model treats parent back-off (max semantics)
+
+A feature cell is 1.0 when the recipe contains the ingredient directly,
+`parent_weight` when the index is only a parent of one of its ingredients —
+never their sum. Direct evidence wins; back-off only fills absence. The
+weight itself is a tuned hyperparameter (`parent_weight` in
+`model/parameters.json`), selected on the folds by pooled out-of-fold log
+loss.
+
+## Determinism is environment-conditional here
+
+The data tiers are byte-identical everywhere; the model tier is
+byte-identical *per environment*. Every model artifact embeds the
+scikit-learn version in its build block, and the validation gates compare
+it against the installed version — `--check-idempotent` passes under the
+environment that produced the artifacts, and a version change fails loudly
+instead of masquerading as a determinism bug.
+
+## Try it
+
+```bash
+.venv/bin/python 03-gold/predict.py --ingredients "fish sauce, coconut milk, thai basil, lime juice, rice noodles"
+```
+
+Prints the resolution of each raw string through the silver alias chain,
+the calibrated blend, and the model's own per-ingredient explanation
+(contribution = feature value × coefficient).

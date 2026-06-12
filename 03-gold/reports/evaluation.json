@@ -1,0 +1,319 @@
+{
+  "baseline_naive_bayes": {
+    "mean_accuracy": 0.743931,
+    "mean_macro_f1": 0.657276,
+    "pooled_oof_log_loss": 1.285516
+  },
+  "build": {
+    "cuisines_sha256": "8eb81f5fc04c6b4cfcda656503c73ab1c784aa28285c1cfbf3e84f2ef428beb0",
+    "feature_space_sha256": "bb77d87a7dd77073a996de94ead814b4bd0b93a3d701a64e75501bd02bc243c1",
+    "features_test_sha256": "67587212e26947b69d1d12f998cecdc4052e97e658f00cd930a50ac2a650f2ec",
+    "features_train_sha256": "7e271ed37d29514cdb69558a3bac8437ce0dcb70239b92ff57bcb4b6780990b8",
+    "folds_sha256": "883f0f7b97a368afe5bf112b47847a198d55e756f8ca646c80933d0be6274437",
+    "random_seed": 42,
+    "sklearn_version": "1.9.0"
+  },
+  "calibration": {
+    "ece_after": 0.023766,
+    "ece_before": 0.025894,
+    "temperature": 0.986228
+  },
+  "configuration": {
+    "c_value": 1.0,
+    "parent_weight": 1.0
+  },
+  "confusion_pairs": [
+    {
+      "count": 533,
+      "neighbor_similarity": 0.6621,
+      "predicted_cuisine": "italian",
+      "true_cuisine": "french"
+    },
+    {
+      "count": 362,
+      "neighbor_similarity": 0.6621,
+      "predicted_cuisine": "french",
+      "true_cuisine": "italian"
+    },
+    {
+      "count": 261,
+      "neighbor_similarity": 0.5354,
+      "predicted_cuisine": "southern_us",
+      "true_cuisine": "cajun_creole"
+    },
+    {
+      "count": 196,
+      "neighbor_similarity": null,
+      "predicted_cuisine": "italian",
+      "true_cuisine": "southern_us"
+    },
+    {
+      "count": 195,
+      "neighbor_similarity": 0.5677,
+      "predicted_cuisine": "italian",
+      "true_cuisine": "greek"
+    },
+    {
+      "count": 185,
+      "neighbor_similarity": 0.6589,
+      "predicted_cuisine": "italian",
+      "true_cuisine": "spanish"
+    },
+    {
+      "count": 181,
+      "neighbor_similarity": 0.6604,
+      "predicted_cuisine": "southern_us",
+      "true_cuisine": "french"
+    },
+    {
+      "count": 179,
+      "neighbor_similarity": 0.473,
+      "predicted_cuisine": "southern_us",
+      "true_cuisine": "italian"
+    },
+    {
+      "count": 159,
+      "neighbor_similarity": null,
+      "predicted_cuisine": "cajun_creole",
+      "true_cuisine": "southern_us"
+    },
+    {
+      "count": 154,
+      "neighbor_similarity": 0.8128,
+      "predicted_cuisine": "thai",
+      "true_cuisine": "vietnamese"
+    },
+    {
+      "count": 145,
+      "neighbor_similarity": null,
+      "predicted_cuisine": "southern_us",
+      "true_cuisine": "mexican"
+    },
+    {
+      "count": 139,
+      "neighbor_similarity": 0.6604,
+      "predicted_cuisine": "french",
+      "true_cuisine": "southern_us"
+    },
+    {
+      "count": 135,
+      "neighbor_similarity": 0.6251,
+      "predicted_cuisine": "chinese",
+      "true_cuisine": "japanese"
+    },
+    {
+      "count": 131,
+      "neighbor_similarity": 0.7205,
+      "predicted_cuisine": "french",
+      "true_cuisine": "british"
+    },
+    {
+      "count": 125,
+      "neighbor_similarity": null,
+      "predicted_cuisine": "mexican",
+      "true_cuisine": "southern_us"
+    }
+  ],
+  "folds": [
+    {
+      "accuracy": 0.779201,
+      "fold": 0,
+      "log_loss": 0.74202,
+      "macro_f1": 0.710132
+    },
+    {
+      "accuracy": 0.780096,
+      "fold": 1,
+      "log_loss": 0.728381,
+      "macro_f1": 0.709794
+    },
+    {
+      "accuracy": 0.790096,
+      "fold": 2,
+      "log_loss": 0.719536,
+      "macro_f1": 0.719773
+    },
+    {
+      "accuracy": 0.784681,
+      "fold": 3,
+      "log_loss": 0.757414,
+      "macro_f1": 0.717653
+    },
+    {
+      "accuracy": 0.792878,
+      "fold": 4,
+      "log_loss": 0.719194,
+      "macro_f1": 0.721928
+    }
+  ],
+  "grid_search": [
+    {
+      "c_value": 0.1,
+      "parent_weight": 0.0,
+      "pooled_oof_log_loss": 0.870368
+    },
+    {
+      "c_value": 0.3,
+      "parent_weight": 0.0,
+      "pooled_oof_log_loss": 0.775067
+    },
+    {
+      "c_value": 1.0,
+      "parent_weight": 0.0,
+      "pooled_oof_log_loss": 0.736155
+    },
+    {
+      "c_value": 3.0,
+      "parent_weight": 0.0,
+      "pooled_oof_log_loss": 0.765311
+    },
+    {
+      "c_value": 0.1,
+      "parent_weight": 0.3,
+      "pooled_oof_log_loss": 0.86418
+    },
+    {
+      "c_value": 0.3,
+      "parent_weight": 0.3,
+      "pooled_oof_log_loss": 0.771554
+    },
+    {
+      "c_value": 1.0,
+      "parent_weight": 0.3,
+      "pooled_oof_log_loss": 0.73411
+    },
+    {
+      "c_value": 3.0,
+      "parent_weight": 0.3,
+      "pooled_oof_log_loss": 0.764053
+    },
+    {
+      "c_value": 0.1,
+      "parent_weight": 1.0,
+      "pooled_oof_log_loss": 0.856133
+    },
+    {
+      "c_value": 0.3,
+      "parent_weight": 1.0,
+      "pooled_oof_log_loss": 0.768001
+    },
+    {
+      "c_value": 1.0,
+      "parent_weight": 1.0,
+      "pooled_oof_log_loss": 0.733401
+    },
+    {
+      "c_value": 3.0,
+      "parent_weight": 1.0,
+      "pooled_oof_log_loss": 0.764677
+    }
+  ],
+  "mean": {
+    "accuracy": 0.78539,
+    "log_loss": 0.733309,
+    "macro_f1": 0.715856
+  },
+  "per_cuisine": [
+    {
+      "cuisine": "brazilian",
+      "recall": 0.588865,
+      "recipe_count": 467
+    },
+    {
+      "cuisine": "british",
+      "recall": 0.437811,
+      "recipe_count": 804
+    },
+    {
+      "cuisine": "cajun_creole",
+      "recall": 0.69599,
+      "recipe_count": 1546
+    },
+    {
+      "cuisine": "chinese",
+      "recall": 0.83988,
+      "recipe_count": 2673
+    },
+    {
+      "cuisine": "filipino",
+      "recall": 0.637086,
+      "recipe_count": 755
+    },
+    {
+      "cuisine": "french",
+      "recall": 0.626228,
+      "recipe_count": 2646
+    },
+    {
+      "cuisine": "greek",
+      "recall": 0.690213,
+      "recipe_count": 1175
+    },
+    {
+      "cuisine": "indian",
+      "recall": 0.889111,
+      "recipe_count": 3003
+    },
+    {
+      "cuisine": "irish",
+      "recall": 0.511244,
+      "recipe_count": 667
+    },
+    {
+      "cuisine": "italian",
+      "recall": 0.884792,
+      "recipe_count": 7838
+    },
+    {
+      "cuisine": "jamaican",
+      "recall": 0.68251,
+      "recipe_count": 526
+    },
+    {
+      "cuisine": "japanese",
+      "recall": 0.708363,
+      "recipe_count": 1423
+    },
+    {
+      "cuisine": "korean",
+      "recall": 0.789157,
+      "recipe_count": 830
+    },
+    {
+      "cuisine": "mexican",
+      "recall": 0.91923,
+      "recipe_count": 6438
+    },
+    {
+      "cuisine": "moroccan",
+      "recall": 0.751523,
+      "recipe_count": 821
+    },
+    {
+      "cuisine": "russian",
+      "recall": 0.458078,
+      "recipe_count": 489
+    },
+    {
+      "cuisine": "southern_us",
+      "recall": 0.80162,
+      "recipe_count": 4320
+    },
+    {
+      "cuisine": "spanish",
+      "recall": 0.489383,
+      "recipe_count": 989
+    },
+    {
+      "cuisine": "thai",
+      "recall": 0.764133,
+      "recipe_count": 1539
+    },
+    {
+      "cuisine": "vietnamese",
+      "recall": 0.595152,
+      "recipe_count": 825
+    }
+  ],
+  "schema_version": 1
+}

@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.5.0] — 2026-06-12 — Region Feel / Model: calibrated cuisine blend classifier
+
+### Added
+- Multinomial logistic regression over the gold features, tuned on the
+  5 folds (C × parent-back-off-weight grid, 60 fits) by pooled
+  out-of-fold log loss — the blend-honesty metric
+- Temperature-scaled calibration fit on pooled out-of-fold logits
+  (fixed-iteration golden-section search), with ECE and reliability
+  tables before/after in `03-gold/model/calibration.json`
+- Model artifacts derived entirely from 6-decimal rounded parameters:
+  `parameters.json`, `blends_test.json` (per-recipe calibrated 20-way
+  blend), `reports/evaluation.json` + `.md` (grid, per-fold metrics,
+  per-cuisine recall, confusion pairs annotated with taxonomy neighbor
+  similarities, MultinomialNB baseline), `submission/submission.csv`
+- `03-gold/predict.py` CLI: resolves raw ingredient strings through the
+  silver alias chain and prints the calibrated blend plus the model's
+  own per-ingredient explanations
+- `03-gold/model_pipeline/` package with 41 tests (suite now 434);
+  12-gate `validate_model` including a scikit-learn version freshness
+  check
+- scikit-learn dependency at the model tier only — every data tier
+  stays pure standard library; model byte-identity is per-environment
+  and recorded in each artifact's build block
+
+### Changed
+- `manage.sh` rebuild/verify chain all three builders (the model grid
+  adds minutes); `test` runs all three suites
+
+---
+
 ## [0.4.0] — 2026-06-11 — Region Feel / Gold: feature space, features, stratified folds
 
 ### Added

@@ -15,7 +15,7 @@ tests, and reports that transform it into the next tier.**
 |------|-------------|----------|
 | `01-bronze/` | Downloading from Kaggle | `data/` (immutable source files) · `silver_pipeline/` (bronze→silver transforms) · `lexicons/` (curated rules & merge decisions) · `reports/` (coverage, review queue) · `tests/` · `build.py` |
 | `02-silver/` | `01-bronze/silver_pipeline/` | `datasets/` (the four canonical entities) · `gold_pipeline/` (silver→gold transforms) · `reports/` (fold balance) · `tests/` · `build.py` |
-| `03-gold/` | `02-silver/gold_pipeline/` | `datasets/` — feature space, feature rows, CV folds (see `03-gold/README.md`) |
+| `03-gold/` | `02-silver/gold_pipeline/` (data) · `03-gold/model_pipeline/` (model) | `datasets/` (feature space, feature rows, CV folds) · `model_pipeline/` · `model/` (parameters, calibration, blends) · `reports/` (evaluation) · `submission/` · `tests/` · `build.py` · `predict.py` |
 
 ## Silver datasets (the canonical entities)
 
@@ -59,6 +59,22 @@ In data-flow order:
 | Quality gates | `validate_gold` |
 | Shared infrastructure | reuses `silver_pipeline.artifact_io`; `locations` (gold anchors) |
 
+## Model module map (`03-gold/model_pipeline/`)
+
+The model reads its own tier's datasets, so its code lives beside them —
+the last tier transforms gold data into gold model artifacts.
+
+| Stage | Modules |
+|-------|---------|
+| Load gold | `load_gold_datasets` (inputs + the model fingerprint, incl. sklearn version) |
+| Matrices | `assemble_matrices` (sparse features; parent back-off with max semantics) |
+| Train & tune | `train_model` (logistic regression; C × parent-weight grid over the 5 folds, selected by pooled OOF log loss; NB baseline) |
+| Calibrate | `calibrate_blend` (temperature scaling on pooled OOF logits; ECE + reliability) |
+| Explain | `explain_predictions` (contribution = value × coefficient — the model's own arithmetic) |
+| Report & ship | `evaluate_model` (metrics, confusion vs taxonomy neighbors) · `build_submission` |
+| Quality gates | `validate_model` |
+| Demo | `predict_blend` (the `03-gold/predict.py` CLI) |
+
 ## Core rule of the vocabulary
 
 Raw ingredient strings ("Kikkoman Less Sodium Soy Sauce") resolve to canonical ingredient IDs
@@ -76,11 +92,20 @@ each one individually reversible.
 python3 -m venv --without-pip .venv
 .venv/bin/python get-pip.py          # system python has no pip/ensurepip
 .venv/bin/python -m pip install pytest
+.venv/bin/python -m pip install scikit-learn   # model tier only — every
+                                               # data tier stays pure stdlib
 
-./manage.sh test      # run both tiers' suites (393 tests)
-./manage.sh rebuild   # rebuild silver from bronze (~35s), then gold from silver
-./manage.sh verify    # prove both rebuilds match disk byte-for-byte
+./manage.sh test      # run all three suites (434 tests)
+./manage.sh rebuild   # silver (~35s) -> gold data (~15s) -> model (minutes: 60-fit grid)
+./manage.sh verify    # prove all three rebuilds match disk byte-for-byte
 ./manage.sh all       # the full confidence pass
+```
+
+To predict a calibrated blend (with the model's own ingredient explanations)
+for any raw ingredient list:
+
+```bash
+.venv/bin/python 03-gold/predict.py --ingredients "fish sauce, coconut milk, thai basil, lime juice, rice noodles"
 ```
 
 To interrogate a merge decision (or evaluate a new variant when the vocabulary grows):
