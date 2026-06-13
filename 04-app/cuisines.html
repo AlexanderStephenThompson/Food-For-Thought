@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07090d" />
+    <meta
+      name="description"
+      content="Explore 20 cuisines: which ingredients make each distinctive, how close they sit to each other, and how well the model recognizes each one."
+    />
+    <meta property="og:title" content="Food for Thought — cuisine atlas" />
+    <meta
+      property="og:description"
+      content="Twenty cuisines, their distinctive ingredients, their neighbors, and the model's honest accuracy on each."
+    />
+    <title>Food for Thought — cuisine atlas</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/layouts.css" />
+    <link rel="stylesheet" href="./styles/components/accent-bar.css" />
+    <link rel="stylesheet" href="./styles/components/card.css" />
+    <link rel="stylesheet" href="./styles/components/data-table.css" />
+    <link rel="stylesheet" href="./styles/components/nav.css" />
+    <link rel="stylesheet" href="./styles/components/page-footer.css" />
+    <link rel="stylesheet" href="./styles/components/similarity-web.css" />
+    <link rel="stylesheet" href="./styles/components/stat.css" />
+    <link rel="stylesheet" href="./styles/overrides.css" />
+    <script type="module" src="./js/pages/cuisine-atlas.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-nav">
+      <div class="container site-nav__inner">
+        <span class="site-nav__title">Food for Thought</span>
+        <nav aria-label="Primary">
+          <ul class="site-nav__list">
+            <li><a class="site-nav__link" href="./index.html">Blend Builder</a></li>
+            <li><a class="site-nav__link" href="./ingredients.html">Ingredients</a></li>
+            <li><a class="site-nav__link" href="./cuisines.html" aria-current="page">Cuisines</a></li>
+            <li><a class="site-nav__link" href="./versus.html">Versus</a></li>
+            <li><a class="site-nav__link" href="./model.html">Model</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="container page-main">
+      <h1>Twenty cuisines, honestly measured</h1>
+      <p class="section__intro">
+        The 20 cuisines in the training data, the ingredients that set each
+        apart, and — without flattering anyone — how reliably the model
+        recognizes each.
+      </p>
+
+      <section class="section" aria-labelledby="web-heading">
+        <div class="accent-bar"><span class="accent-bar__line"></span></div>
+        <h2 id="web-heading" data-role="web-heading">How close the cuisines sit</h2>
+        <div data-role="similarity-web"></div>
+      </section>
+
+      <section class="section" data-role="detail-section" hidden aria-labelledby="detail-heading">
+        <div class="accent-bar"><span class="accent-bar__line"></span></div>
+        <h2 id="detail-heading" data-role="detail-heading"></h2>
+        <p class="section__intro" data-role="recall-note"></p>
+        <div class="split">
+          <div class="card">
+            <h3 data-role="distinctive-heading"></h3>
+            <table class="data-table" data-role="distinctive-table">
+              <thead>
+                <tr><th scope="col">Ingredient</th><th scope="col">Lift</th><th scope="col">In recipes</th></tr>
+              </thead>
+              <tbody data-role="distinctive-body"></tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h3>Nearest neighbors</h3>
+            <table class="data-table">
+              <thead>
+                <tr><th scope="col">Cuisine</th><th scope="col">Similarity</th></tr>
+              </thead>
+              <tbody data-role="neighbors-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="grid-heading">
+        <div class="accent-bar"><span class="accent-bar__line"></span></div>
+        <h2 id="grid-heading">Pick a cuisine</h2>
+        <ul class="grid-cards" data-role="cuisine-grid"></ul>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <div class="container page-footer__inner">
+        Built from 39,774 Kaggle "What's Cooking" recipes. Recall is measured on
+        held-out recipes the model never trained on.
+      </div>
+    </footer>
+  </body>
+</html>

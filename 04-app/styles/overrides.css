@@ -1,0 +1,3 @@
+/* Exceptions and one-off adjustments. Loaded last in the cascade.
+   Empty by design — additions here need a reason a component file
+   cannot express. */

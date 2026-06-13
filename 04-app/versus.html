@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07090d" />
+    <meta
+      name="description"
+      content="Compare any two cuisines and see which ingredients most distinguish them, straight from the model's coefficients."
+    />
+    <meta property="og:title" content="Food for Thought — cuisine versus" />
+    <meta
+      property="og:description"
+      content="Pick two cuisines and see the ingredients that most separate them."
+    />
+    <title>Food for Thought — cuisine versus</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/layouts.css" />
+    <link rel="stylesheet" href="./styles/components/accent-bar.css" />
+    <link rel="stylesheet" href="./styles/components/card.css" />
+    <link rel="stylesheet" href="./styles/components/form-field.css" />
+    <link rel="stylesheet" href="./styles/components/nav.css" />
+    <link rel="stylesheet" href="./styles/components/page-footer.css" />
+    <link rel="stylesheet" href="./styles/components/profile-chart.css" />
+    <link rel="stylesheet" href="./styles/overrides.css" />
+    <script type="module" src="./js/pages/versus.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-nav">
+      <div class="container site-nav__inner">
+        <span class="site-nav__title">Food for Thought</span>
+        <nav aria-label="Primary">
+          <ul class="site-nav__list">
+            <li><a class="site-nav__link" href="./index.html">Blend Builder</a></li>
+            <li><a class="site-nav__link" href="./ingredients.html">Ingredients</a></li>
+            <li><a class="site-nav__link" href="./cuisines.html">Cuisines</a></li>
+            <li><a class="site-nav__link" href="./versus.html" aria-current="page">Versus</a></li>
+            <li><a class="site-nav__link" href="./model.html">Model</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="container page-main">
+      <h1>What separates two cuisines?</h1>
+      <p class="section__intro">
+        Every ingredient carries a weight for each cuisine. Subtract one
+        cuisine's weights from another's and you get the ingredients that most
+        tell them apart — straight from the model, no interpretation added.
+      </p>
+
+      <form class="split" data-role="versus-form">
+        <div class="form-field">
+          <label class="form-field__label" for="cuisine-a">First cuisine</label>
+          <select class="form-field__select" id="cuisine-a" data-role="select-a"></select>
+        </div>
+        <div class="form-field">
+          <label class="form-field__label" for="cuisine-b">Second cuisine</label>
+          <select class="form-field__select" id="cuisine-b" data-role="select-b"></select>
+        </div>
+      </form>
+
+      <section class="section" aria-labelledby="result-heading">
+        <div class="accent-bar"><span class="accent-bar__line"></span></div>
+        <h2 id="result-heading" data-role="result-heading"></h2>
+        <p class="u-visually-hidden" data-role="result-summary" aria-live="polite" aria-atomic="true"></p>
+        <div class="split">
+          <div class="card">
+            <h3 data-role="toward-a-heading"></h3>
+            <div class="profile-chart" data-role="toward-a-chart"></div>
+          </div>
+          <div class="card">
+            <h3 data-role="toward-b-heading"></h3>
+            <div class="profile-chart" data-role="toward-b-chart"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <div class="container page-footer__inner">
+        Built from 39,774 Kaggle "What's Cooking" recipes. Differences are
+        coefficient gaps — the model's own weights, subtracted.
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+/* Blend chart: ranked horizontal bars for the 20-cuisine distribution.
+   Rank-colored so the palette stays at three colors regardless of which
+   cuisines lead. Bars are HTML so the text stays selectable and readable
+   by assistive tech. */
+
+/* Base */
+.blend-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.blend-chart__row {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr 3.5rem;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.blend-chart__name {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: end;
+}
+
+.blend-chart__track {
+  height: var(--space-4);
+  background-color: var(--color-background-elevated);
+  border-radius: var(--border-radius-small);
+}
+
+.blend-chart__bar {
+  width: calc(var(--blend-share, 0) * 100%);
+  height: 100%;
+  background-color: var(--color-border-strong);
+  border-radius: var(--border-radius-small);
+  transition: width var(--duration-slow) var(--easing-standard);
+}
+
+.blend-chart__value {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* Variants — rank coloring assigned after sorting, never by cuisine */
+.blend-chart__row--rank-first .blend-chart__bar {
+  background-color: var(--color-viz-first);
+}
+
+.blend-chart__row--rank-first .blend-chart__name,
+.blend-chart__row--rank-first .blend-chart__value {
+  color: var(--color-text-primary);
+}
+
+.blend-chart__row--rank-second .blend-chart__bar {
+  background-color: var(--color-viz-second);
+}
+
+.blend-chart__row--rank-third .blend-chart__bar {
+  background-color: var(--color-viz-third);
+}

@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.6.0] — 2026-06-12 — Region Feel / App: client-side blend explorer
+
+### Added
+- `04-app/` — a static, dependency-free web app that runs the model
+  entirely in the browser (no server). Five pages: Blend Builder (live
+  calibrated blend with per-ingredient explanations), Ingredient Explorer,
+  Cuisine Atlas (similarity web + honest recall), Versus, and a Model Card
+  with the calibration reliability diagram
+- `03-gold/app_pipeline/` exporter (10 modules, 37 tests) deriving the
+  app's `data/` assets from the gold model artifacts and silver taxonomy;
+  pure stdlib, so the assets are byte-identical on every environment
+- A JS↔Python scoring contract: 12 recipes scored through the Python model
+  whose exact outputs the browser's JavaScript scorer reproduces, enforced
+  by `04-app/tests/contract-vectors.test.js`
+- The app's pure JavaScript modules are unit-tested with `node --test`
+  (31 tests, zero dependencies); built to the Avid Analytics Midnight
+  design system with the 4-file + `components/` CSS architecture
+
+### Changed
+- `manage.sh` runs the Node test suite alongside pytest, and chains the
+  app-asset build into rebuild/verify
+- README and `03-gold/README.md` document the app tier and its exporter
+
+---
+
 ## [0.5.0] — 2026-06-12 — Region Feel / Model: calibrated cuisine blend classifier
 
 ### Added

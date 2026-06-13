@@ -1,0 +1,36 @@
+/* Reliability chart: SVG bins of predicted confidence vs measured
+   accuracy, with the perfect-calibration diagonal. */
+
+/* Base */
+.reliability-chart {
+  margin: 0;
+}
+
+.reliability-chart__figure {
+  width: 100%;
+  height: auto;
+  background-color: var(--color-background-hover);
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--border-radius-small);
+}
+
+.reliability-chart__diagonal {
+  stroke: var(--color-border-strong);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.reliability-chart__bar {
+  fill: var(--color-viz-first);
+}
+
+.reliability-chart__axis {
+  stroke: var(--color-border-default);
+  stroke-width: 1;
+}
+
+.reliability-chart__caption {
+  margin-block-start: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}

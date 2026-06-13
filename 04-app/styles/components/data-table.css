@@ -1,0 +1,40 @@
+/* Data table: left-aligned labels, right-aligned mono numbers. */
+
+/* Base */
+.data-table {
+  width: 100%;
+  font-size: var(--font-size-sm);
+}
+
+.data-table__caption {
+  margin-block-end: var(--space-3);
+  color: var(--color-text-muted);
+  text-align: start;
+}
+
+.data-table th,
+.data-table td {
+  padding: var(--space-2) var(--space-3);
+  text-align: start;
+  border-block-end: var(--border-width-default) solid var(--color-border-default);
+}
+
+.data-table thead th {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.data-table__number {
+  font-family: var(--font-family-mono);
+  color: var(--color-text-primary);
+  text-align: end;
+}
+
+/* Variants */
+.data-table__row--muted td {
+  color: var(--color-text-muted);
+}

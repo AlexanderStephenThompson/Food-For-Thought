@@ -51,3 +51,15 @@ instead of masquerading as a determinism bug.
 Prints the resolution of each raw string through the silver alias chain,
 the calibrated blend, and the model's own per-ingredient explanation
 (contribution = feature value × coefficient).
+
+## App data export (`app_pipeline/`)
+
+A second builder, `build_app.py`, derives the static web app's data assets
+(`04-app/data/`) from the model artifacts and silver taxonomy:
+`model.json` (4-decimal coefficients), `ingredients.json`, `cuisines.json`,
+`model-card.json`, and `contract-vectors.json`. Unlike the model build,
+this export is pure standard-library — no scikit-learn, no randomness — so
+its assets are byte-identical on **every** environment, not just the one
+that trained the model. The contract vectors pin the browser's JavaScript
+scorer to the Python model's exact output. Run it with
+`.venv/bin/python 03-gold/build_app.py` (seconds, not minutes).

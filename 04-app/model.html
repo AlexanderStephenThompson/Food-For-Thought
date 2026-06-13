@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07090d" />
+    <meta
+      name="description"
+      content="How the cuisine model works, how well-calibrated its probabilities are, and exactly where it fails — stated plainly."
+    />
+    <meta property="og:title" content="Food for Thought — model card" />
+    <meta
+      property="og:description"
+      content="How the model works, how honest its probabilities are, and where it fails."
+    />
+    <title>Food for Thought — model card</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/layouts.css" />
+    <link rel="stylesheet" href="./styles/components/accent-bar.css" />
+    <link rel="stylesheet" href="./styles/components/card.css" />
+    <link rel="stylesheet" href="./styles/components/data-table.css" />
+    <link rel="stylesheet" href="./styles/components/nav.css" />
+    <link rel="stylesheet" href="./styles/components/page-footer.css" />
+    <link rel="stylesheet" href="./styles/components/reliability-chart.css" />
+    <link rel="stylesheet" href="./styles/components/stat.css" />
+    <link rel="stylesheet" href="./styles/overrides.css" />
+    <script type="module" src="./js/pages/model-card.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-nav">
+      <div class="container site-nav__inner">
+        <span class="site-nav__title">Food for Thought</span>
+        <nav aria-label="Primary">
+          <ul class="site-nav__list">
+            <li><a class="site-nav__link" href="./index.html">Blend Builder</a></li>
+            <li><a class="site-nav__link" href="./ingredients.html">Ingredients</a></li>
+            <li><a class="site-nav__link" href="./cuisines.html">Cuisines</a></li>
+            <li><a class="site-nav__link" href="./versus.html">Versus</a></li>
+            <li><a class="site-nav__link" href="./model.html" aria-current="page">Model</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="container page-main">
+      <h1>How this model works — and where it fails</h1>
+
+      <section class="section" aria-labelledby="how-heading">
+        <div class="accent-bar"><span class="accent-bar__line"></span></div>
+        <h2 id="how-heading">The blend is a calibrated probability, not a vibe</h2>
+        <p class="section__intro">
+          The model is multinomial logistic regression: every ingredient
+          carries one learned weight per cuisine. Sum the weights of a dish's
+          ingredients, run them through a softmax, and you get a probability
+          for each cuisine. The temperature step rescales those probabilities
+          so a stated 70% means roughly 70% in practice. An ingredient's
+          contribution you see elsewhere on this site is exactly its value
+          times its weight — the model's own arithmetic, nothing added.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="calibration-heading">
+        <div class="accent-bar"><span class="accent-bar__line"></span></div>
+        <h2 id="calibration-heading" data-role="calibration-heading"></h2>
+        <div class="split">
+          <div data-role="reliability-chart"></div>
+          <ul class="grid-cards" data-role="calibration-stats"></ul>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="accuracy-heading">
+        <div class="accent-bar"><span class="accent-bar__line"></span></div>
+        <h2 id="accuracy-heading">Accuracy, by cuisine</h2>
+        <p class="section__intro" data-role="accuracy-note"></p>
+        <table class="data-table">
+          <caption class="data-table__caption">Recall on held-out recipes, by cuisine</caption>
+          <thead>
+            <tr><th scope="col">Cuisine</th><th scope="col">Recipes</th><th scope="col">Recall</th></tr>
+          </thead>
+          <tbody data-role="recall-body"></tbody>
+        </table>
+      </section>
+
+      <section class="section" aria-labelledby="confusion-heading">
+        <div class="accent-bar"><span class="accent-bar__line"></span></div>
+        <h2 id="confusion-heading">The mistakes are the geography</h2>
+        <p class="section__intro" data-role="confusion-note"></p>
+        <table class="data-table">
+          <caption class="data-table__caption">Most common confusions, with how close the taxonomy already rated the pair</caption>
+          <thead>
+            <tr><th scope="col">Read as</th><th scope="col">Actually</th><th scope="col">Count</th><th scope="col">Similarity</th></tr>
+          </thead>
+          <tbody data-role="confusion-body"></tbody>
+        </table>
+      </section>
+
+      <section class="section" aria-labelledby="recipe-heading">
+        <div class="accent-bar"><span class="accent-bar__line"></span></div>
+        <h2 id="recipe-heading">The recipe behind the model</h2>
+        <ul class="grid-cards" data-role="recipe-stats"></ul>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <div class="container page-footer__inner">
+        Built from 39,774 Kaggle "What's Cooking" recipes. The browser runs the
+        shipped model with coefficients at four decimals; full-precision figures
+        come from the training run.
+      </div>
+    </footer>
+  </body>
+</html>

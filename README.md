@@ -15,7 +15,8 @@ tests, and reports that transform it into the next tier.**
 |------|-------------|----------|
 | `01-bronze/` | Downloading from Kaggle | `data/` (immutable source files) · `silver_pipeline/` (bronze→silver transforms) · `lexicons/` (curated rules & merge decisions) · `reports/` (coverage, review queue) · `tests/` · `build.py` |
 | `02-silver/` | `01-bronze/silver_pipeline/` | `datasets/` (the four canonical entities) · `gold_pipeline/` (silver→gold transforms) · `reports/` (fold balance) · `tests/` · `build.py` |
-| `03-gold/` | `02-silver/gold_pipeline/` (data) · `03-gold/model_pipeline/` (model) | `datasets/` (feature space, feature rows, CV folds) · `model_pipeline/` · `model/` (parameters, calibration, blends) · `reports/` (evaluation) · `submission/` · `tests/` · `build.py` · `predict.py` |
+| `03-gold/` | `02-silver/gold_pipeline/` (data) · `03-gold/model_pipeline/` (model) · `03-gold/app_pipeline/` (app data) | `datasets/` (feature space, feature rows, CV folds) · `model_pipeline/` · `app_pipeline/` · `model/` (parameters, calibration, blends) · `reports/` (evaluation) · `submission/` · `tests/` · `build.py` · `build_app.py` · `predict.py` |
+| `04-app/` | `03-gold/app_pipeline/` | A static, dependency-free web app that runs the model in the browser — five pages over generated `data/` assets (see `04-app/README.md`) |
 
 ## Silver datasets (the canonical entities)
 
@@ -75,6 +76,23 @@ the last tier transforms gold data into gold model artifacts.
 | Quality gates | `validate_model` |
 | Demo | `predict_blend` (the `03-gold/predict.py` CLI) |
 
+## App data module map (`03-gold/app_pipeline/`)
+
+Derives the static web app's data assets from the gold model artifacts and
+silver taxonomy. Pure stdlib transforms of fingerprinted inputs, so the
+assets are byte-identical on every environment (stronger than the model
+build's per-environment guarantee).
+
+| Stage | Modules |
+|-------|---------|
+| Load gold | `load_app_inputs` (the six inputs + the app fingerprint) |
+| Score (contract) | `score_blend` (a no-numpy scorer mirroring the browser's JavaScript op-for-op) |
+| Export | `export_model` (4-decimal coefficients) · `export_ingredients` · `export_cuisines` (radial layout) · `export_model_card` · `export_contract_vectors` |
+| Quality gates | `validate_app` |
+
+The app itself lives in `04-app/` and runs the model entirely in the browser
+— no server. See `04-app/README.md`.
+
 ## Core rule of the vocabulary
 
 Raw ingredient strings ("Kikkoman Less Sodium Soy Sauce") resolve to canonical ingredient IDs
@@ -94,11 +112,19 @@ python3 -m venv --without-pip .venv
 .venv/bin/python -m pip install pytest
 .venv/bin/python -m pip install scikit-learn   # model tier only — every
                                                # data tier stays pure stdlib
+# the web app's tests need Node >= 22.7 (no npm install — zero dependencies)
 
-./manage.sh test      # run all three suites (434 tests)
-./manage.sh rebuild   # silver (~35s) -> gold data (~15s) -> model (minutes: 60-fit grid)
-./manage.sh verify    # prove all three rebuilds match disk byte-for-byte
+./manage.sh test      # Python suites (471 tests) + the app's JS suite (31 tests)
+./manage.sh rebuild   # silver (~35s) -> gold data (~15s) -> model (minutes) -> app assets
+./manage.sh verify    # prove every rebuild matches disk byte-for-byte
 ./manage.sh all       # the full confidence pass
+```
+
+To play with the model in the browser — pick ingredients, watch the
+calibrated blend, explore cuisines and the model card:
+
+```bash
+python3 -m http.server -d 04-app      # then open http://localhost:8000
 ```
 
 To predict a calibrated blend (with the model's own ingredient explanations)

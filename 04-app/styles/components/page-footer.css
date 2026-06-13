@@ -1,0 +1,14 @@
+/* Page footer: data provenance line shared by every page. */
+
+/* Base */
+.page-footer {
+  margin-block-start: var(--space-16);
+  border-block-start: var(--border-width-default) solid var(--color-border-default);
+  background-color: var(--color-background-card);
+}
+
+.page-footer__inner {
+  padding-block: var(--space-6);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}

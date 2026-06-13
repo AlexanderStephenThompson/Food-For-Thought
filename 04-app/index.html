@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07090d" />
+    <meta
+      name="description"
+      content="Pick ingredients and watch a calibrated probability that your dish belongs to each of 20 cuisines, with the model's own per-ingredient reasoning."
+    />
+    <meta property="og:title" content="Food for Thought — what cuisine is your dish?" />
+    <meta
+      property="og:description"
+      content="A cuisine-blend classifier you can play with. Pick ingredients, watch the blend shift, see why."
+    />
+    <title>Food for Thought — what cuisine is your dish?</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/layouts.css" />
+    <link rel="stylesheet" href="./styles/components/accent-bar.css" />
+    <link rel="stylesheet" href="./styles/components/blend-chart.css" />
+    <link rel="stylesheet" href="./styles/components/card.css" />
+    <link rel="stylesheet" href="./styles/components/chip.css" />
+    <link rel="stylesheet" href="./styles/components/combobox.css" />
+    <link rel="stylesheet" href="./styles/components/nav.css" />
+    <link rel="stylesheet" href="./styles/components/page-footer.css" />
+    <link rel="stylesheet" href="./styles/components/profile-chart.css" />
+    <link rel="stylesheet" href="./styles/components/stat.css" />
+    <link rel="stylesheet" href="./styles/overrides.css" />
+    <script type="module" src="./js/pages/blend-builder.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-nav">
+      <div class="container site-nav__inner">
+        <span class="site-nav__title">Food for Thought</span>
+        <nav aria-label="Primary">
+          <ul class="site-nav__list">
+            <li><a class="site-nav__link" href="./index.html" aria-current="page">Blend Builder</a></li>
+            <li><a class="site-nav__link" href="./ingredients.html">Ingredients</a></li>
+            <li><a class="site-nav__link" href="./cuisines.html">Cuisines</a></li>
+            <li><a class="site-nav__link" href="./versus.html">Versus</a></li>
+            <li><a class="site-nav__link" href="./model.html">Model</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="container page-main">
+      <h1>What cuisine is your dish?</h1>
+      <p class="section__intro">
+        Add ingredients and the model reads them as a blend of 20 cuisines —
+        a calibrated probability, not a single guess. Every percentage comes
+        from the model's own arithmetic, shown below it.
+      </p>
+
+      <div class="split">
+        <section class="section" aria-labelledby="build-heading">
+          <div class="accent-bar"><span class="accent-bar__line"></span></div>
+          <h2 id="build-heading">Build the dish</h2>
+          <div class="combobox" data-role="combobox">
+            <label class="combobox__label" for="ingredient-search">Add an ingredient</label>
+            <input
+              class="combobox__input"
+              id="ingredient-search"
+              type="text"
+              role="combobox"
+              autocomplete="off"
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-controls="ingredient-results"
+              placeholder="Start typing — fish sauce, basil, tortillas…"
+            />
+            <ul class="combobox__listbox" id="ingredient-results" role="listbox" aria-label="Matching ingredients" hidden></ul>
+          </div>
+          <ul class="chip-list" data-role="selected-chips" aria-label="Selected ingredients"></ul>
+
+          <p class="section__intro">Or start from an example:</p>
+          <ul class="chip-list" data-role="example-chips" aria-label="Example dishes"></ul>
+        </section>
+
+        <section class="section" aria-labelledby="blend-heading">
+          <div class="accent-bar"><span class="accent-bar__line"></span></div>
+          <h2 id="blend-heading" data-role="blend-heading">No evidence yet</h2>
+          <p class="u-visually-hidden" data-role="blend-summary" aria-live="polite" aria-atomic="true"></p>
+          <p class="section__intro" data-role="blend-note"></p>
+          <div class="blend-chart" data-role="blend-chart"></div>
+        </section>
+      </div>
+
+      <section class="section" aria-labelledby="why-heading">
+        <div class="accent-bar"><span class="accent-bar__line"></span></div>
+        <h2 id="why-heading">Why</h2>
+        <p class="section__intro" data-role="why-note">
+          Add an ingredient to see which ones vote for the leading cuisine,
+          and what sets it apart from the runner-up.
+        </p>
+        <div class="split">
+          <div class="card" data-role="contributions-card" hidden>
+            <h3 data-role="contributions-heading"></h3>
+            <div class="profile-chart" data-role="contributions-chart"></div>
+          </div>
+          <div class="card" data-role="differentiators-card" hidden>
+            <h3 data-role="differentiators-heading"></h3>
+            <div class="profile-chart" data-role="differentiators-chart"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <div class="container page-footer__inner">
+        Built from 39,774 Kaggle "What's Cooking" recipes. Every number is the
+        model's own arithmetic, running in your browser — nothing is sent anywhere.
+      </div>
+    </footer>
+  </body>
+</html>

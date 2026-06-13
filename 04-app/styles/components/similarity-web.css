@@ -1,0 +1,53 @@
+/* Similarity web: SVG node-and-edge graph of cuisine neighbors on a
+   precomputed circular layout. */
+
+/* Base */
+.similarity-web {
+  margin: 0;
+}
+
+.similarity-web__figure {
+  width: 100%;
+  height: auto;
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
+.similarity-web__edge {
+  stroke: var(--color-border-strong);
+}
+
+.similarity-web__node-dot {
+  fill: var(--color-background-elevated);
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  transition: fill var(--duration-fast) var(--easing-standard);
+}
+
+.similarity-web__node-label {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-2xs);
+  text-anchor: middle;
+  fill: var(--color-text-secondary);
+}
+
+.similarity-web__caption {
+  margin-block-start: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* States */
+.similarity-web__node:hover .similarity-web__node-dot,
+.similarity-web__node:focus-visible .similarity-web__node-dot {
+  fill: var(--color-accent);
+}
+
+.similarity-web__node:hover .similarity-web__node-label,
+.similarity-web__node:focus-visible .similarity-web__node-label {
+  fill: var(--color-text-primary);
+}
+
+.similarity-web__node:focus-visible {
+  outline: none;
+}

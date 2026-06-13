@@ -1,0 +1,24 @@
+/* Accent bar: the dash—line—dash divider above major section headings. */
+
+/* Base */
+.accent-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: min(40%, var(--space-16));
+  margin-block-end: var(--space-3);
+}
+
+.accent-bar::before,
+.accent-bar::after {
+  flex: 0 0 var(--space-2);
+  height: var(--border-width-accent);
+  content: "";
+  background-color: var(--color-accent);
+}
+
+.accent-bar__line {
+  flex: 1;
+  height: var(--border-width-accent);
+  background-color: var(--color-accent);
+}

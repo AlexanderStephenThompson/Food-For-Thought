@@ -1,0 +1,65 @@
+/* Chip: a selected ingredient with a remove control, or an example seed. */
+
+/* Base */
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-block-start: var(--space-3);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  background-color: var(--color-background-elevated);
+  border: var(--border-width-default) solid var(--color-border-strong);
+  border-radius: var(--border-radius-pill);
+}
+
+.chip__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-6);
+  height: var(--space-6);
+  padding: 0;
+  color: var(--color-text-muted);
+  background-color: transparent;
+  border: none;
+  border-radius: var(--border-radius-pill);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--easing-standard),
+    background-color var(--duration-fast) var(--easing-standard);
+}
+
+/* Variants */
+.chip--example {
+  padding: var(--space-1) var(--space-3);
+  color: var(--color-text-secondary);
+  background-color: transparent;
+  border-color: var(--color-border-default);
+  cursor: pointer;
+}
+
+/* States */
+.chip__remove:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-error);
+}
+
+.chip__remove:active {
+  background-color: var(--color-accent-active);
+}
+
+.chip--example:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-accent);
+}
+
+.chip--example:active {
+  border-color: var(--color-accent-active);
+}

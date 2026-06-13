@@ -1,0 +1,52 @@
+/* Profile chart: diverging bars from a centre axis. Positive pulls right,
+   negative pulls left. Used for an ingredient's per-cuisine coefficients
+   and for cuisine-versus deltas. */
+
+/* Base */
+.profile-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.profile-chart__row {
+  display: grid;
+  grid-template-columns: 8rem 1fr 1fr 3.5rem;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.profile-chart__name {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.profile-chart__side {
+  display: flex;
+  height: var(--space-4);
+}
+
+.profile-chart__side--negative {
+  justify-content: flex-end;
+}
+
+.profile-chart__bar {
+  width: calc(var(--profile-magnitude, 0) * 100%);
+  height: 100%;
+  border-radius: var(--border-radius-small);
+}
+
+.profile-chart__bar--positive {
+  background-color: var(--color-viz-first);
+}
+
+.profile-chart__bar--negative {
+  background-color: var(--color-border-strong);
+}
+
+.profile-chart__value {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-align: end;
+}

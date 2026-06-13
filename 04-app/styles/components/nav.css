@@ -1,0 +1,59 @@
+/* Site navigation: the shared header bar across all five pages. */
+
+/* Base */
+.site-nav {
+  border-block-end: var(--border-width-default) solid var(--color-border-default);
+  background-color: var(--color-background-card);
+}
+
+.site-nav__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-6);
+  padding-block: var(--space-4);
+}
+
+.site-nav__title {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-widest);
+}
+
+.site-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.site-nav__link {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-block-end: var(--border-width-accent) solid transparent;
+  transition: color var(--duration-fast) var(--easing-standard);
+}
+
+/* States */
+.site-nav__link:hover {
+  color: var(--color-text-primary);
+}
+
+.site-nav__link:active {
+  color: var(--color-accent-active);
+}
+
+.site-nav__link:focus-visible {
+  outline: var(--border-width-accent) solid var(--color-accent);
+  outline-offset: var(--border-width-accent);
+}
+
+.site-nav__link[aria-current="page"] {
+  color: var(--color-text-primary);
+  border-block-end-color: var(--color-accent);
+}
