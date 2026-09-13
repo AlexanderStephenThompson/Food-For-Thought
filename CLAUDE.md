@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-<!-- LINEAGE: layer=3 brand=crop-and-chop hub=../_Assets/crop-and-chop-AI-Hub -->
+<!-- LINEAGE: layer=3 brand=crop-and-chop hub=domain:crop-and-chop parent=../../../Personal/Tools/personal-os -->
 
 Working conventions for this repository. `README.md` describes what the project
 is and how to run it — read it first. This file covers the rules that are easy
